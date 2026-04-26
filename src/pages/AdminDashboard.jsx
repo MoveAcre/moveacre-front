@@ -2,65 +2,69 @@
 import { useAuth } from "@clerk/clerk-react";
 import { Link } from "react-router-dom";
 
-const styles = `
-  .admin-root { background: #0A0A0A; color: #F5F5F0; min-height: 100vh; padding: 40px; font-family: "Barlow", sans-serif; }
-  .admin-title { font-family: "Barlow Condensed", sans-serif; font-weight: 900; font-size: 32px; color: #C8F500; margin-bottom: 24px; text-transform: uppercase; }
-  .admin-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-  .admin-table th { text-align: left; border-bottom: 1px solid #1a1a1a; padding: 12px; font-family: "JetBrains Mono", monospace; font-size: 10px; color: #555; }
-  .admin-table td { padding: 12px; border-bottom: 1px solid #1a1a1a; font-size: 14px; }
-  .btn-aprovar { color: #C8F500; border: 1px solid #C8F500; padding: 4px 8px; cursor: pointer; background: transparent; font-size: 12px; }
-`;
-
 export default function AdminDashboard() {
   const { getToken } = useAuth();
   const [urgencias, setUrgencias] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchUrgencias = async () => {
-      try {
-        const token = await getToken();
-        const res = await fetch("https://web-production-72517.up.railway.app/urgencias?status=Pendente", {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        const json = await res.json();
-        if (json.success) setUrgencias(json.data);
-      } catch (err) {
-        console.error("Erro ao carregar dashboard:", err);
+  const fetchUrgencias = async () => {
+    try {
+      const token = await getToken();
+      const res = await fetch("https://web-production-72517.up.railway.app/urgencias?status=Pendente", {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const json = await res.json();
+      if (json.success) setUrgencias(json.data);
+    } catch (err) {
+      console.error("Erro:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleAprovar = async (id) => {
+    if(!confirm("Deseja aprovar esta urgência?")) return;
+    try {
+      const token = await getToken();
+      const res = await fetch(`https://web-production-72517.up.railway.app/urgencias/${id}/aprovar`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (res.ok) {
+        setUrgencias(urgencias.filter(u => u.id !== id));
       }
-    };
-    fetchUrgencias();
-  }, [getToken]);
+    } catch (err) {
+      alert("Erro ao aprovar.");
+    }
+  };
+
+  useEffect(() => { fetchUrgencias(); }, [getToken]);
 
   return (
-    <>
-      <style>{styles}</style>
-      <div className="admin-root">
-        <h1 className="admin-title">Painel Administrativo // MOVEACRE</h1>
-        <Link to="/" style={{ color: "#555", textDecoration: "none", fontSize: "12px" }}>← VOLTAR</Link>
-        
-        <table className="admin-table">
+    <div style={{ background: '#0A0A0A', color: '#F5F5F0', minHeight: '100vh', padding: '40px', fontFamily: 'Barlow, sans-serif' }}>
+      <h1 style={{ color: '#C8F500', textTransform: 'uppercase' }}>Painel Admin // MOVEACRE</h1>
+      <Link to="/" style={{ color: '#555', textDecoration: 'none', fontSize: '12px' }}>← VOLTAR</Link>
+      {loading ? <p>Carregando...</p> : (
+        <table style={{ width: '100%', marginTop: '20px', borderCollapse: 'collapse' }}>
           <thead>
-            <tr>
-              <th>PACIENTE</th>
-              <th>TIPO</th>
-              <th>STATUS</th>
-              <th>AÇÕES</th>
+            <tr style={{ textAlign: 'left', borderBottom: '1px solid #1a1a1a', color: '#555', fontSize: '10px' }}>
+              <th>ID</th><th>PACIENTE</th><th>TIPO</th><th>AÇÕES</th>
             </tr>
           </thead>
           <tbody>
             {urgencias.map((u) => (
-              <tr key={u.id}>
+              <tr key={u.id} style={{ borderBottom: '1px solid #1a1a1a' }}>
+                <td style={{ padding: '15px 0' }}>#{u.id}</td>
                 <td>{u.paciente_nome}</td>
                 <td>{u.tipo_necessario}</td>
-                <td style={{ color: "#C8F500" }}>{u.status}</td>
                 <td>
-                  <button className="btn-aprovar">ANALISAR</button>
+                  <button onClick={() => handleAprovar(u.id)} style={{ background: 'transparent', border: '1px solid #C8F500', color: '#C8F500', padding: '5px 10px', cursor: 'pointer', fontSize: '10px' }}>APROVAR</button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-      </div>
-    </>
+      )}
+    </div>
   );
 }
