@@ -11,7 +11,7 @@ import HistoricoDoador from "./pages/HistoricoDoador";
 import EditarPedido from "./pages/EditarPedido";
 
 const styles = `
-  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@400;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap');
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -22,96 +22,190 @@ const styles = `
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+  }
+
+  .ma-nav {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
+    padding: 20px 40px;
+    border-bottom: 1px solid #111;
   }
 
   .ma-logo {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 900;
-    font-size: 64px;
+    font-size: 24px;
     letter-spacing: 0.1em;
     color: #C8F500;
-    margin-bottom: 8px;
-  }
-
-  .ma-sub {
-    color: #555;
-    font-size: 16px;
-    margin-bottom: 48px;
     text-transform: uppercase;
-    letter-spacing: 2px;
   }
 
-  .ma-actions {
+  .ma-hero {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    justify-content: center;
+    padding: 80px 40px 60px;
+    max-width: 860px;
     width: 100%;
-    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .ma-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #C8F500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .ma-headline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(52px, 9vw, 96px);
+    line-height: 0.92;
+    text-transform: uppercase;
+    color: #F5F5F0;
+    margin-bottom: 32px;
+  }
+
+  .ma-headline span { color: #C8F500; }
+
+  .ma-manifesto {
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #888;
+    line-height: 1.7;
+    max-width: 560px;
+    margin-bottom: 48px;
+    border-left: 2px solid #C8F500;
+    padding-left: 20px;
+  }
+
+  .ma-manifesto em {
+    color: #F5F5F0;
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  .ma-cta-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: center;
   }
 
   .ma-btn-primary {
     background: #C8F500;
     color: #0A0A0A;
     border: none;
-    padding: 20px;
+    padding: 18px 40px;
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 900;
-    font-size: 18px;
+    font-size: 20px;
     text-transform: uppercase;
     cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    transition: 0.2s;
+    letter-spacing: 0.05em;
+    transition: 0.15s;
   }
 
-  .ma-btn-primary:hover { transform: scale(1.02); background: #d4ff00; }
+  .ma-btn-primary:hover { background: #d4ff00; transform: translateY(-1px); }
 
-  .ma-btn-outline {
-    background: transparent;
-    color: #F5F5F0;
-    border: 1px solid #333;
-    padding: 16px;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 14px;
-    text-transform: uppercase;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
+  .ma-tension {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #444;
+    letter-spacing: 0.05em;
+    line-height: 1.6;
+    max-width: 400px;
   }
 
-  .ma-user-box {
-    position: absolute;
-    top: 20px;
-    right: 20px;
+  .ma-divider {
+    width: 100%;
+    height: 1px;
+    background: #111;
+    margin: 0 40px;
+    width: calc(100% - 80px);
+  }
+
+  .ma-footer {
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #111;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .ma-footer-copy {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #333;
+    letter-spacing: 0.05em;
+  }
+
+  .ma-footer-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #C8F500;
+    letter-spacing: 0.05em;
   }
 `;
 
 const Index = () => {
-  const { user, isLoaded, isSignedIn } = useUser();
+  const { isLoaded, isSignedIn } = useUser();
 
   if (!isLoaded) return null;
-
-  if (isSignedIn) {
-    return <DoadorDashboard />;
-  }
+  if (isSignedIn) return <DoadorDashboard />;
 
   return (
     <div className="ma-root">
       <style>{styles}</style>
-      <h1 className="ma-logo">MOVEACRE</h1>
-      <p className="ma-sub">Sistema de Doação de Sangue</p>
-      <p style={{ color: '#888', maxWidth: '400px', textAlign: 'center', marginBottom: '32px', fontSize: '14px', lineHeight: '1.6' }}>
-        Conectando doadores voluntários a quem mais precisa. Cadastre-se para doar sangue, registrar seus atestados ou solicitar uma transfusão de urgência.
-      </p>
 
-      <div className="ma-actions">
+      <nav className="ma-nav">
+        <span className="ma-logo">MOVEACRE</span>
         <SignInButton mode="modal">
-          <button className="ma-btn-primary">ENTRAR NO SISTEMA</button>
+          <button style={{ background:"none", border:"1px solid #333", color:"#888", padding:"8px 20px", fontFamily:"JetBrains Mono,monospace", fontSize:11, cursor:"pointer", letterSpacing:"0.05em", textTransform:"uppercase" }}>
+            FAZER LOGIN
+          </button>
         </SignInButton>
+      </nav>
+
+      <div className="ma-hero">
+        <div className="ma-eyebrow">// MOVEACRE — ACRE, BRASIL</div>
+
+        <h1 className="ma-headline">
+          VOCÊ AINDA<br />
+          TÁ NA <span>PLATEIA?</span>
+        </h1>
+
+        <p className="ma-manifesto">
+          Todo dia tem um pedido de sangue no WhatsApp. Todo dia a gente vê, sente um aperto, e passa adiante.{" "}
+          <em>O problema não é que você passou adiante — é que mesmo quando quis ajudar, o sistema não deixou.</em>{" "}
+          De tanto ver o pedido no lugar errado, virou paisagem. De tanto ser paisagem, virou normal.{" "}
+          <em>O MoveAcre existe pra devolver a indignação a quem perdeu — e dar a ela um lugar pra ir.</em>
+        </p>
+
+        <div className="ma-cta-row">
+          <SignInButton mode="modal">
+            <button className="ma-btn-primary">SAIR DA PLATEIA</button>
+          </SignInButton>
+          <p className="ma-tension">
+            Ou a gente se move —<br />
+            ou continua dependendo de viralização<br />
+            pra salvar vidas.
+          </p>
+        </div>
       </div>
+
+      <footer className="ma-footer">
+        <span className="ma-footer-copy">© 2026 MOVEACRE — ACRE, BRASIL</span>
+        <span className="ma-footer-tag">VAMOS MOVER O ACRE.</span>
+      </footer>
     </div>
   );
 };

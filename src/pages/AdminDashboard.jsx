@@ -139,7 +139,10 @@ export default function AdminDashboard() {
 
   const verLaudo = async (id) => {
     const j = await api(`/urgencias/${id}/laudo`);
-    window.open(j.success && j.url ? j.url : "https://www.w3.org/WAI/WCAG21/Techniques/pdf/sample.pdf", "_blank");
+    const url = j.success && j.url
+      ? j.url.replace("http://localhost:5000", API)
+      : "https://www.w3.org/WAI/WCAG21/Techniques/pdf/sample.pdf";
+    window.open(url, "_blank");
   };
 
   const deletarUsuario = async (id) => {
