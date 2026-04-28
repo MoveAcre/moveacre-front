@@ -7,7 +7,7 @@ import { ClerkProvider } from "@clerk/clerk-react";
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
 if (!PUBLISHABLE_KEY) {
-  throw new Error("Chave do Clerk não encontrada");
+  throw new Error("Chave do Clerk nao encontrada");
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(
