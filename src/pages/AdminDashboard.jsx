@@ -125,7 +125,7 @@ export default function AdminDashboard() {
   useEffect(() => { carregar(); }, [carregar]);
 
   const aprovar = async (id, nivel) => {
-    await api(`/urgencias/${id}/aprovar`, { method: "POST", body: JSON.stringify({ nivel }) });
+    await api(`/admin/pedidos/${id}/aprovar`, { method: "POST", body: JSON.stringify({ nivel }) });
     setPedidos(p => p.filter(u => u.id !== id));
     setModalAprovar(null);
   };
@@ -133,7 +133,7 @@ export default function AdminDashboard() {
   const recusar = async (id) => {
     const motivo = prompt("Motivo da recusa:");
     if (!motivo) return;
-    await api(`/urgencias/${id}/reprovar`, { method: "POST", body: JSON.stringify({ motivo }) });
+    await api(`/admin/pedidos/${id}/reprovar`, { method: "POST", body: JSON.stringify({ motivo }) });
     setPedidos(p => p.filter(u => u.id !== id));
   };
 
