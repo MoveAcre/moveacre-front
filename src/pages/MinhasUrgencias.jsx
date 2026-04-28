@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "@clerk/clerk-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap');
@@ -213,8 +215,8 @@ const styles = `
 
 const statusConfig = (status) => {
   const s = (status || "").toLowerCase();
-  if (s === "aprovado" || s === "ativo") return { label: status, cls: "mu-badge-aprovado" };
-  if (s === "recusado" || s === "rejeitado") return { label: status, cls: "mu-badge-recusado" };
+  if (s === "aprovada" || s === "aprovado" || s === "ativo") return { label: status, cls: "mu-badge-aprovado" };
+  if (s === "recusada" || s === "recusado" || s === "rejeitado") return { label: status, cls: "mu-badge-recusado" };
   if (s === "pendente" || s === "aguardando") return { label: status, cls: "mu-badge-pendente" };
   return { label: status || "—", cls: "mu-badge-default" };
 };
@@ -223,12 +225,13 @@ export default function MinhasUrgencias() {
   const [urgencias, setUrgencias] = useState([]);
   const [loading, setLoading] = useState(true);
   const { getToken } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const carregar = async () => {
       try {
         const token = await getToken();
-        const res = await fetch("https://web-production-72517.up.railway.app/urgencias/me", {
+        const res = await fetch(`${API}/urgencias/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -281,9 +284,16 @@ export default function MinhasUrgencias() {
                         )}
                       </div>
                     </div>
-                    <span className={`mu-badge ${cls}`}>{label}</span>
-                  </div>
-                );
+                    <div style={{ display:"flex", flexDirection:"column", alignItems:"flex-end", gap:8 }}>
+                      <span className={`mu-badge ${cls}`}>{label}</span>
+                      {u.status === "Pendente" && (
+                        <button onClick={() => navigate(`/editar-pedido/${u.id}`)}
+                          style={{ background:"transparent", color:"#C8F500", border:"1px solid #C8F500", padding:"4px 10px", fontFamily:"JetBrains Mono,monospace", fontSize:10, cursor:"pointer", textTransform:"uppercase" }}>
+                          EDITAR
+                        </button>
+                      )}
+                    </div>
+                  </div>                );
               })}
             </div>
           )}

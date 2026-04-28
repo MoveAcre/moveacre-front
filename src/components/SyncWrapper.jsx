@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth, useUser } from "@clerk/clerk-react";
 import { useNavigate } from "react-router-dom";
 
+const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
 const ROTAS_LIVRES = ["/completar-perfil", "/"];
 
 export default function SyncWrapper({ children }) {
@@ -18,7 +19,7 @@ export default function SyncWrapper({ children }) {
         const token = await getToken();
 
         // Sync primeiro — garante que o usuário existe no banco
-        await fetch("https://web-production-72517.up.railway.app/doadores/sync", {
+        await fetch(`${API}/doadores/sync`, {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -30,7 +31,7 @@ export default function SyncWrapper({ children }) {
           }),
         });
 
-        const res = await fetch("https://web-production-72517.up.railway.app/doadores/me", {
+        const res = await fetch(`${API}/doadores/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Cache-Control": "no-cache",

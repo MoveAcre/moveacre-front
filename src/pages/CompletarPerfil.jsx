@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useAuth, useUser } from "@clerk/clerk-react";
 import { useNavigate, Link } from "react-router-dom";
 
+const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap');
 
@@ -204,6 +206,10 @@ export default function CompletarPerfil() {
       tipo_sangue: e.target.tipo_sangue.value,
       genero: e.target.genero.value,
       telefone: e.target.telefone.value,
+      idade: e.target.idade.value,
+      cidade: e.target.cidade.value,
+      ultima_doacao: e.target.ultima_doacao.value,
+      tipo: e.target.tipo.value,
       nome_completo: user.fullName,
       email: user.primaryEmailAddress.emailAddress,
     };
@@ -211,13 +217,13 @@ export default function CompletarPerfil() {
     try {
       const token = await getToken();
 
-      await fetch("https://web-production-72517.up.railway.app/doadores/sync", {
+      await fetch(`${API}/doadores/sync`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
         body: JSON.stringify({ nome_completo: dados.nome_completo, email: dados.email }),
       });
 
-      const res = await fetch("https://web-production-72517.up.railway.app/doadores/me", {
+      const res = await fetch(`${API}/doadores/me`, {
         method: "PUT",
         headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
         body: JSON.stringify(dados),
@@ -274,12 +280,51 @@ export default function CompletarPerfil() {
               </div>
 
               <div className="cp-field">
+                <label className="cp-label">VOCÊ É DOADOR OU RECEPTOR?</label>
+                <select className="cp-select" name="tipo" required>
+                  <option value="">Selecione</option>
+                  <option value="DOADOR">Doador</option>
+                  <option value="RECEPTOR">Receptor</option>
+                </select>
+              </div>
+
+              <div className="cp-field">
                 <label className="cp-label">TELEFONE</label>
                 <input
                   className="cp-input"
                   name="telefone"
                   placeholder="(xx) xxxxx-xxxx"
                   required
+                />
+              </div>
+
+              <div className="cp-field">
+                <label className="cp-label">IDADE</label>
+                <input
+                  className="cp-input"
+                  type="number"
+                  name="idade"
+                  placeholder="Sua idade"
+                  required
+                />
+              </div>
+
+              <div className="cp-field">
+                <label className="cp-label">CIDADE</label>
+                <input
+                  className="cp-input"
+                  name="cidade"
+                  placeholder="Sua cidade"
+                  required
+                />
+              </div>
+
+              <div className="cp-field">
+                <label className="cp-label">ÚLTIMA DOAÇÃO (Opcional)</label>
+                <input
+                  className="cp-input"
+                  type="date"
+                  name="ultima_doacao"
                 />
               </div>
 

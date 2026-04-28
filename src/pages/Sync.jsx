@@ -1,6 +1,8 @@
-﻿import { useEffect } from "react";
+import { useEffect } from "react";
 import { useAuth } from "@clerk/clerk-react";
 import { useNavigate } from "react-router-dom";
+
+const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 export default function Sync() {
   const { getToken } = useAuth();
@@ -10,12 +12,12 @@ export default function Sync() {
     async function validar() {
       try {
         const token = await getToken();
-        const res = await fetch("https://web-production-72517.up.railway.app/auth/me", {
+        const res = await fetch(`${API}/auth/me`, {
           headers: { "Authorization": `Bearer ${token}` }
         });
         const json = await res.json();
 
-        // LOG PARA VOCÊ VER NO F12
+        // LOG PARA VOC� VER NO F12
         console.log("RESPOSTA_AUTH_ME:", json.data.auth);
 
         if (json.data.auth.role === "admin") {

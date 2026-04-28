@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useAuth } from "@clerk/clerk-react";
 import { useNavigate, Link } from "react-router-dom";
 
+const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap');
 
@@ -222,6 +224,7 @@ export default function CriarUrgencia() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [fileName, setFileName] = useState(null);
+  const [showDoacaoModal, setShowDoacaoModal] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -230,15 +233,14 @@ export default function CriarUrgencia() {
 
     try {
       const token = await getToken();
-      const res = await fetch("https://web-production-72517.up.railway.app/urgencias", {
+      const res = await fetch(`${API}/urgencias`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
         body: formData,
       });
 
       if (res.ok) {
-        alert("Pedido enviado! Aguarde aprovação.");
-        navigate("/minhas-urgencias");
+        setShowDoacaoModal(true); // Pergunta se já doou
       } else {
         const body = await res.json();
         console.error("ERRO API:", res.status, body);
@@ -256,6 +258,35 @@ export default function CriarUrgencia() {
     <>
       <style>{styles}</style>
       <div className="cu-root">
+
+        {/* MODAL: Você já doou sangue? */}
+        {showDoacaoModal && (
+          <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.92)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
+            <div style={{ background: '#111', border: '1px solid #333', padding: '40px', maxWidth: '400px', width: '100%', textAlign: 'center' }}>
+              <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#C8F500', marginBottom: '16px', letterSpacing: '0.05em' }}>// CONFIRMAÇÃO</div>
+              <h2 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 900, fontSize: '28px', textTransform: 'uppercase', color: '#F5F5F0', marginBottom: '12px' }}>
+                Você já doou <span style={{ color: '#C8F500' }}>sangue</span>?
+              </h2>
+              <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', color: '#555', marginBottom: '32px', lineHeight: 1.6 }}>
+                Pedido enviado com sucesso! Caso tenha doado recentemente, declare sua doação para atualizar seu nível.
+              </p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <button
+                  onClick={() => { setShowDoacaoModal(false); navigate('/perfil', { state: { abrirDeclarar: true } }); }}
+                  style={{ background: '#C8F500', color: '#0A0A0A', border: 'none', padding: '14px', fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 900, fontSize: '16px', textTransform: 'uppercase', cursor: 'pointer' }}
+                >
+                  SIM, DECLARAR DOAÇÃO
+                </button>
+                <button
+                  onClick={() => { setShowDoacaoModal(false); navigate('/minhas-urgencias'); }}
+                  style={{ background: 'transparent', color: '#555', border: '1px solid #333', padding: '12px', fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', cursor: 'pointer' }}
+                >
+                  NÃO, VER MEUS PEDIDOS
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
         <nav className="cu-nav">
           <Link to="/" className="cu-logo">MOVEACRE</Link>
           <Link to="/" className="cu-back">← VOLTAR</Link>
@@ -282,12 +313,44 @@ export default function CriarUrgencia() {
               </div>
 
               <div className="cu-field">
+                <label className="cu-label">IDADE_DO_PACIENTE</label>
+                <input
+                  className="cu-input"
+                  type="number"
+                  name="idade"
+                  placeholder="Idade"
+                  required
+                />
+              </div>
+
+              <div className="cu-field">
+                <label className="cu-label">MOTIVO_DA_TRANSFUSÃO</label>
+                <input
+                  className="cu-input"
+                  name="motivo"
+                  placeholder="Descreva o motivo (ex: cirurgia, acidente, etc)"
+                  required
+                />
+              </div>
+
+              <div className="cu-field">
                 <label className="cu-label">TIPO_SANGUÍNEO_NECESSÁRIO</label>
                 <select className="cu-select" name="tipo_necessario" required>
                   <option value="">Selecione</option>
                   {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map((t) => (
                     <option key={t} value={t}>{t}</option>
                   ))}
+                </select>
+              </div>
+
+              <div className="cu-field">
+                <label className="cu-label">NÍVEL_DE_URGÊNCIA_SUGERIDO</label>
+                <select className="cu-select" name="nivel_urgencia_sugerido" required>
+                  <option value="">Selecione a urgência</option>
+                  <option value="BAIXA">BAIXA</option>
+                  <option value="MEDIA">MÉDIA</option>
+                  <option value="ALTA">ALTA</option>
+                  <option value="CRITICA">CRÍTICA</option>
                 </select>
               </div>
 
