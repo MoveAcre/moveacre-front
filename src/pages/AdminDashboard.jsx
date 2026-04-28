@@ -170,6 +170,19 @@ export default function AdminDashboard() {
     alert(`Aptos: ${j.aptos} | Emails: ${j.enviados_email} | WhatsApps: ${j.enviados_whatsapp}`);
   };
 
+  const aprovarDoacao = async (id) => {
+    if (!window.confirm("Aprovar esta doação? O nível do doador será atualizado.")) return;
+    const j = await api(`/admin/doacoes/${id}/aprovar`, { method: "POST" });
+    if (j.success) { alert(`Doação aprovada! Novo nível: ${j.nivel}`); carregar(); }
+    else alert("Erro: " + j.message);
+  };
+
+  const reprovarDoacao = async (id) => {
+    if (!window.confirm("Reprovar esta doação?")) return;
+    await api(`/admin/doacoes/${id}/reprovar`, { method: "POST" });
+    carregar();
+  };
+
   const Tab = ({ id, label }) => (
     <button
       onClick={() => { setAba(id); setFiltros(f => ({ ...f, status: id === "pedidos" ? "Pendente" : "" })); }}
@@ -329,7 +342,7 @@ export default function AdminDashboard() {
             <input style={{ ...s.input, marginBottom:20 }} placeholder="Buscar nome ou email..." value={filtros.busca} onChange={e => setFiltro("busca", e.target.value)} />
             <table style={s.table}>
               <thead>
-                <tr>{["ID","DOADOR","EMAIL","SANGUE","SEXO","DATA DOAÇÃO","ATESTADO"].map(h => <th key={h} style={s.th}>{h}</th>)}</tr>
+                <tr>{["ID","DOADOR","EMAIL","SANGUE","SEXO","DATA DOAÇÃO","STATUS","ATESTADO","AÇÕES"].map(h => <th key={h} style={s.th}>{h}</th>)}</tr>
               </thead>
               <tbody>
                 {doacoes.map(d => (
@@ -341,13 +354,25 @@ export default function AdminDashboard() {
                     <td style={s.td}>{d.genero === "M" ? "Masculino" : d.genero === "F" ? "Feminino" : "—"}</td>
                     <td style={s.td}>{d.data_doacao || "—"}</td>
                     <td style={s.td}>
+                      <Bdg
+                        cor={d.status === "Aprovada" ? "#44FF88" : d.status === "Reprovada" ? "#FF3333" : "#C8F500"}
+                        txt={d.status || "Pendente"}
+                      />
+                    </td>
+                    <td style={s.td}>
                       {d.atestado_url
                         ? <Btn bg="#333" c="#F5F5F0" label="VER" onClick={() => window.open(`${API}/uploads/${d.atestado_url}`, "_blank")} />
                         : <span style={{ color:"#333", fontSize:11 }}>—</span>}
                     </td>
+                    <td style={s.td}>
+                      {(!d.status || d.status === "Pendente") && <>
+                        <Btn bg="#44FF88" c="#000" label="APROVAR" onClick={() => aprovarDoacao(d.id)} />
+                        <Btn bg="#FF3333" c="#fff" label="REPROVAR" onClick={() => reprovarDoacao(d.id)} />
+                      </>}
+                    </td>
                   </tr>
                 ))}
-                {doacoes.length === 0 && <tr><td colSpan={7} style={{ ...s.td, color:"#333", fontFamily:"JetBrains Mono,monospace", fontSize:11 }}>NENHUMA DOAÇÃO</td></tr>}
+                {doacoes.length === 0 && <tr><td colSpan={9} style={{ ...s.td, color:"#333", fontFamily:"JetBrains Mono,monospace", fontSize:11 }}>NENHUMA DOAÇÃO</td></tr>}
               </tbody>
             </table>
           </>

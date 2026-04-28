@@ -272,8 +272,7 @@ export default function Perfil() {
       });
       const json = await res.json();
       if (json.success) {
-        alert(`Doação registrada! Seu nível agora é: ${json.nivel}`);
-        setPerfil(prev => ({ ...prev, ultima_doacao: dataDoacao, nivel: json.nivel }));
+        alert("Atestado enviado! Aguardando aprovação do administrador. Seu nível será atualizado após a aprovação.");
         setShowModal(false);
         setArquivo(null);
         setDataDoacao("");

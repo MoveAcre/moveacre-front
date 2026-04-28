@@ -283,6 +283,11 @@ export default function MinhasUrgencias() {
                           </span>
                         )}
                       </div>
+                      {(u.status === "Recusada" || u.status === "Recusado") && u.motivo_recusa && (
+                        <div style={{ marginTop:8, background:"#1a0000", border:"1px solid #FF3333", padding:"8px 12px", fontFamily:"JetBrains Mono,monospace", fontSize:10, color:"#FF3333", lineHeight:1.5 }}>
+                          MOTIVO DA RECUSA: {u.motivo_recusa}
+                        </div>
+                      )}
                     </div>
                     <div style={{ display:"flex", flexDirection:"column", alignItems:"flex-end", gap:8 }}>
                       <span className={`mu-badge ${cls}`}>{label}</span>
