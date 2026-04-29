@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAuth } from "@clerk/clerk-react";
+import { useAuth, useUser } from "@clerk/clerk-react";
 import { useNavigate, Link } from "react-router-dom";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
@@ -221,6 +221,7 @@ const styles = `
 
 export default function CriarUrgencia() {
   const { getToken } = useAuth();
+  const { user } = useUser();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [fileName, setFileName] = useState(null);
@@ -230,6 +231,9 @@ export default function CriarUrgencia() {
     e.preventDefault();
     setLoading(true);
     const formData = new FormData(e.target);
+    if (user?.primaryEmailAddress?.emailAddress) {
+      formData.append("email_solicitante", user.primaryEmailAddress.emailAddress);
+    }
 
     try {
       const token = await getToken();
