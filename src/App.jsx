@@ -166,6 +166,8 @@ const AdminRoute = () => {
   if (!ADMIN_EMAILS.includes(email)) return <Navigate to="/" replace />;
   return <AdminDashboard />;
 };
+
+const Index = () => {
   const { isLoaded, isSignedIn } = useUser();
 
   if (!isLoaded) return null;
