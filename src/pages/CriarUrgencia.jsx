@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth, useUser } from "@clerk/clerk-react";
 import { useNavigate, Link } from "react-router-dom";
+import Logo from "../components/Logo";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
@@ -292,7 +293,7 @@ export default function CriarUrgencia() {
           </div>
         )}
         <nav className="cu-nav">
-          <Link to="/" className="cu-logo">MOVEACRE</Link>
+          <Logo />
           <Link to="/" className="cu-back">← VOLTAR</Link>
         </nav>
 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth, useUser } from "@clerk/clerk-react";
 import { Link } from "react-router-dom";
+import Logo from "../components/Logo";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
 const nivelCor = { OURO:"#FFD700", PRATA:"#C0C0C0", BRONZE:"#CD7F32" };
@@ -41,7 +42,7 @@ export default function HistoricoDoador() {
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap');`}</style>
 
       <nav style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"12px 32px", borderBottom:"1px solid #1a1a1a" }}>
-        <Link to="/" style={{ fontFamily:"Barlow Condensed,sans-serif", fontWeight:900, fontSize:22, color:"#C8F500", textDecoration:"none", textTransform:"uppercase" }}>MOVEACRE</Link>
+        <Logo />
         <Link to="/perfil" style={{ fontFamily:"JetBrains Mono,monospace", fontSize:11, color:"#555", textDecoration:"none" }}>← VOLTAR</Link>
       </nav>
 

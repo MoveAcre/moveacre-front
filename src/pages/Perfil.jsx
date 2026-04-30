@@ -1,6 +1,7 @@
 ﻿import { useState, useEffect } from "react";
 import { useAuth, useUser } from "@clerk/clerk-react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
+import Logo from "../components/Logo";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
@@ -291,7 +292,7 @@ export default function Perfil() {
       <style>{styles}</style>
       <div className="pf-root">
         <nav className="pf-nav">
-          <Link to="/" className="pf-logo">MOVEACRE</Link>
+          <Logo />
           <Link to="/" className="pf-back">VOLTAR</Link>
         </nav>
 

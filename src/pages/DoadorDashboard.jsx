@@ -1,6 +1,7 @@
 import { useAuth, useUser, UserButton } from "@clerk/clerk-react";
 import { useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Logo from "../components/Logo";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
@@ -180,7 +181,7 @@ export default function DoadorDashboard() {
       <style>{styles}</style>
       <div className="dd-root">
         <nav className="dd-nav">
-          <Link to="/" className="dd-logo">MOVEACRE</Link>
+          <Logo />
           <UserButton afterSignOutUrl="/" />
         </nav>
 

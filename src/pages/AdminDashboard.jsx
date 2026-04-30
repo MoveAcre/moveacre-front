@@ -75,6 +75,8 @@ function TabelaUsuarios({ rows, onDeletar, onDesativar }) {
   );
 }
 
+import Logo from "../components/Logo";
+
 export default function AdminDashboard() {
   const { getToken } = useAuth();
   const [aba, setAba]               = useState("pedidos");
@@ -207,7 +209,7 @@ export default function AdminDashboard() {
   return (
     <div style={s.root}>
       <nav style={s.nav}>
-        <Link to="/" style={s.logo}>MOVEACRE // ADMIN</Link>
+        <Logo suffix="// ADMIN" />
         <Link to="/" style={{ color:"#555", textDecoration:"none", fontSize:11, border:"1px solid #333", padding:"5px 14px" }}>VOLTAR</Link>
       </nav>
 

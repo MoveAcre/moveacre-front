@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, Link } from "react-router-dom";
 import { SignInButton, SignedIn, SignedOut, UserButton, useUser } from "@clerk/clerk-react";
 import AdminDashboard from "./pages/AdminDashboard";
 import MinhasUrgencias from "./pages/MinhasUrgencias";
@@ -156,7 +156,16 @@ const styles = `
   }
 `;
 
-const Index = () => {
+const ADMIN_EMAILS = (import.meta.env.VITE_ADMIN_EMAILS || "moveacre@gmail.com").split(",").map(e => e.trim());
+
+const AdminRoute = () => {
+  const { isLoaded, isSignedIn, user } = useUser();
+  if (!isLoaded) return null;
+  if (!isSignedIn) return <Navigate to="/" replace />;
+  const email = user?.primaryEmailAddress?.emailAddress || "";
+  if (!ADMIN_EMAILS.includes(email)) return <Navigate to="/" replace />;
+  return <AdminDashboard />;
+};
   const { isLoaded, isSignedIn } = useUser();
 
   if (!isLoaded) return null;
@@ -215,7 +224,7 @@ export default function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Index />} />
-        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin" element={<AdminRoute />} />
         <Route path="/minhas-urgencias" element={<MinhasUrgencias />} />
         <Route path="/criar-urgencia" element={<SyncWrapper><CriarUrgencia /></SyncWrapper>} />
         <Route path="/completar-perfil" element={<CompletarPerfil />} />

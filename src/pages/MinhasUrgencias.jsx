@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "@clerk/clerk-react";
 import { Link, useNavigate } from "react-router-dom";
+import Logo from "../components/Logo";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
@@ -250,7 +251,7 @@ export default function MinhasUrgencias() {
       <style>{styles}</style>
       <div className="mu-root">
         <nav className="mu-nav">
-          <Link to="/" className="mu-logo">MOVEACRE</Link>
+          <Logo />
           <Link to="/" className="mu-back">← VOLTAR</Link>
         </nav>
 

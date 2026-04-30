@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth, useUser } from "@clerk/clerk-react";
 import { useNavigate, Link } from "react-router-dom";
+import Logo from "../components/Logo";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
@@ -245,7 +246,7 @@ export default function CompletarPerfil() {
       <style>{styles}</style>
       <div className="cp-root">
         <nav className="cp-nav">
-          <Link to="/" className="cp-logo">MOVEACRE</Link>
+          <Logo />
           <Link to="/" className="cp-back">← VOLTAR</Link>
         </nav>
 
