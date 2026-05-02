@@ -253,10 +253,15 @@ const AdminRoute = () => {
 };
 
 const Index = () => {
-  const { isLoaded, isSignedIn } = useUser();
+  const { isLoaded, isSignedIn, user } = useUser();
 
   if (!isLoaded) return null;
-  if (isSignedIn) return <DoadorDashboard />;
+  if (isSignedIn) {
+    // Admin vai direto para o painel administrativo
+    const email = user?.primaryEmailAddress?.emailAddress || "";
+    if (ADMIN_EMAILS.includes(email)) return <Navigate to="/admin" replace />;
+    return <DoadorDashboard />;
+  }
 
   return (
     <div className="ma-root">

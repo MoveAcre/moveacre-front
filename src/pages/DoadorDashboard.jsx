@@ -156,6 +156,7 @@ export default function DoadorDashboard() {
   const { getToken } = useAuth();
   const navigate = useNavigate();
   const [perfilIncompleto, setPerfilIncompleto] = useState(false);
+  const [nomeDoador, setNomeDoador] = useState("");
 
   useEffect(() => {
     const checkPerfil = async () => {
@@ -171,6 +172,9 @@ export default function DoadorDashboard() {
           });
           const json = await res.json();
           const data = json.data ?? json;
+          if (data && data.nome_completo) {
+            setNomeDoador(data.nome_completo.split(" ")[0]);
+          }
           const completo =
             data &&
             data.tipo_sangue && data.tipo_sangue.trim() !== "" &&
@@ -201,7 +205,7 @@ export default function DoadorDashboard() {
           <div className="dd-tag">// BEM_VINDO</div>
           <h1 className="dd-title">
             OLA, <br />
-            <span>{user.firstName}</span>
+            <span>{nomeDoador || user.firstName || "doador"}</span>
           </h1>
           <div className="dd-divider" />
 
