@@ -402,7 +402,7 @@ export default function CompletarPerfil() {
 
     setLoading(true);
     try {
-      await apiFetch(
+      const resultado = await apiFetch(
         "/doadores/me",
         {
           method: "PUT",
@@ -419,7 +419,13 @@ export default function CompletarPerfil() {
         },
         getToken
       );
-      navigate("/");
+
+      // Só redireciona se o backend confirmou que o perfil foi salvo
+      if (resultado.perfil_completo) {
+        navigate("/", { replace: true });
+      } else {
+        setServerError("Perfil salvo parcialmente. Verifique os campos e tente novamente.");
+      }
     } catch (e) {
       setServerError(e.message || "Erro ao salvar perfil. Tente novamente.");
     } finally {
