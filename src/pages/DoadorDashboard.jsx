@@ -161,12 +161,19 @@ export default function DoadorDashboard() {
       if (isSignedIn) {
         try {
           const token = await getToken();
-          const res = await fetch(`${API}/auth/me`, {
+          const res = await fetch(`${API}/doadores/me`, {
             headers: { Authorization: `Bearer ${token}` }
           });
           const json = await res.json();
-          if (json.success && json.data.perfil_incompleto) {
-            setPerfilIncompleto(true);
+          const data = json.data ?? json;
+          const completo =
+            data &&
+            data.tipo_sangue && data.tipo_sangue.trim() !== "" &&
+            data.genero && data.genero.trim() !== "" &&
+            data.telefone && data.telefone.trim() !== "";
+          if (!completo) {
+            // Redireciona imediatamente — obrigatório completar perfil
+            navigate("/completar-perfil", { replace: true });
           }
         } catch (err) { console.error(err); }
       }
@@ -193,17 +200,13 @@ export default function DoadorDashboard() {
           </h1>
           <div className="dd-divider" />
 
-          {perfilIncompleto && (
-            <div className="dd-alert" onClick={() => navigate('/completar-perfil')}>
-              PERFIL INCOMPLETO. CLIQUE PARA FINALIZAR.
-            </div>
-          )}
+
 
           <div className="dd-grid">
             <button onClick={() => navigate('/criar-urgencia')} className="dd-btn">
               <span className="dd-btn-icon">!</span>
-              <h2 className="dd-btn-title">PEDIR AJUDA</h2>
-              <p className="dd-btn-desc">Criar um novo pedido de transfusao.</p>
+              <h2 className="dd-btn-title">ABRIR PEDIDO DE SANGUE</h2>
+              <p className="dd-btn-desc">Criar um novo pedido de transfusão de sangue.</p>
             </button>
 
             <button onClick={() => navigate('/minhas-urgencias')} className="dd-btn">
@@ -230,10 +233,10 @@ export default function DoadorDashboard() {
 
         <footer className="dd-footer">
           <span className="dd-footer-copy">
-            2024 MOVEACRE_ANALYTICS // SEGURANCA_DE_DADOS_SEC_01
+            © 2026 MOVEACRE — Rio Branco, Acre, Brasil
           </span>
           <span className="dd-footer-copy" style={{ color: "#C8F500" }}>
-            V.1.0.0-CINETICO
+            VAMOS MOVER O ACRE.
           </span>
         </footer>
       </div>
