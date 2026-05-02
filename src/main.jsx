@@ -3,6 +3,9 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 import { ClerkProvider } from "@clerk/clerk-react";
+import { ptBR } from "@clerk/localizations";
+
+<ClerkProvider publishableKey={PUBLISHABLE_KEY} localization={ptBR}>
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
