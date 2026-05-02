@@ -9,6 +9,8 @@ import DoadorDashboard from "./pages/DoadorDashboard";
 import Perfil from "./pages/Perfil";
 import HistoricoDoador from "./pages/HistoricoDoador";
 import EditarPedido from "./pages/EditarPedido";
+import Beneficios from "./pages/Beneficios";
+import Criterios from "./pages/Criterios";
 
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap');
@@ -32,6 +34,24 @@ const styles = `
     border-bottom: 1px solid #111;
   }
 
+  .ma-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .ma-nav-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #555;
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .ma-nav-link:hover { color: #C8F500; }
+
   .ma-logo {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 900;
@@ -39,6 +59,7 @@ const styles = `
     letter-spacing: 0.1em;
     color: #C8F500;
     text-transform: uppercase;
+    text-decoration: none;
   }
 
   .ma-hero {
@@ -96,6 +117,7 @@ const styles = `
     gap: 16px;
     flex-wrap: wrap;
     align-items: center;
+    margin-bottom: 32px;
   }
 
   .ma-btn-primary {
@@ -114,6 +136,26 @@ const styles = `
 
   .ma-btn-primary:hover { background: #d4ff00; transform: translateY(-1px); }
 
+  .ma-btn-secondary {
+    background: transparent;
+    color: #888;
+    border: 1px solid #333;
+    padding: 18px 32px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    text-transform: uppercase;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: 0.15s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ma-btn-secondary:hover { border-color: #C8F500; color: #C8F500; }
+
   .ma-tension {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
@@ -123,12 +165,33 @@ const styles = `
     max-width: 400px;
   }
 
-  .ma-divider {
-    width: 100%;
-    height: 1px;
-    background: #111;
-    margin: 0 40px;
-    width: calc(100% - 80px);
+  .ma-info-strip {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    padding-top: 16px;
+    border-top: 1px solid #111;
+  }
+
+  .ma-info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .ma-info-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: #444;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .ma-info-value {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #C8F500;
   }
 
   .ma-footer {
@@ -138,7 +201,13 @@ const styles = `
     align-items: center;
     border-top: 1px solid #111;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 12px;
+  }
+
+  .ma-footer-left {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
   }
 
   .ma-footer-copy {
@@ -147,6 +216,22 @@ const styles = `
     color: #333;
     letter-spacing: 0.05em;
   }
+
+  .ma-footer-links {
+    display: flex;
+    gap: 16px;
+  }
+
+  .ma-footer-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #444;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+
+  .ma-footer-link:hover { color: #C8F500; }
 
   .ma-footer-tag {
     font-family: 'JetBrains Mono', monospace;
@@ -178,43 +263,72 @@ const Index = () => {
       <style>{styles}</style>
 
       <nav className="ma-nav">
-        <span className="ma-logo">MOVEACRE</span>
-        <SignInButton mode="modal">
-          <button style={{ background:"none", border:"1px solid #333", color:"#888", padding:"8px 20px", fontFamily:"JetBrains Mono,monospace", fontSize:11, cursor:"pointer", letterSpacing:"0.05em", textTransform:"uppercase" }}>
-            FAZER LOGIN
-          </button>
-        </SignInButton>
+        <Link to="/" className="ma-logo">MOVEACRE</Link>
+        <div className="ma-nav-links">
+          <Link to="/criterios" className="ma-nav-link">Quem pode doar</Link>
+          <Link to="/beneficios" className="ma-nav-link">Benefícios</Link>
+          <SignInButton mode="modal">
+            <button style={{ background:"none", border:"1px solid #333", color:"#888", padding:"8px 20px", fontFamily:"JetBrains Mono,monospace", fontSize:11, cursor:"pointer", letterSpacing:"0.05em", textTransform:"uppercase" }}>
+              ENTRAR
+            </button>
+          </SignInButton>
+        </div>
       </nav>
 
       <div className="ma-hero">
-        <div className="ma-eyebrow">// MOVEACRE — ACRE, BRASIL</div>
+        <div className="ma-eyebrow">// MOVEACRE — ACRE, BRASIL · DOAÇÃO DE SANGUE</div>
 
         <h1 className="ma-headline">
-          VOCÊ AINDA<br />
-          TÁ NA <span>PLATEIA?</span>
+          SANGUE NÃO<br />
+          CHEGA POR <span>WHATSAPP.</span>
         </h1>
 
         <p className="ma-manifesto">
-          Todo dia tem um pedido de sangue no WhatsApp. Todo dia a gente vê, sente um aperto, e passa adiante.{" "}
-          <em>O problema não é que você passou adiante — é que mesmo quando quis ajudar, o sistema não deixou.</em>{" "}
-          De tanto ver o pedido no lugar errado, virou paisagem. De tanto ser paisagem, virou normal.{" "}
-          <em>O MoveAcre existe pra devolver a indignação a quem perdeu — e dar a ela um lugar pra ir.</em>
+          Todo dia aparece um pedido urgente de sangue no grupo da família.{" "}
+          A gente compartilha, sente o aperto — e fica por isso mesmo.{" "}
+          <em>Não porque não quer ajudar. Mas porque o sistema nunca facilitou.</em>{" "}
+          O MOVEACRE muda isso: conecta quem precisa a quem pode ajudar,{" "}
+          de forma rápida, direta e sem depender de viralização.{" "}
+          <em>Porque salvar uma vida não pode depender de um post viral.</em>
         </p>
 
         <div className="ma-cta-row">
           <SignInButton mode="modal">
-            <button className="ma-btn-primary">SAIR DA PLATEIA</button>
+            <button className="ma-btn-primary">QUERO AJUDAR</button>
           </SignInButton>
-          <p className="ma-tension">
-            Ou a gente se move —<br />
-            ou continua dependendo de viralização<br />
-            pra salvar vidas.
-          </p>
+          <Link to="/criterios" className="ma-btn-secondary">
+            Ver critérios de doação
+          </Link>
+        </div>
+
+        <div className="ma-info-strip">
+          <div className="ma-info-item">
+            <span className="ma-info-label">Tipo de doação</span>
+            <span className="ma-info-value">Voluntária</span>
+          </div>
+          <div className="ma-info-item">
+            <span className="ma-info-label">Duração</span>
+            <span className="ma-info-value">~30min</span>
+          </div>
+          <div className="ma-info-item">
+            <span className="ma-info-label">Local</span>
+            <span className="ma-info-value">Hemoacre</span>
+          </div>
+          <div className="ma-info-item">
+            <span className="ma-info-label">Custo</span>
+            <span className="ma-info-value">Zero</span>
+          </div>
         </div>
       </div>
 
       <footer className="ma-footer">
-        <span className="ma-footer-copy">© 2026 MOVEACRE — ACRE, BRASIL</span>
+        <div className="ma-footer-left">
+          <span className="ma-footer-copy">© 2026 MOVEACRE — Rio Branco, Acre, Brasil</span>
+          <div className="ma-footer-links">
+            <Link to="/criterios" className="ma-footer-link">Critérios de doação</Link>
+            <Link to="/beneficios" className="ma-footer-link">Benefícios</Link>
+          </div>
+        </div>
         <span className="ma-footer-tag">VAMOS MOVER O ACRE.</span>
       </footer>
     </div>
@@ -228,12 +342,16 @@ export default function App() {
         <Route path="/" element={<Index />} />
         <Route path="/admin" element={<AdminRoute />} />
         <Route path="/minhas-urgencias" element={<MinhasUrgencias />} />
+        {/* RENOMEADO: "Pedir ajuda" → "Abrir pedido" para evitar confusão com suporte */}
         <Route path="/criar-urgencia" element={<SyncWrapper><CriarUrgencia /></SyncWrapper>} />
         <Route path="/completar-perfil" element={<CompletarPerfil />} />
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/historico-doador" element={<HistoricoDoador />} />
         <Route path="/editar-pedido/:id" element={<EditarPedido />} />
         <Route path="/listar-urgencias" element={<MinhasUrgencias />} />
+        {/* Novas páginas públicas */}
+        <Route path="/beneficios" element={<Beneficios />} />
+        <Route path="/criterios" element={<Criterios />} />
       </Routes>
     </Router>
   );
