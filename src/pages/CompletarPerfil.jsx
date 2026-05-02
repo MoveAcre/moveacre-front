@@ -324,6 +324,7 @@ export default function CompletarPerfil() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
+    nome_completo: "",
     tipo_sangue: "",
     genero: "",
     telefone: "",
@@ -372,6 +373,8 @@ export default function CompletarPerfil() {
 
   const validate = () => {
     const errs = {};
+    if (!form.nome_completo || form.nome_completo.trim().length < 3)
+      errs.nome_completo = "Informe seu nome completo.";
     if (!form.tipo_sangue) errs.tipo_sangue = "Selecione seu tipo sanguíneo.";
     if (!form.genero) errs.genero = "Selecione seu gênero.";
     if (!form.telefone || !validateTelefone(form.telefone))
@@ -408,6 +411,7 @@ export default function CompletarPerfil() {
           method: "PUT",
           body: JSON.stringify({
             email,
+            nome_completo: form.nome_completo.trim(),
             tipo_sangue: form.tipo_sangue,
             genero: form.genero,
             telefone: form.telefone.replace(/\D/g, ""),
@@ -459,6 +463,20 @@ export default function CompletarPerfil() {
         <p className="cp-subtitle">
           Olá, {user?.firstName || "doador"}! Precisamos de mais algumas informações.
         </p>
+
+        {/* Nome completo */}
+        <div className="cp-section-label">Seus dados <span className="cp-required">*</span></div>
+        <div className="cp-field">
+          <label className="cp-label">Nome completo <span className="cp-required">*</span></label>
+          <input
+            type="text"
+            placeholder="Ex: João da Silva"
+            className={`cp-input ${errors.nome_completo ? "error" : ""}`}
+            value={form.nome_completo}
+            onChange={e => { setForm(f => ({ ...f, nome_completo: e.target.value })); setErrors(er => ({ ...er, nome_completo: "" })); }}
+          />
+          {errors.nome_completo && <span className="cp-error-msg">{errors.nome_completo}</span>}
+        </div>
 
         {/* Tipo de usuário */}
         <div className="cp-section-label">Você é:</div>
