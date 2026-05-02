@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Logo from "../components/Logo";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const ADMIN_EMAILS = (import.meta.env.VITE_ADMIN_EMAILS || "moveacre@gmail.com").split(",").map(e => e.trim());
 
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap');
@@ -159,6 +160,10 @@ export default function DoadorDashboard() {
   useEffect(() => {
     const checkPerfil = async () => {
       if (isSignedIn) {
+        // Admin não precisa completar perfil
+        const email = user?.primaryEmailAddress?.emailAddress || "";
+        if (ADMIN_EMAILS.includes(email)) return;
+
         try {
           const token = await getToken();
           const res = await fetch(`${API}/doadores/me`, {
