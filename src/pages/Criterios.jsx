@@ -108,7 +108,7 @@ const styles = `
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
+    font-size: 14px;
     flex-shrink: 0;
   }
 
@@ -311,6 +311,8 @@ const styles = `
   }
 `;
 
+import Logo from "../components/Logo";
+
 export default function Criterios() {
   const { isSignedIn } = useUser();
 
@@ -319,7 +321,7 @@ export default function Criterios() {
       <style>{styles}</style>
 
       <nav className="cr-nav">
-        <Link to="/" className="cr-logo">MOVEACRE</Link>
+        <Logo />
         <div className="cr-nav-links">
           <Link to="/beneficios" className="cr-nav-link">Benefícios</Link>
           {isSignedIn ? (
@@ -348,7 +350,7 @@ export default function Criterios() {
         {/* Requisitos básicos */}
         <div className="cr-section">
           <div className="cr-section-header">
-            <div className="cr-section-icon">✅</div>
+            <div className="cr-section-icon">+</div>
             <span className="cr-section-title">Requisitos básicos</span>
           </div>
           <div className="cr-list">
@@ -371,7 +373,7 @@ export default function Criterios() {
         {/* Intervalos entre doações */}
         <div className="cr-section">
           <div className="cr-section-header">
-            <div className="cr-section-icon">⏱️</div>
+            <div className="cr-section-icon">~</div>
             <span className="cr-section-title">Intervalo entre doações</span>
           </div>
           <div className="cr-intervals">
@@ -391,7 +393,7 @@ export default function Criterios() {
         {/* Impedimentos temporários */}
         <div className="cr-section">
           <div className="cr-section-header">
-            <div className="cr-section-icon">⏳</div>
+            <div className="cr-section-icon">!</div>
             <span className="cr-section-title">Impedimentos temporários</span>
           </div>
           <div className="cr-list">
@@ -416,7 +418,7 @@ export default function Criterios() {
         {/* Impedimentos permanentes */}
         <div className="cr-section">
           <div className="cr-section-header">
-            <div className="cr-section-icon">🚫</div>
+            <div className="cr-section-icon">x</div>
             <span className="cr-section-title">Impedimentos permanentes</span>
           </div>
           <div className="cr-list">
@@ -436,7 +438,7 @@ export default function Criterios() {
         </div>
 
         <div className="cr-alert">
-          <div className="cr-alert-title">⚠️ Sempre consulte o Hemoacre</div>
+          <div className="cr-alert-title">SEMPRE CONSULTE O HEMOACRE</div>
           <p className="cr-alert-text">
             Esta página apresenta os critérios gerais baseados nas normas do Ministério da Saúde.
             Situações específicas de saúde são avaliadas individualmente na triagem presencial.
@@ -445,7 +447,7 @@ export default function Criterios() {
         </div>
 
         <div className="cr-highlight">
-          <div className="cr-highlight-title">📍 Onde doar em Rio Branco</div>
+          <div className="cr-highlight-title">ONDE DOAR EM RIO BRANCO</div>
           <p className="cr-highlight-text">
             <strong style={{ color: "#F5F5F0" }}>Hemoacre — Hemocentro do Acre</strong><br />
             Av. Getúlio Vargas, 2787 - Bosque, Rio Branco, AC — CEP 69900-607<br />

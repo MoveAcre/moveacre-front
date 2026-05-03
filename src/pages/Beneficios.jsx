@@ -105,7 +105,10 @@ const styles = `
   }
 
   .pg-card-icon {
-    font-size: 28px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #444;
+    letter-spacing: 0.1em;
     line-height: 1;
   }
 
@@ -227,54 +230,56 @@ const styles = `
 
 const beneficios = [
   {
-    icon: "🩺",
+    icon: "01",
     title: "Saúde monitorada",
     text: "Antes de cada doação você passa por uma triagem clínica gratuita: pressão arterial, hemoglobina, peso e temperatura. É como um mini-check-up sem custo.",
     tag: "Benefício direto",
   },
   {
-    icon: "🔄",
+    icon: "02",
     title: "Renovação do sangue",
     text: "A doação estimula a medula óssea a produzir novas células sanguíneas. Seu corpo renova completamente o volume doado em cerca de 24 horas.",
     tag: "Benefício fisiológico",
   },
   {
-    icon: "❤️",
+    icon: "03",
     title: "Saúde cardiovascular",
     text: "Estudos associam a doação regular à redução do excesso de ferro no sangue, o que pode diminuir o risco de doenças cardiovasculares.",
     tag: "Evidência científica",
   },
   {
-    icon: "🏥",
+    icon: "04",
     title: "Exames laboratoriais gratuitos",
     text: "Cada bolsa de sangue é testada para hepatite B e C, HIV, sífilis, doença de Chagas e HTLV. Você recebe notificação caso algum resultado precise de atenção.",
     tag: "Gratuito",
   },
   {
-    icon: "⚡",
-    title: "Prioridade em atendimento",
-    text: "Doadores cadastrados no MOVEACRE têm prioridade nas notificações de urgência e acesso rápido ao histórico de doações para comprovação em hospitais parceiros.",
+    icon: "05",
+    title: "Carteirinha de doador",
+    text: "Doadores cadastrados no MOVEACRE recebem a carteirinha digital de doador, que comprova seu histórico de doações e pode ser apresentada em hospitais parceiros.",
     tag: "Exclusivo MOVEACRE",
   },
   {
-    icon: "🏆",
+    icon: "06",
     title: "Sistema de níveis",
-    text: "Quanto mais você doa, mais alto é seu nível: Bronze → Prata → Ouro. Doadores Ouro têm reconhecimento especial e são os primeiros a receber novidades da plataforma.",
+    text: "Quanto mais você doa, mais alto é seu nível: Bronze, Prata, Ouro. Doadores Ouro têm reconhecimento especial e são os primeiros a receber novidades da plataforma.",
     tag: "Bronze · Prata · Ouro",
   },
   {
-    icon: "🤝",
+    icon: "07",
     title: "Comunidade que salva vidas",
     text: "Fazer parte do MOVEACRE significa estar numa rede de pessoas que realmente se mobilizam quando alguém precisa. Não é só plataforma — é movimento.",
     tag: "Comunidade",
   },
   {
-    icon: "📋",
+    icon: "08",
     title: "Histórico digital",
     text: "Todas as suas doações ficam registradas no seu perfil. Você pode acompanhar seu impacto, compartilhar com quem quiser e usar como comprovante.",
     tag: "Seu impacto registrado",
   },
 ];
+
+import Logo from "../components/Logo";
 
 export default function Beneficios() {
   const { isSignedIn } = useUser();
@@ -284,7 +289,7 @@ export default function Beneficios() {
       <style>{styles}</style>
 
       <nav className="pg-nav">
-        <Link to="/" className="pg-logo">MOVEACRE</Link>
+        <Logo />
         <div className="pg-nav-links">
           <Link to="/criterios" className="pg-nav-link">Critérios</Link>
           {isSignedIn ? (
