@@ -61,7 +61,7 @@ export default function HistoricoDoador() {
             <div>
               <div style={{ fontFamily:"JetBrains Mono,monospace", fontSize:10, color:"#555", marginBottom:4 }}>NÍVEL DO DOADOR</div>
               <div style={{ fontSize:13, color:"#888" }}>
-                {doacoes.length} doação{doacoes.length!==1?"ões":""} declarada{doacoes.length!==1?"s":""}
+                {doacoes.length} {doacoes.length!==1?"doações":"doação"} declarada{doacoes.length!==1?"s":""}
               </div>
               <div style={{ fontFamily:"JetBrains Mono,monospace", fontSize:10, color:"#555", marginTop:8 }}>
                 {nivel==="BRONZE" && `Faltam ${3-doacoes.length>0?3-doacoes.length:0} para PRATA`}
