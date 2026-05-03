@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
 const ROTAS_LIVRES = ["/completar-perfil", "/"];
-const ADMIN_EMAILS = (import.meta.env.VITE_ADMIN_EMAILS || "moveacre@gmail.com").split(",").map(e => e.trim());
 
 export default function SyncWrapper({ children }) {
   const { getToken } = useAuth();
@@ -18,10 +17,10 @@ export default function SyncWrapper({ children }) {
     const checkStatus = async () => {
       try {
         // Admin não precisa completar perfil
-        const email = user?.primaryEmailAddress?.emailAddress || "";
-        if (ADMIN_EMAILS.includes(email)) { setReady(true); return; }
-
         const token = await getToken();
+        const isAdminRes = await fetch(`${API}/auth/is-admin`, { headers: { Authorization: `Bearer ${token}` } });
+        const isAdminJson = await isAdminRes.json();
+        if (isAdminJson.is_admin) { setReady(true); return; }
 
         // Sync primeiro — garante que o usuário existe no banco
         await fetch(`${API}/doadores/sync`, {

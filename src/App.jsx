@@ -13,6 +13,9 @@ import Beneficios from "./pages/Beneficios";
 import Criterios from "./pages/Criterios";
 import Sobre from "./pages/Sobre";
 import Logo from "./components/Logo";
+import { useIsAdmin } from "./hooks/useIsAdmin";
+
+const ADMIN_EMAILS = (import.meta.env.VITE_ADMIN_EMAILS || "").split(",").map(e => e.trim()).filter(Boolean);
 
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap');
@@ -246,11 +249,11 @@ const styles = `
 const ADMIN_EMAILS = (import.meta.env.VITE_ADMIN_EMAILS || "moveacre@gmail.com").split(",").map(e => e.trim());
 
 const AdminRoute = () => {
-  const { isLoaded, isSignedIn, user } = useUser();
-  if (!isLoaded) return null;
+  const { isLoaded, isSignedIn } = useUser();
+  const { isAdmin, loading } = useIsAdmin();
+  if (!isLoaded || loading) return null;
   if (!isSignedIn) return <Navigate to="/" replace />;
-  const email = user?.primaryEmailAddress?.emailAddress || "";
-  if (!ADMIN_EMAILS.includes(email)) return <Navigate to="/" replace />;
+  if (!isAdmin) return <Navigate to="/" replace />;
   return <AdminDashboard />;
 };
 

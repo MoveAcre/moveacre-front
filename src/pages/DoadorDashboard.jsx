@@ -2,9 +2,9 @@ import { useAuth, useUser, UserButton, useClerk } from "@clerk/clerk-react";
 import { useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Logo from "../components/Logo";
+import { useIsAdmin } from "../hooks/useIsAdmin";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
-const ADMIN_EMAILS = (import.meta.env.VITE_ADMIN_EMAILS || "moveacre@gmail.com").split(",").map(e => e.trim());
 
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap');
@@ -155,6 +155,7 @@ export default function DoadorDashboard() {
   const { isLoaded, isSignedIn, user } = useUser();
   const { getToken } = useAuth();
   const { signOut } = useClerk();
+  const { isAdmin } = useIsAdmin();
   const navigate = useNavigate();
   const [perfilIncompleto, setPerfilIncompleto] = useState(false);
   const [nomeDoador, setNomeDoador] = useState("");
@@ -208,7 +209,7 @@ export default function DoadorDashboard() {
         <nav className="dd-nav">
           <Logo />
           <div style={{ display:"flex", alignItems:"center", gap:12 }}>
-            {ADMIN_EMAILS.includes(user?.primaryEmailAddress?.emailAddress || "") && (
+            {isAdmin && (
               <Link to="/admin" style={{ fontFamily:"JetBrains Mono,monospace", fontSize:11, color:"#C8F500", textDecoration:"none", border:"1px solid #C8F500", padding:"5px 14px" }}>
                 PAINEL ADMIN
               </Link>
