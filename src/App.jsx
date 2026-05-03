@@ -109,7 +109,7 @@ const styles = `
   }
 
   .ma-manifesto em {
-    color: #F5F5F0;
+    color: #C8F500;
     font-style: normal;
     font-weight: 500;
   }
@@ -292,7 +292,7 @@ const Index = () => {
         <p className="ma-manifesto">
           O MOVEACRE conecta quem precisa de sangue a quem pode ajudar —{" "}
           de forma rápida, direta e sem depender de viralização.{" "}
-          <em>Cadastre-se como doador, receba alertas de urgência compatíveis com seu tipo sanguíneo</em>{" "}
+          Cadastre-se como <em>doador</em> ou <em>receptor</em>, receba alertas de urgência compatíveis com seu tipo sanguíneo{" "}
           e faça parte de uma rede que realmente salva vidas no Acre.
         </p>
 
