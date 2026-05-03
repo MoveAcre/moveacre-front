@@ -246,8 +246,6 @@ const styles = `
   }
 `;
 
-const ADMIN_EMAILS = (import.meta.env.VITE_ADMIN_EMAILS || "moveacre@gmail.com").split(",").map(e => e.trim());
-
 const AdminRoute = () => {
   const { isLoaded, isSignedIn } = useUser();
   const { isAdmin, loading } = useIsAdmin();
