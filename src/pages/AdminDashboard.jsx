@@ -76,8 +76,6 @@ function TabelaUsuarios({ rows, onDeletar, onDesativar }) {
   );
 }
 
-import { useAuth } from "@clerk/clerk-react";
-
 export default function AdminDashboard() {
   const { getToken } = useAuth();
   const { signOut } = useClerk();
