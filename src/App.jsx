@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, Link } from "react-router-dom";
 import { SignInButton, SignedIn, SignedOut, UserButton, useUser } from "@clerk/clerk-react";
+import { useState } from "react";
 import AdminDashboard from "./pages/AdminDashboard";
 import MinhasUrgencias from "./pages/MinhasUrgencias";
 import CriarUrgencia from "./pages/CriarUrgencia";
@@ -248,13 +249,51 @@ const styles = `
 
   @media (max-width: 600px) {
     .ma-nav { padding: 14px 20px; }
-    .ma-nav-links .ma-nav-link { display: none; }
-    .ma-hero { padding: 40px 20px 40px; }
+    .ma-nav-links { display: none; }
+    .ma-hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .ma-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #F5F5F0;
+    }
+    .ma-mobile-menu {
+      background: #0D0D0D;
+      border-bottom: 1px solid #1a1a1a;
+      display: flex;
+      flex-direction: column;
+    }
+    .ma-mobile-link {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: #888;
+      text-decoration: none;
+      padding: 14px 20px;
+      border-bottom: 1px solid #111;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .ma-mobile-link:hover { color: #C8F500; }
+    .ma-hero { padding: 32px 20px; }
+    .ma-eyebrow { display: none; }
     .ma-info-strip { gap: 20px; }
     .ma-footer { padding: 16px 20px; flex-direction: column; gap: 12px; }
     .ma-footer-links { flex-wrap: wrap; gap: 12px; }
     .ma-cta-row { flex-direction: column; }
     .ma-btn-secondary { justify-content: center; }
+  }
+
+  @media (min-width: 601px) {
+    .ma-hamburger { display: none; }
+    .ma-mobile-menu { display: none; }
   }
 `;
 
@@ -269,6 +308,7 @@ const AdminRoute = () => {
 
 const Index = () => {
   const { isLoaded, isSignedIn, user } = useUser();
+  const [menuAberto, setMenuAberto] = useState(false);
 
   if (!isLoaded) return null;
   if (isSignedIn) {
@@ -291,7 +331,24 @@ const Index = () => {
             </button>
           </SignInButton>
         </div>
+        {/* Hamburguer mobile */}
+        <button className="ma-hamburger" onClick={() => setMenuAberto(m => !m)}>
+          <span /><span /><span />
+        </button>
       </nav>
+
+      {menuAberto && (
+        <div className="ma-mobile-menu">
+          <Link to="/criterios" className="ma-mobile-link" onClick={() => setMenuAberto(false)}>Quem pode doar</Link>
+          <Link to="/beneficios" className="ma-mobile-link" onClick={() => setMenuAberto(false)}>Benefícios</Link>
+          <Link to="/sobre" className="ma-mobile-link" onClick={() => setMenuAberto(false)}>Sobre nós</Link>
+          <SignInButton mode="modal">
+            <button className="ma-mobile-link" style={{ background:"none", border:"none", color:"#888", cursor:"pointer", fontFamily:"JetBrains Mono,monospace", fontSize:12, textAlign:"left", padding:"14px 20px", width:"100%" }} onClick={() => setMenuAberto(false)}>
+              ENTRAR
+            </button>
+          </SignInButton>
+        </div>
+      )}
 
       <div className="ma-hero">
         <div className="ma-eyebrow">// MOVEACRE — ACRE, BRASIL · DOAÇÃO DE SANGUE</div>
