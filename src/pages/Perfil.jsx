@@ -1,5 +1,5 @@
 ﻿import { useState, useEffect } from "react";
-import { useAuth, useUser } from "@clerk/clerk-react";
+import { useAuth, useUser, useClerk } from "@clerk/clerk-react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import Logo from "../components/Logo";
 
@@ -184,6 +184,7 @@ const styles = `
 
 export default function Perfil() {
   const { getToken } = useAuth();
+  const { signOut } = useClerk();
   const { user } = useUser();
   const navigate = useNavigate();
   const location = useLocation();
@@ -246,8 +247,8 @@ export default function Perfil() {
           headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
           body: JSON.stringify({ email }),
         });
+        await signOut();
       } catch (err) { console.error(err); }
-      navigate("/");
     }
   };
 

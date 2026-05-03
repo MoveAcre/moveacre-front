@@ -1,4 +1,4 @@
-import { useAuth, useUser, UserButton } from "@clerk/clerk-react";
+import { useAuth, useUser, UserButton, useClerk } from "@clerk/clerk-react";
 import { useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Logo from "../components/Logo";
@@ -154,6 +154,7 @@ const styles = `
 export default function DoadorDashboard() {
   const { isLoaded, isSignedIn, user } = useUser();
   const { getToken } = useAuth();
+  const { signOut } = useClerk();
   const navigate = useNavigate();
   const [perfilIncompleto, setPerfilIncompleto] = useState(false);
   const [nomeDoador, setNomeDoador] = useState("");
@@ -180,6 +181,14 @@ export default function DoadorDashboard() {
             data.tipo_sangue && data.tipo_sangue.trim() !== "" &&
             data.genero && data.genero.trim() !== "" &&
             data.telefone && data.telefone.trim() !== "";
+
+          // Conta desativada
+          if (data && data.online === 0) {
+            alert("Esta conta foi desativada.");
+            await signOut();
+            return;
+          }
+
           if (!completo) {
             // Redireciona imediatamente — obrigatório completar perfil
             navigate("/completar-perfil", { replace: true });

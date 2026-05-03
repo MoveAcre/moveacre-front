@@ -54,6 +54,14 @@ export default function SyncWrapper({ children }) {
           data.genero && data.genero.trim() !== "" &&
           data.telefone && data.telefone.trim() !== "";
 
+        // Conta desativada — faz logout
+        if (data && data.online === 0) {
+          alert("Esta conta foi desativada.");
+          await fetch(`${API}/doadores/sync`, { method: "POST", headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" }, body: JSON.stringify({ nome_completo: user.fullName, email: user.primaryEmailAddress.emailAddress }) });
+          window.location.href = "/";
+          return;
+        }
+
         console.log("[MOVEACRE] perfilCompleto:", perfilCompleto);
 
         const rotaAtual = window.location.pathname;
