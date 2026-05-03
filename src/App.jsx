@@ -284,8 +284,8 @@ const Index = () => {
         <div className="ma-eyebrow">// MOVEACRE — ACRE, BRASIL · DOAÇÃO DE SANGUE</div>
 
         <h1 className="ma-headline">
-          SANGUE NÃO<br />
-          CHEGA POR <span>WHATSAPP.</span>
+          NINGUÉM DEVERIA<br />
+          IMPLORAR POR UM <span>DIREITO.</span>
         </h1>
 
         <p className="ma-manifesto">
