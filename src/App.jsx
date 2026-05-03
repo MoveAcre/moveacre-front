@@ -35,14 +35,14 @@ const styles = `
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 40px;
+    padding: 16px 20px;
     border-bottom: 1px solid #111;
   }
 
   .ma-nav-links {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: 16px;
   }
 
   .ma-nav-link {
@@ -53,6 +53,7 @@ const styles = `
     letter-spacing: 0.08em;
     text-transform: uppercase;
     transition: color 0.2s;
+    white-space: nowrap;
   }
 
   .ma-nav-link:hover { color: #C8F500; }
@@ -243,6 +244,17 @@ const styles = `
     font-size: 10px;
     color: #C8F500;
     letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 600px) {
+    .ma-nav { padding: 14px 20px; }
+    .ma-nav-links .ma-nav-link { display: none; }
+    .ma-hero { padding: 40px 20px 40px; }
+    .ma-info-strip { gap: 20px; }
+    .ma-footer { padding: 16px 20px; flex-direction: column; gap: 12px; }
+    .ma-footer-links { flex-wrap: wrap; gap: 12px; }
+    .ma-cta-row { flex-direction: column; }
+    .ma-btn-secondary { justify-content: center; }
   }
 `;
 
