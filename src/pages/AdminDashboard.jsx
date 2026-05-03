@@ -45,7 +45,7 @@ function Modal({ onClose, titulo, children }) {
   );
 }
 
-function TabelaUsuarios({ rows, onDeletar, onDesativar }) {
+function TabelaUsuarios({ rows, onDeletar, onDesativar, onReativar }) {
   return (
     <table style={s.table}>
       <thead>
@@ -63,7 +63,10 @@ function TabelaUsuarios({ rows, onDeletar, onDesativar }) {
             <td style={s.td}><span style={{ fontSize:11, color:"#888" }}>{u.cidade||"—"}</span></td>
             <td style={s.td}><span style={{ color:u.online?"#44FF88":"#555", fontSize:11 }}>{u.online?"●":"○"}</span></td>
             <td style={s.td}>
-              <Btn bg="#333" c="#F5F5F0" label="DESATIVAR" onClick={() => onDesativar(u.id)} />
+              {u.online
+                ? <Btn bg="#333" c="#F5F5F0" label="DESATIVAR" onClick={() => onDesativar(u.id)} />
+                : <Btn bg="#44FF88" c="#000" label="REATIVAR" onClick={() => onReativar(u.id)} />
+              }
               <Btn bg="#FF3333" c="#fff" label="DELETAR" onClick={() => onDeletar(u.id)} />
             </td>
           </tr>
@@ -156,6 +159,12 @@ export default function AdminDashboard() {
   const desativarUsuario = async (id) => {
     if (!window.confirm("Desativar conta?")) return;
     await api(`/admin/usuarios/${id}/desativar`, { method: "POST" });
+    carregar();
+  };
+
+  const reativarUsuario = async (id) => {
+    if (!window.confirm("Reativar conta?")) return;
+    await api(`/admin/usuarios/${id}/reativar`, { method: "POST" });
     carregar();
   };
 
@@ -295,7 +304,7 @@ export default function AdminDashboard() {
               </select>
               <input style={s.input} placeholder="Buscar cidade..." value={filtros.busca} onChange={e => setFiltro("busca", e.target.value)} />
             </div>
-            <TabelaUsuarios rows={doadores} onDeletar={deletarUsuario} onDesativar={desativarUsuario} />
+            <TabelaUsuarios rows={doadores} onDeletar={deletarUsuario} onDesativar={desativarUsuario} onReativar={reativarUsuario} />
           </>
         )}
 
@@ -312,7 +321,7 @@ export default function AdminDashboard() {
                 <option value="idade">Por idade</option>
               </select>
             </div>
-            <TabelaUsuarios rows={receptores} onDeletar={deletarUsuario} onDesativar={desativarUsuario} />
+            <TabelaUsuarios rows={receptores} onDeletar={deletarUsuario} onDesativar={desativarUsuario} onReativar={reativarUsuario} />
           </>
         )}
 
@@ -335,7 +344,7 @@ export default function AdminDashboard() {
               <input style={s.input} placeholder="Buscar nome ou email..." value={filtros.busca} onChange={e => setFiltro("busca", e.target.value)} />
             </div>
             {stats && <StatBoxes items={[["TOTAL", stats.total], ["DOADORES", stats.doadores], ["RECEPTORES", stats.receptores], ["ONLINE", stats.online]]} />}
-            <TabelaUsuarios rows={usuarios} onDeletar={deletarUsuario} onDesativar={desativarUsuario} />
+            <TabelaUsuarios rows={usuarios} onDeletar={deletarUsuario} onDesativar={desativarUsuario} onReativar={reativarUsuario} />
           </>
         )}
 
@@ -381,7 +390,7 @@ export default function AdminDashboard() {
         )}
 
         {aba === "online" && !loading && (
-          <TabelaUsuarios rows={online} onDeletar={deletarUsuario} onDesativar={desativarUsuario} />
+          <TabelaUsuarios rows={online} onDeletar={deletarUsuario} onDesativar={desativarUsuario} onReativar={reativarUsuario} />
         )}
 
         {aba === "stats" && !loading && stats && (
@@ -448,3 +457,4 @@ export default function AdminDashboard() {
     </div>
   );
 }
+

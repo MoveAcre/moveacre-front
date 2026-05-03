@@ -159,16 +159,20 @@ export default function DoadorDashboard() {
   const navigate = useNavigate();
   const [perfilIncompleto, setPerfilIncompleto] = useState(false);
   const [nomeDoador, setNomeDoador] = useState("");
+  const [contaDesativada, setContaDesativada] = useState(null); // null | 'usuario' | 'admin'
+  const [emailDoador, setEmailDoador] = useState("");
 
   useEffect(() => {
     const checkPerfil = async () => {
       if (isSignedIn) {
-        // Admin não precisa completar perfil
-        const email = user?.primaryEmailAddress?.emailAddress || "";
-        if (ADMIN_EMAILS.includes(email)) return;
-
         try {
           const token = await getToken();
+
+          // Verifica se é admin
+          const isAdminRes = await fetch(`${API}/auth/is-admin`, { headers: { Authorization: `Bearer ${token}` } });
+          const isAdminJson = await isAdminRes.json();
+          if (isAdminJson.is_admin) return;
+
           const res = await fetch(`${API}/doadores/me`, {
             headers: { Authorization: `Bearer ${token}` }
           });
@@ -177,21 +181,21 @@ export default function DoadorDashboard() {
           if (data && data.nome_completo) {
             setNomeDoador(data.nome_completo.split(" ")[0]);
           }
+          if (data && data.email) setEmailDoador(data.email);
+
+          // Conta desativada
+          if (data && data.online === 0) {
+            setContaDesativada(data.desativado_por || 'admin');
+            return;
+          }
+
           const completo =
             data &&
             data.tipo_sangue && data.tipo_sangue.trim() !== "" &&
             data.genero && data.genero.trim() !== "" &&
             data.telefone && data.telefone.trim() !== "";
 
-          // Conta desativada
-          if (data && data.online === 0) {
-            alert("Esta conta foi desativada.");
-            await signOut();
-            return;
-          }
-
           if (!completo) {
-            // Redireciona imediatamente — obrigatório completar perfil
             navigate("/completar-perfil", { replace: true });
           }
         } catch (err) { console.error(err); }
@@ -201,6 +205,49 @@ export default function DoadorDashboard() {
   }, [isSignedIn, getToken]);
 
   if (!isLoaded || !isSignedIn) return null;
+
+  if (contaDesativada) {
+    const foiAdmin = contaDesativada === 'admin';
+    const reativar = async () => {
+      const token = await getToken();
+      const email = user?.primaryEmailAddress?.emailAddress;
+      const res = await fetch(`${API}/doadores/reativar`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      const j = await res.json();
+      if (j.success) { setContaDesativada(null); }
+      else alert(j.message);
+    };
+    return (
+      <div style={{ background:"#0A0A0A", color:"#F5F5F0", minHeight:"100vh", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", fontFamily:"Barlow,sans-serif", padding:32 }}>
+        <div style={{ maxWidth:400, textAlign:"center" }}>
+          <div style={{ fontFamily:"JetBrains Mono,monospace", fontSize:10, color:"#FF3333", letterSpacing:"0.1em", marginBottom:16 }}>// CONTA_DESATIVADA</div>
+          <h2 style={{ fontFamily:"Barlow Condensed,sans-serif", fontWeight:900, fontSize:32, textTransform:"uppercase", marginBottom:16 }}>
+            Sua conta está <span style={{ color:"#FF3333" }}>desativada</span>
+          </h2>
+          {foiAdmin ? (
+            <p style={{ color:"#555", fontSize:14, lineHeight:1.6, marginBottom:32 }}>
+              Esta conta foi desativada pelo administrador. Para mais informações, entra em contacto com o suporte.
+            </p>
+          ) : (
+            <>
+              <p style={{ color:"#555", fontSize:14, lineHeight:1.6, marginBottom:32 }}>
+                Desativaste a tua conta. Queres reativá-la?
+              </p>
+              <button onClick={reativar} style={{ background:"#C8F500", color:"#000", border:"none", padding:"14px 32px", fontFamily:"Barlow Condensed,sans-serif", fontWeight:900, fontSize:18, textTransform:"uppercase", cursor:"pointer", marginBottom:12, width:"100%" }}>
+                REATIVAR CONTA
+              </button>
+            </>
+          )}
+          <button onClick={() => signOut()} style={{ background:"transparent", color:"#555", border:"1px solid #333", padding:"10px 24px", fontFamily:"JetBrains Mono,monospace", fontSize:11, cursor:"pointer", width:"100%" }}>
+            SAIR
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
