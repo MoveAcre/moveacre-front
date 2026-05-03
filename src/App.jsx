@@ -285,7 +285,8 @@ const Index = () => {
 
         <h1 className="ma-headline">
           NINGUÉM DEVERIA<br />
-          IMPLORAR POR UM <span>DIREITO.</span>
+          IMPLORAR POR UM DIREITO<br />
+          QUE JÁ É <span>SEU.</span>
         </h1>
 
         <p className="ma-manifesto">
