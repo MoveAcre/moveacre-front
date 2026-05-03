@@ -11,6 +11,7 @@ import HistoricoDoador from "./pages/HistoricoDoador";
 import EditarPedido from "./pages/EditarPedido";
 import Beneficios from "./pages/Beneficios";
 import Criterios from "./pages/Criterios";
+import Sobre from "./pages/Sobre";
 import Logo from "./components/Logo";
 
 const styles = `
@@ -270,6 +271,7 @@ const Index = () => {
         <div className="ma-nav-links">
           <Link to="/criterios" className="ma-nav-link">Quem pode doar</Link>
           <Link to="/beneficios" className="ma-nav-link">Benefícios</Link>
+          <Link to="/sobre" className="ma-nav-link">Sobre nós</Link>
           <SignInButton mode="modal">
             <button style={{ background:"none", border:"1px solid #333", color:"#888", padding:"8px 20px", fontFamily:"JetBrains Mono,monospace", fontSize:11, cursor:"pointer", letterSpacing:"0.05em", textTransform:"uppercase" }}>
               ENTRAR
@@ -287,12 +289,10 @@ const Index = () => {
         </h1>
 
         <p className="ma-manifesto">
-          Todo dia aparece um pedido urgente de sangue no grupo da família.{" "}
-          A gente compartilha, sente o aperto — e fica por isso mesmo.{" "}
-          <em>Não porque não quer ajudar. Mas porque o sistema nunca facilitou.</em>{" "}
-          O MOVEACRE muda isso: conecta quem precisa a quem pode ajudar,{" "}
+          O MOVEACRE conecta quem precisa de sangue a quem pode ajudar —{" "}
           de forma rápida, direta e sem depender de viralização.{" "}
-          <em>Porque salvar uma vida não pode depender de um post viral.</em>
+          <em>Cadastre-se como doador, receba alertas de urgência compatíveis com seu tipo sanguíneo</em>{" "}
+          e faça parte de uma rede que realmente salva vidas no Acre.
         </p>
 
         <div className="ma-cta-row">
@@ -330,6 +330,7 @@ const Index = () => {
           <div className="ma-footer-links">
             <Link to="/criterios" className="ma-footer-link">Critérios de doação</Link>
             <Link to="/beneficios" className="ma-footer-link">Benefícios</Link>
+            <Link to="/sobre" className="ma-footer-link">Sobre nós</Link>
           </div>
         </div>
         <span className="ma-footer-tag">VAMOS MOVER O ACRE.</span>
@@ -355,6 +356,7 @@ export default function App() {
         {/* Novas páginas públicas */}
         <Route path="/beneficios" element={<Beneficios />} />
         <Route path="/criterios" element={<Criterios />} />
+        <Route path="/sobre" element={<Sobre />} />
       </Routes>
     </Router>
   );
