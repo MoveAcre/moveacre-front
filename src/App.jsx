@@ -11,6 +11,7 @@ import HistoricoDoador from "./pages/HistoricoDoador";
 import EditarPedido from "./pages/EditarPedido";
 import Beneficios from "./pages/Beneficios";
 import Criterios from "./pages/Criterios";
+import Logo from "./components/Logo";
 
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap');
@@ -257,9 +258,6 @@ const Index = () => {
 
   if (!isLoaded) return null;
   if (isSignedIn) {
-    // Admin vai direto para o painel administrativo
-    const email = user?.primaryEmailAddress?.emailAddress || "";
-    if (ADMIN_EMAILS.includes(email)) return <Navigate to="/admin" replace />;
     return <DoadorDashboard />;
   }
 
@@ -268,7 +266,7 @@ const Index = () => {
       <style>{styles}</style>
 
       <nav className="ma-nav">
-        <Link to="/" className="ma-logo">MOVEACRE</Link>
+        <Logo />
         <div className="ma-nav-links">
           <Link to="/criterios" className="ma-nav-link">Quem pode doar</Link>
           <Link to="/beneficios" className="ma-nav-link">Benefícios</Link>
@@ -299,10 +297,10 @@ const Index = () => {
 
         <div className="ma-cta-row">
           <SignInButton mode="modal">
-            <button className="ma-btn-primary">QUERO AJUDAR</button>
+            <button className="ma-btn-primary">QUERO SER DOADOR</button>
           </SignInButton>
-          <Link to="/criterios" className="ma-btn-secondary">
-            Ver critérios de doação
+          <Link to="/criar-urgencia" className="ma-btn-secondary">
+            Preciso de sangue
           </Link>
         </div>
 

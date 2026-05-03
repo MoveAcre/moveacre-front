@@ -198,7 +198,14 @@ export default function DoadorDashboard() {
       <div className="dd-root">
         <nav className="dd-nav">
           <Logo />
-          <UserButton afterSignOutUrl="/" />
+          <div style={{ display:"flex", alignItems:"center", gap:12 }}>
+            {ADMIN_EMAILS.includes(user?.primaryEmailAddress?.emailAddress || "") && (
+              <Link to="/admin" style={{ fontFamily:"JetBrains Mono,monospace", fontSize:11, color:"#C8F500", textDecoration:"none", border:"1px solid #C8F500", padding:"5px 14px" }}>
+                PAINEL ADMIN
+              </Link>
+            )}
+            <UserButton afterSignOutUrl="/" />
+          </div>
         </nav>
 
         <div className="dd-body">

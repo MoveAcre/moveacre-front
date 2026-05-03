@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
-import { useAuth } from "@clerk/clerk-react";
+import { useAuth, useClerk } from "@clerk/clerk-react";
 import { Link } from "react-router-dom";
+import Logo from "../components/Logo";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
 const TIPOS = ["A+","A-","B+","B-","AB+","AB-","O+","O-"];
@@ -75,10 +76,11 @@ function TabelaUsuarios({ rows, onDeletar, onDesativar }) {
   );
 }
 
-import Logo from "../components/Logo";
+import { useAuth } from "@clerk/clerk-react";
 
 export default function AdminDashboard() {
   const { getToken } = useAuth();
+  const { signOut } = useClerk();
   const [aba, setAba]               = useState("pedidos");
   const [loading, setLoading]       = useState(false);
   const [pedidos, setPedidos]       = useState([]);
@@ -210,7 +212,7 @@ export default function AdminDashboard() {
     <div style={s.root}>
       <nav style={s.nav}>
         <Logo suffix="// ADMIN" />
-        <Link to="/" style={{ color:"#555", textDecoration:"none", fontSize:11, border:"1px solid #333", padding:"5px 14px" }}>VOLTAR</Link>
+        <button onClick={() => signOut()} style={{ color:"#555", background:"none", cursor:"pointer", fontSize:11, border:"1px solid #333", padding:"5px 14px" }}>SAIR</button>
       </nav>
 
       <div style={s.tabs}>
