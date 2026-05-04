@@ -337,7 +337,7 @@ export default function CompletarPerfil() {
   const [jaDoou, setJaDoou] = useState(null); // null = não respondido, true/false
   const [ultimaDoacao, setUltimaDoacao] = useState("");
 
-  const [errors, setErrors] = useState({});
+  const [aceitouTermos, setAceitouTermos] = useState(false);
   const [loading, setLoading] = useState(false);
   const [serverError, setServerError] = useState("");
 
@@ -392,6 +392,9 @@ export default function CompletarPerfil() {
     if (ultimaDoacao && new Date(ultimaDoacao) > new Date())
       errs.ultimaDoacao = "A data não pode ser no futuro.";
 
+    if (!aceitouTermos)
+      errs.termos = "Você precisa aceitar os Termos e a Política de Privacidade.";
+
     return errs;
   };
 
@@ -419,6 +422,7 @@ export default function CompletarPerfil() {
             idade: form.idade ? parseInt(form.idade) : null,
             tipo: form.tipo,
             ultima_doacao: jaDoou === true ? ultimaDoacao : null,
+            termos_aceitos: aceitouTermos,
           }),
         },
         getToken
@@ -618,6 +622,25 @@ export default function CompletarPerfil() {
         </div>
 
         {serverError && <div className="cp-global-error">{serverError}</div>}
+
+        {/* Aceite dos termos */}
+        <div style={{ marginTop:24, display:"flex", alignItems:"flex-start", gap:12 }}>
+          <input
+            type="checkbox"
+            id="termos"
+            checked={aceitouTermos}
+            onChange={e => setAceitouTermos(e.target.checked)}
+            style={{ marginTop:2, accentColor:"#C8F500", width:16, height:16, flexShrink:0, cursor:"pointer" }}
+          />
+          <label htmlFor="termos" style={{ fontFamily:"JetBrains Mono,monospace", fontSize:11, color:"#555", lineHeight:1.6, cursor:"pointer" }}>
+            Li e aceito os{" "}
+            <a href="/termos" target="_blank" style={{ color:"#C8F500", textDecoration:"none" }}>Termos e Condições</a>
+            {" "}e a{" "}
+            <a href="/privacidade" target="_blank" style={{ color:"#C8F500", textDecoration:"none" }}>Política de Privacidade</a>
+            {" "}do MOVEACRE.
+          </label>
+        </div>
+        {errors.termos && <span style={{ fontFamily:"JetBrains Mono,monospace", fontSize:10, color:"#FF4444", letterSpacing:"0.05em" }}>{errors.termos}</span>}
 
         <button
           className="cp-btn"
