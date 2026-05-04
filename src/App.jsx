@@ -15,8 +15,6 @@ import Criterios from "./pages/Criterios";
 import Sobre from "./pages/Sobre";
 import Termos from "./pages/Termos";
 import Privacidade from "./pages/Privacidade";
-import Termos from "./pages/Termos";
-import Privacidade from "./pages/Privacidade";
 import Logo from "./components/Logo";
 import { useIsAdmin } from "./hooks/useIsAdmin";
 
