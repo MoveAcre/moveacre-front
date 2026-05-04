@@ -13,6 +13,10 @@ import EditarPedido from "./pages/EditarPedido";
 import Beneficios from "./pages/Beneficios";
 import Criterios from "./pages/Criterios";
 import Sobre from "./pages/Sobre";
+import Termos from "./pages/Termos";
+import Privacidade from "./pages/Privacidade";
+import Termos from "./pages/Termos";
+import Privacidade from "./pages/Privacidade";
 import Logo from "./components/Logo";
 import { useIsAdmin } from "./hooks/useIsAdmin";
 
@@ -402,6 +406,8 @@ const Index = () => {
             <Link to="/criterios" className="ma-footer-link">Critérios de doação</Link>
             <Link to="/beneficios" className="ma-footer-link">Benefícios</Link>
             <Link to="/sobre" className="ma-footer-link">Sobre nós</Link>
+            <Link to="/termos" className="ma-footer-link">Termos</Link>
+            <Link to="/privacidade" className="ma-footer-link">Privacidade</Link>
           </div>
         </div>
         <span className="ma-footer-tag">VAMOS MOVER O ACRE.</span>
@@ -428,6 +434,10 @@ export default function App() {
         <Route path="/beneficios" element={<Beneficios />} />
         <Route path="/criterios" element={<Criterios />} />
         <Route path="/sobre" element={<Sobre />} />
+        <Route path="/termos" element={<Termos />} />
+        <Route path="/privacidade" element={<Privacidade />} />
+        <Route path="/termos" element={<Termos />} />
+        <Route path="/privacidade" element={<Privacidade />} />
       </Routes>
     </Router>
   );
