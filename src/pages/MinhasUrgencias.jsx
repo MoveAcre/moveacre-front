@@ -244,7 +244,7 @@ export default function MinhasUrgencias() {
       }
     };
     carregar();
-  }, []);
+  }, [getToken]);
 
   return (
     <>

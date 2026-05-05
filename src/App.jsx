@@ -440,3 +440,46 @@ export default function App() {
     </Router>
   );
 }
+
+        </div>
+      </div>
+
+      <footer className="ma-footer">
+        <div className="ma-footer-left">
+          <span className="ma-footer-copy">© 2026 MOVEACRE — Rio Branco, Acre, Brasil</span>
+          <div className="ma-footer-links">
+            <Link to="/criterios" className="ma-footer-link">Critérios de doação</Link>
+            <Link to="/beneficios" className="ma-footer-link">Benefícios</Link>
+            <Link to="/sobre" className="ma-footer-link">Sobre nós</Link>
+            <Link to="/termos" className="ma-footer-link">Termos</Link>
+            <Link to="/privacidade" className="ma-footer-link">Privacidade</Link>
+          </div>
+        </div>
+        <span className="ma-footer-tag">VAMOS MOVER O ACRE.</span>
+      </footer>
+    </div>
+  );
+};
+
+export default function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/admin" element={<AdminRoute />} />
+        <Route path="/minhas-urgencias" element={<MinhasUrgencias />} />
+        <Route path="/criar-urgencia" element={<SyncWrapper><CriarUrgencia /></SyncWrapper>} />
+        <Route path="/completar-perfil" element={<CompletarPerfil />} />
+        <Route path="/perfil" element={<Perfil />} />
+        <Route path="/historico-doador" element={<HistoricoDoador />} />
+        <Route path="/editar-pedido/:id" element={<EditarPedido />} />
+        <Route path="/listar-urgencias" element={<MinhasUrgencias />} />
+        <Route path="/beneficios" element={<Beneficios />} />
+        <Route path="/criterios" element={<Criterios />} />
+        <Route path="/sobre" element={<Sobre />} />
+        <Route path="/termos" element={<Termos />} />
+        <Route path="/privacidade" element={<Privacidade />} />
+      </Routes>
+    </Router>
+  );
+}

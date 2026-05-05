@@ -21,13 +21,12 @@ export default function Sync() {
         console.log("RESPOSTA_AUTH_ME:", json.data.auth);
 
         if (json.data.auth.role === "admin") {
-          navigate("/admin/dashboard");
+          navigate("/admin");
         } else {
-          // Se cair aqui, o backend enviou role "doador"
           if (json.data.perfil_incompleto) {
             navigate("/completar-perfil");
           } else {
-            navigate("/doador/dashboard");
+            navigate("/");
           }
         }
       } catch (err) {

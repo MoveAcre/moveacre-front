@@ -338,6 +338,7 @@ export default function CompletarPerfil() {
   const [ultimaDoacao, setUltimaDoacao] = useState("");
 
   const [aceitouTermos, setAceitouTermos] = useState(false);
+  const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [serverError, setServerError] = useState("");
 
