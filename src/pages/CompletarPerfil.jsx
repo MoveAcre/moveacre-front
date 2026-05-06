@@ -452,7 +452,7 @@ export default function CompletarPerfil() {
 
       {/* Banner de alerta obrigatório */}
       <div className="cp-alert-banner">
-        <span className="cp-alert-icon">⚠️</span>
+        <span className="cp-alert-icon">!</span>
         <div className="cp-alert-text">
           <span className="cp-alert-title">Complete seu cadastro para continuar</span>
           <span className="cp-alert-sub">
@@ -493,7 +493,7 @@ export default function CompletarPerfil() {
                 className={`cp-radio-btn ${form.tipo === t ? "active" : ""}`}
                 onClick={() => setForm(f => ({ ...f, tipo: t }))}
               >
-                {t === "DOADOR" ? "🩸 Quero Doar" : "🏥 Preciso de Sangue"}
+                {t === "DOADOR" ? "Quero Doar" : "Preciso de Sangue"}
               </button>
             ))}
           </div>
@@ -549,7 +549,7 @@ export default function CompletarPerfil() {
                 className={`cp-radio-btn ${jaDoou === true ? "active" : ""}`}
                 onClick={() => { setJaDoou(true); setErrors(e => ({ ...e, jaDoou: "" })); }}
               >
-                ✓ Sim, já doei
+                Sim, já doei
               </button>
               <button
                 className={`cp-radio-btn ${jaDoou === false ? "active" : ""}`}
