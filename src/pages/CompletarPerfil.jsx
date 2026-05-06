@@ -383,6 +383,8 @@ export default function CompletarPerfil() {
     if (!form.cidade) errs.cidade = "Selecione sua cidade.";
     if (form.idade && !validateIdade(form.idade))
       errs.idade = "Informe uma idade entre 16 e 100 anos.";
+    if (form.idade && parseInt(form.idade) < 16)
+      errs.idade = "É necessário ter pelo menos 16 anos para se cadastrar.";
 
     // Doação anterior: a pergunta é obrigatória
     if (jaDoou === null) errs.jaDoou = "Responda se já doou sangue antes.";
