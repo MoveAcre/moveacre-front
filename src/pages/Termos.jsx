@@ -69,7 +69,12 @@ export default function Termos() {
           <div className="tc-section-title">3. Cadastro e Conta</div>
           <p className="tc-text">
             Para utilizar as funcionalidades da plataforma, o usuário deve criar uma conta com informações verdadeiras, completas e atualizadas. O usuário é responsável pela confidencialidade das suas credenciais de acesso e por todas as atividades realizadas na sua conta.<br /><br />
-            O MOVEACRE reserva-se o direito de suspender ou encerrar contas que violem estes Termos, sem aviso prévio em casos de violação grave.
+            O MOVEACRE reserva-se o direito de suspender ou encerrar contas que violem estes Termos. Nos casos abaixo, a suspensão pode ocorrer sem aviso prévio:<br /><br />
+            — Criação de pedidos de urgência falsos ou com informações sabidamente incorretas;<br />
+            — Tentativa de acesso não autorizado a dados de outros usuários;<br />
+            — Uso da plataforma para fins fraudulentos ou que causem dano a terceiros;<br />
+            — Comportamento que comprometa a segurança ou integridade da plataforma.<br /><br />
+            Nos demais casos de violação, o usuário será notificado por e-mail com prazo mínimo de 48 horas para manifestação antes da suspensão definitiva.
           </p>
         </div>
 
@@ -77,7 +82,7 @@ export default function Termos() {
           <div className="tc-section-title">4. Dados de Saúde e LGPD</div>
           <p className="tc-text">
             O MOVEACRE trata dados sensíveis de saúde (tipo sanguíneo, histórico de doações, laudos médicos) com base no <strong>consentimento específico, livre, informado e destacado</strong> do usuário, coletado por checkbox separado da aceitação geral destes Termos, em conformidade com o Art. 11 da <strong>Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018)</strong>.<br /><br />
-            O tratamento desses dados é realizado exclusivamente para as finalidades descritas na nossa <Link to="/privacidade" style={{ color: '#C8F500' }}>Política de Privacidade</Link>. O usuário pode consultar, corrigir ou solicitar a exclusão dos seus dados a qualquer momento pelo e-mail <strong>moveacre@gmail.com</strong>.<br /><br />
+            O tratamento desses dados é realizado exclusivamente para as finalidades descritas na nossa <Link to="/privacidade" style={{ color: '#C8F500' }}>Política de Privacidade</Link>. O usuário pode consultar, corrigir ou solicitar a exclusão dos seus dados a qualquer momento pelo e-mail <strong>moveacre@gmail.com</strong> — canal monitorado exclusivamente para assuntos de privacidade e proteção de dados, com resposta em até 15 dias corridos.<br /><br />
             <strong>Medidas de segurança técnica implementadas:</strong> autenticação via JWT com verificação de assinatura criptográfica (RS256), criptografia em trânsito (TLS/HTTPS) e em repouso (AES-256), controle de acesso por objeto (cada usuário acessa apenas seus próprios dados) e validação de entrada em todas as rotas da API. Em caso de incidente de segurança com risco relevante aos titulares, comunicaremos a ocorrência à ANPD e aos usuários afetados em até 72 horas.
           </p>
         </div>
@@ -138,7 +143,8 @@ export default function Termos() {
         <div className="tc-section">
           <div className="tc-section-title">10. Lei Aplicável e Foro</div>
           <p className="tc-text">
-            Estes Termos são regidos pela legislação brasileira, em especial pela LGPD, pelo Marco Civil da Internet e pelo Código de Defesa do Consumidor (quando aplicável). Quaisquer disputas serão submetidas ao foro da comarca de <strong>Rio Branco, Acre, Brasil</strong>, com renúncia expressa a qualquer outro, por mais privilegiado que seja.
+            Estes Termos são regidos pela legislação brasileira, em especial pela LGPD, pelo Marco Civil da Internet e pelo Código de Defesa do Consumidor, aplicável na medida em que a relação entre o usuário e o MOVEACRE se enquadre como relação de consumo nos termos da Lei nº 8.078/1990.<br /><br />
+            Para resolução de conflitos, fica eleito o foro da comarca de <strong>Rio Branco, Acre, Brasil</strong>. Contudo, nos termos do Art. 101, I do CDC, o consumidor pode optar pelo foro do seu domicílio quando aplicável. Nenhuma disposição destes Termos afasta o direito do usuário de acionar os Juizados Especiais Cíveis da sua comarca.
           </p>
         </div>
 
