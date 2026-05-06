@@ -17,6 +17,8 @@ const styles = `
   .tc-section-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 20px; text-transform: uppercase; color: #C8F500; margin-bottom: 12px; letter-spacing: 0.03em; }
   .tc-text { font-size: 14px; color: #777; line-height: 1.8; }
   .tc-text strong { color: #F5F5F0; font-weight: 500; }
+  .tc-alert { font-size: 13px; color: #999; line-height: 1.8; background: #111; border-left: 3px solid #C8F500; padding: 16px 20px; margin-top: 12px; }
+  .tc-alert strong { color: #C8F500; }
   .tc-divider { border: none; border-top: 1px solid #111; margin: 40px 0; }
   .tc-footer { padding: 20px 40px; border-top: 1px solid #111; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
   .tc-footer-copy { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #333; }
@@ -46,73 +48,102 @@ export default function Termos() {
         <div className="tc-section">
           <div className="tc-section-title">1. Aceitação dos Termos</div>
           <p className="tc-text">
-            Ao aceder e utilizar a plataforma MOVEACRE, disponível em <strong>moveacre.com.br</strong>, o utilizador declara ter lido, compreendido e aceite integralmente os presentes Termos e Condições de Uso. Caso não concorde com qualquer disposição, deverá abster-se de utilizar a plataforma.
+            Ao acessar e utilizar a plataforma MOVEACRE, disponível em <strong>moveacre.com.br</strong>, o usuário declara ter lido, compreendido e aceito integralmente os presentes Termos e Condições de Uso. Caso não concorde com qualquer disposição, deverá abster-se de utilizar a plataforma.<br /><br />
+            O uso continuado da plataforma após eventuais alterações nestes Termos constitui aceitação das novas condições. Alterações relevantes serão comunicadas por e-mail com antecedência mínima de 10 dias.
           </p>
         </div>
 
         <div className="tc-section">
           <div className="tc-section-title">2. Descrição do Serviço</div>
           <p className="tc-text">
-            O MOVEACRE é uma plataforma digital de intermediação entre doadores voluntários de sangue e pessoas que necessitam de doação no estado do Acre, Brasil. A plataforma <strong>não substitui</strong> os serviços do Hemoacre ou de qualquer hemocentro, hospital ou serviço de saúde. O MOVEACRE atua exclusivamente como canal de comunicação e organização.
+            O MOVEACRE é uma plataforma digital gratuita de intermediação entre doadores voluntários de sangue e pessoas que necessitam de doação no estado do Acre, Brasil. A plataforma <strong>não substitui</strong> os serviços do Hemoacre ou de qualquer hemocentro, hospital ou serviço de saúde oficial.<br /><br />
+            O MOVEACRE atua exclusivamente como canal de comunicação e organização, sem qualquer vínculo com o sistema público ou privado de saúde. Por ser um projeto social sem fins lucrativos, não há garantia de nível de serviço (SLA) ou suporte técnico contínuo.
           </p>
+          <div className="tc-alert">
+            <strong>⚠ AVISO IMPORTANTE:</strong> O MOVEACRE não é um dispositivo médico, serviço de emergência ou substituto para o atendimento hospitalar. Em situações de emergência médica, ligue imediatamente para o <strong>SAMU (192)</strong> ou dirija-se ao pronto-socorro mais próximo. Nunca tome decisões médicas baseadas exclusivamente nas informações desta plataforma.
+          </div>
         </div>
 
         <div className="tc-section">
           <div className="tc-section-title">3. Cadastro e Conta</div>
           <p className="tc-text">
-            Para utilizar as funcionalidades da plataforma, o utilizador deve criar uma conta com informações verdadeiras, completas e atualizadas. O utilizador é responsável pela confidencialidade das suas credenciais de acesso e por todas as atividades realizadas na sua conta. O MOVEACRE reserva-se o direito de suspender ou encerrar contas que violem estes termos.
+            Para utilizar as funcionalidades da plataforma, o usuário deve criar uma conta com informações verdadeiras, completas e atualizadas. O usuário é responsável pela confidencialidade das suas credenciais de acesso e por todas as atividades realizadas na sua conta.<br /><br />
+            O MOVEACRE reserva-se o direito de suspender ou encerrar contas que violem estes Termos, sem aviso prévio em casos de violação grave.
           </p>
         </div>
 
         <div className="tc-section">
-          <div className="tc-section-title">4. Responsabilidades do Utilizador</div>
+          <div className="tc-section-title">4. Dados de Saúde e LGPD</div>
           <p className="tc-text">
-            O utilizador compromete-se a:<br /><br />
+            O MOVEACRE trata dados sensíveis de saúde (tipo sanguíneo, histórico de doações, laudos médicos) com base no <strong>consentimento específico e destacado</strong> do usuário, coletado por checkbox separado no momento do cadastro, em conformidade com o Art. 11 da <strong>Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018)</strong>.<br /><br />
+            O tratamento desses dados é realizado exclusivamente para as finalidades descritas na nossa <Link to="/privacidade" style={{ color: '#C8F500' }}>Política de Privacidade</Link>. O usuário pode consultar, corrigir ou solicitar a exclusão dos seus dados a qualquer momento pelo e-mail <strong>moveacre@gmail.com</strong>.
+          </p>
+        </div>
+
+        <div className="tc-section">
+          <div className="tc-section-title">5. Responsabilidades do Usuário</div>
+          <p className="tc-text">
+            O usuário compromete-se a:<br /><br />
             — Fornecer informações verídicas sobre o seu estado de saúde e elegibilidade para doação;<br />
             — Não utilizar a plataforma para fins fraudulentos, ilegais ou que causem dano a terceiros;<br />
-            — Respeitar os critérios médicos de doação estabelecidos pelo Ministério da Saúde do Brasil;<br />
-            — Não criar pedidos de urgência falsos ou com informações incorretas;<br />
-            — Manter os seus dados de perfil atualizados.
+            — Respeitar os critérios médicos de doação estabelecidos pelo Ministério da Saúde do Brasil (consulte a <a href="https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/s/sangue-e-hemoderivados" target="_blank" rel="noopener noreferrer" style={{ color: '#C8F500' }}>portaria vigente</a> e as orientações do <a href="https://hemoacre.ac.gov.br" target="_blank" rel="noopener noreferrer" style={{ color: '#C8F500' }}>Hemoacre</a>);<br />
+            — Não criar pedidos de urgência falsos ou com informações incorretas — tal conduta pode configurar crime nos termos do Art. 171 do Código Penal Brasileiro;<br />
+            — Manter os seus dados de perfil atualizados;<br />
+            — Não tentar acessar áreas restritas da plataforma ou comprometer sua segurança.
           </p>
         </div>
 
         <div className="tc-section">
-          <div className="tc-section-title">5. Limitação de Responsabilidade</div>
+          <div className="tc-section-title">6. Moderação de Conteúdo</div>
+          <p className="tc-text">
+            O MOVEACRE pode remover, sem aviso prévio, qualquer pedido de urgência ou conteúdo que:<br /><br />
+            — Contenha informações falsas ou enganosas;<br />
+            — Viole estes Termos ou a legislação brasileira;<br />
+            — Represente risco à segurança de outros usuários.<br /><br />
+            Para denunciar conteúdo suspeito ou abusivo, entre em contato pelo e-mail <strong>moveacre@gmail.com</strong> com o assunto "Denúncia — [descrição breve]". Analisaremos o relato em até 72 horas.<br /><br />
+            Nos termos do Art. 15 do <strong>Marco Civil da Internet (Lei nº 12.965/2014)</strong>, o MOVEACRE mantém registros de acesso à aplicação pelo prazo de <strong>6 meses</strong>, podendo fornecê-los mediante ordem judicial.
+          </p>
+        </div>
+
+        <div className="tc-section">
+          <div className="tc-section-title">7. Limitação de Responsabilidade</div>
           <p className="tc-text">
             O MOVEACRE não se responsabiliza por:<br /><br />
-            — Decisões médicas tomadas com base nas informações da plataforma;<br />
+            — Decisões médicas tomadas com base nas informações da plataforma — a plataforma não valida clinicamente nenhuma informação de saúde fornecida pelos usuários;<br />
             — A efetivação ou não de doações de sangue;<br />
-            — Danos diretos ou indiretos decorrentes do uso ou impossibilidade de uso da plataforma;<br />
-            — Informações incorretas fornecidas pelos utilizadores;<br />
-            — Indisponibilidade temporária da plataforma por razões técnicas.
+            — Informações incorretas, desatualizadas ou fraudulentas fornecidas por usuários;<br />
+            — Indisponibilidade temporária da plataforma por razões técnicas ou de manutenção;<br />
+            — Danos decorrentes do uso indevido da plataforma em desacordo com estes Termos.<br /><br />
+            A responsabilidade civil do MOVEACRE, quando aplicável, limita-se ao disposto no Marco Civil da Internet e na LGPD. Cláusulas de exclusão de responsabilidade não se aplicam em casos de dolo ou culpa grave comprovados.
           </p>
         </div>
 
         <div className="tc-section">
-          <div className="tc-section-title">6. Propriedade Intelectual</div>
+          <div className="tc-section-title">8. Propriedade Intelectual</div>
           <p className="tc-text">
-            Todo o conteúdo da plataforma MOVEACRE — incluindo marca, logótipo, design, textos e código — é propriedade exclusiva dos seus criadores e está protegido pela legislação brasileira de propriedade intelectual. É proibida a reprodução, distribuição ou utilização sem autorização prévia e expressa.
+            O design, os textos, o código-fonte e o logotipo da plataforma MOVEACRE são de autoria dos seus criadores e protegidos pela <strong>Lei de Direitos Autorais (Lei nº 9.610/1998)</strong> e pela <strong>Lei de Software (Lei nº 9.609/1998)</strong>, independentemente de registro formal.<br /><br />
+            É proibida a reprodução, distribuição ou utilização sem autorização prévia e expressa dos titulares.
           </p>
         </div>
 
         <div className="tc-section">
-          <div className="tc-section-title">7. Modificações</div>
+          <div className="tc-section-title">9. Modificações</div>
           <p className="tc-text">
-            O MOVEACRE reserva-se o direito de alterar estes Termos a qualquer momento. As alterações entram em vigor imediatamente após a publicação na plataforma. O uso continuado da plataforma após as alterações constitui aceitação dos novos termos.
+            O MOVEACRE reserva-se o direito de alterar estes Termos a qualquer momento. Alterações relevantes serão comunicadas por e-mail com antecedência mínima de 10 dias. O uso continuado da plataforma após esse prazo constitui aceitação dos novos termos.
           </p>
         </div>
 
         <div className="tc-section">
-          <div className="tc-section-title">8. Lei Aplicável</div>
+          <div className="tc-section-title">10. Lei Aplicável e Foro</div>
           <p className="tc-text">
-            Estes Termos são regidos pela legislação brasileira. Quaisquer disputas serão submetidas ao foro da comarca de Rio Branco, Acre, Brasil.
+            Estes Termos são regidos pela legislação brasileira, em especial pela LGPD, pelo Marco Civil da Internet e pelo Código de Defesa do Consumidor (quando aplicável). Quaisquer disputas serão submetidas ao foro da comarca de <strong>Rio Branco, Acre, Brasil</strong>, com renúncia expressa a qualquer outro, por mais privilegiado que seja.
           </p>
         </div>
 
         <hr className="tc-divider" />
 
         <p className="tc-text" style={{ fontSize: 12 }}>
-          Dúvidas? Entre em contacto: <strong>moveacre@gmail.com</strong>
+          Dúvidas? Entre em contato: <strong>moveacre@gmail.com</strong>
         </p>
       </div>
 
