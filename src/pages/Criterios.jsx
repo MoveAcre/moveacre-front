@@ -351,16 +351,16 @@ export default function Criterios() {
         <div className="cr-section">
           <div className="cr-section-header">
             <div className="cr-section-icon">+</div>
-            <span className="cr-section-title">Requisitos básicos</span>
+            <span className="cr-section-title">1. Requisitos</span>
           </div>
           <div className="cr-list">
             {[
-              { text: <><strong>Idade:</strong> entre 16 e 69 anos. Menores de 18 anos precisam de autorização dos responsáveis.</> },
-              { text: <><strong>Peso mínimo:</strong> 50 kg.</> },
-              { text: <><strong>Saúde:</strong> estar em boas condições de saúde no dia da doação, sem febre, gripe ou mal-estar.</> },
-              { text: <><strong>Alimentação:</strong> não estar em jejum. Evite alimentos gordurosos nas 4 horas anteriores.</> },
-              { text: <><strong>Sono:</strong> ter dormido pelo menos 6 horas na noite anterior.</> },
-              { text: <><strong>Documentação:</strong> apresentar documento de identidade com foto.</> },
+              { text: <><strong>Idade:</strong> entre 16 e 69 anos. Menores de 18 anos devem estar acompanhados do responsável legal. A partir dos 60 anos, desde que a primeira doação tenha sido feita antes dos 60.</> },
+              { text: <><strong>Peso mínimo:</strong> mais de 50 kg.</> },
+              { text: <><strong>Saúde:</strong> estar em boas condições de saúde.</> },
+              { text: <><strong>Alimentação:</strong> estar alimentado — evitar alimentos gordurosos nas 3 horas que antecedem a doação.</> },
+              { text: <><strong>Sono:</strong> ter dormido pelo menos 6 horas nas últimas 24 horas.</> },
+              { text: <><strong>Documentação:</strong> apresentar documento de identificação com foto emitido por órgão oficial (carteira de identidade, carteira de motorista, carteira de trabalho, CNH digital ou e-título com foto).</> },
             ].map((item, i) => (
               <div className="cr-item cr-item-ok" key={i}>
                 <span className="cr-item-dot-ok">▸</span>
@@ -379,13 +379,13 @@ export default function Criterios() {
           <div className="cr-intervals">
             <div className="cr-interval-card">
               <span className="cr-interval-label">Homens</span>
-              <span className="cr-interval-value">60 dias</span>
-              <span className="cr-interval-sub">Máximo de 4 doações por ano</span>
+              <span className="cr-interval-value">2 meses</span>
+              <span className="cr-interval-sub">Máximo de 4 doações em 12 meses</span>
             </div>
             <div className="cr-interval-card">
               <span className="cr-interval-label">Mulheres</span>
-              <span className="cr-interval-value">90 dias</span>
-              <span className="cr-interval-sub">Máximo de 3 doações por ano</span>
+              <span className="cr-interval-value">3 meses</span>
+              <span className="cr-interval-sub">Máximo de 3 doações em 12 meses</span>
             </div>
           </div>
         </div>
@@ -394,18 +394,24 @@ export default function Criterios() {
         <div className="cr-section">
           <div className="cr-section-header">
             <div className="cr-section-icon">!</div>
-            <span className="cr-section-title">Impedimentos temporários</span>
+            <span className="cr-section-title">3. Impedimentos temporários</span>
           </div>
           <div className="cr-list">
             {[
-              <><strong>Gripe ou resfriado:</strong> aguardar 7 dias após a cura completa.</>,
-              <><strong>Vacinação:</strong> depende do tipo de vacina — entre 48h e 4 semanas de espera.</>,
-              <><strong>Tatuagem ou piercing:</strong> aguardar 12 meses após o procedimento.</>,
-              <><strong>Endoscopia ou colonoscopia:</strong> aguardar 6 meses.</>,
-              <><strong>Gestação e amamentação:</strong> aguardar 12 semanas após o parto e 12 meses após o fim da amamentação.</>,
-              <><strong>Uso de antibióticos:</strong> aguardar 7 dias após o término do tratamento.</>,
+              <><strong>Gripe, coriza, resfriado:</strong> aguardar 14 dias após o desaparecimento dos sintomas.</>,
+              <><strong>Febre:</strong> aguardar 30 dias.</>,
+              <><strong>Gravidez ou suspeita:</strong> aguardar.</>,
+              <><strong>Parto:</strong> aguardar 90 dias após parto normal e 180 dias após cesariana.</>,
+              <><strong>Amamentação:</strong> aguardar até a criança completar 12 meses.</>,
+              <><strong>Tatuagem e/ou piercing:</strong> aguardar 6 meses (piercing na cavidade oral ou região genital impedem a doação e, após sua retirada, é necessário aguardar 12 meses).</>,
+              <><strong>Ingestão de bebida alcoólica:</strong> aguardar 12 horas.</>,
               <><strong>Extração dentária:</strong> aguardar 72 horas.</>,
-              <><strong>Cirurgia de pequeno porte:</strong> aguardar 3 meses.</>,
+              <><strong>Cirurgia de apendicite, hérnia, retirada das amígdalas, varizes:</strong> aguardar 3 meses.</>,
+              <><strong>Cirurgias — retirada de vesícula, útero, rins, tireoide, cólon e redução de fraturas, politraumatismos sem sequelas graves:</strong> aguardar 6 meses.</>,
+              <><strong>Transfusão de sangue:</strong> aguardar 12 meses.</>,
+              <><strong>Vacinação:</strong> o tempo de impedimento varia de acordo com o tipo de vacina.</>,
+              <><strong>Exames/procedimentos com utilização de endoscópio:</strong> aguardar 6 meses.</>,
+              <><strong>Exposição a situações de risco acrescido para infecções sexualmente transmissíveis:</strong> 12 meses após a exposição.</>,
             ].map((text, i) => (
               <div className="cr-item cr-item-info" key={i}>
                 <span className="cr-item-dot-info">◦</span>
@@ -413,21 +419,24 @@ export default function Criterios() {
               </div>
             ))}
           </div>
+          <div style={{marginTop:16, background:'#111', borderLeft:'3px solid #555', padding:'12px 16px'}}>
+            <p style={{fontFamily:"'JetBrains Mono',monospace", fontSize:11, color:'#666', lineHeight:1.6}}>
+              Tempo de espera para quem tomou vacina contra COVID-19: Coronavac 48h · AstraZeneca 7 dias · Pfizer 7 dias · Janssen-Cilang 7 dias
+            </p>
+          </div>
         </div>
 
         {/* Impedimentos permanentes */}
         <div className="cr-section">
           <div className="cr-section-header">
             <div className="cr-section-icon">x</div>
-            <span className="cr-section-title">Impedimentos permanentes</span>
+            <span className="cr-section-title">2. Impedimentos definitivos</span>
           </div>
           <div className="cr-list">
             {[
-              <><strong>Hepatite B ou C</strong> após os 11 anos de idade.</>,
-              <><strong>HIV/AIDS, HTLV I e II.</strong></>,
-              <><strong>Doença de Chagas.</strong></>,
-              <><strong>Uso de drogas injetáveis</strong> (mesmo que no passado).</>,
-              <><strong>Doenças cardíacas graves</strong> ou coagulopatias.</>,
+              <><strong>Ter passado por um quadro de hepatite após os 11 anos de idade.</strong></>,
+              <><strong>Evidência clínica ou laboratorial das seguintes doenças transmissíveis pelo sangue:</strong> Hepatites B e C, AIDS (vírus do HIV), doenças associadas ao vírus HTLV I e II e Doença de Chagas.</>,
+              <><strong>Uso de drogas ilícitas injetáveis.</strong></>,
             ].map((text, i) => (
               <div className="cr-item cr-item-no" key={i}>
                 <span className="cr-item-dot-no">✕</span>
