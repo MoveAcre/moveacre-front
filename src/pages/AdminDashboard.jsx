@@ -338,12 +338,12 @@ export default function AdminDashboard() {
               </select>
               <select style={s.select} value={filtros.online} onChange={e => setFiltro("online", e.target.value)}>
                 <option value="">Status</option>
-                <option value="1">Online</option>
-                <option value="0">Offline</option>
+                <option value="1">Ativas</option>
+                <option value="0">Desativadas</option>
               </select>
               <input style={s.input} placeholder="Buscar nome ou email..." value={filtros.busca} onChange={e => setFiltro("busca", e.target.value)} />
             </div>
-            {stats && <StatBoxes items={[["TOTAL", stats.total], ["DOADORES", stats.doadores], ["RECEPTORES", stats.receptores], ["ONLINE", stats.online]]} />}
+            {stats && <StatBoxes items={[["TOTAL", stats.total], ["ATIVAS", stats.doadores], ["DESATIVADAS", stats.receptores], ["ONLINE", stats.online]]} />}
             <TabelaUsuarios rows={usuarios} onDeletar={deletarUsuario} onDesativar={desativarUsuario} onReativar={reativarUsuario} />
           </>
         )}
