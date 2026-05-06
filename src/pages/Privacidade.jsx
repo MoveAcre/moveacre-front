@@ -136,8 +136,9 @@ export default function Privacidade() {
           <p className="pv-text">
             Os dados são mantidos enquanto a conta estiver ativa e enquanto forem necessários para as finalidades descritas nesta política. Após a desativação da conta:<br /><br />
             — <strong>Logs de acesso</strong> são retidos por <strong>6 meses</strong>, conforme obrigação do Art. 15 do Marco Civil da Internet (Lei nº 12.965/2014);<br />
-            — <strong>Dados cadastrais e de saúde</strong> são retidos por até <strong>5 anos</strong> para fins de defesa em processos judiciais ou administrativos, conforme prazos prescricionais do Código Civil Brasileiro;<br />
-            — Findo o prazo aplicável, os dados são eliminados permanentemente, salvo obrigação legal em contrário.<br /><br />
+            — <strong>Dados cadastrais básicos</strong> (nome, email, tipo sanguíneo) são retidos por até <strong>12 meses</strong> para fins de defesa em eventuais processos administrativos;<br />
+            — <strong>Laudos médicos e atestados</strong> são <strong>excluídos imediatamente</strong> após a desativação da conta ou, no máximo, em <strong>30 dias</strong>. Não há justificativa legal para retenção prolongada desses documentos após o encerramento da relação;<br />
+            — Findo o prazo aplicável, os dados são eliminados permanentemente, salvo obrigação legal expressa em contrário.<br /><br />
             Encerrada a finalidade do tratamento e não havendo obrigação legal de retenção, os dados são excluídos imediatamente.
           </p>
         </div>
