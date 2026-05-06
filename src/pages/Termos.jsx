@@ -56,11 +56,12 @@ export default function Termos() {
         <div className="tc-section">
           <div className="tc-section-title">2. Descrição do Serviço</div>
           <p className="tc-text">
-            O MOVEACRE é uma plataforma digital gratuita de intermediação entre doadores voluntários de sangue e pessoas que necessitam de doação no estado do Acre, Brasil. A plataforma <strong>não substitui</strong> os serviços do Hemoacre ou de qualquer hemocentro, hospital ou serviço de saúde oficial.<br /><br />
-            O MOVEACRE atua exclusivamente como canal de comunicação e organização, sem qualquer vínculo com o sistema público ou privado de saúde. Por ser um projeto social sem fins lucrativos, não há garantia de nível de serviço (SLA) ou suporte técnico contínuo.
+            O MOVEACRE é uma plataforma digital <strong>gratuita e sem fins lucrativos</strong> de intermediação entre doadores voluntários de sangue e pessoas que necessitam de doação no estado do Acre, Brasil. A plataforma <strong>não substitui</strong> os serviços do Hemoacre ou de qualquer hemocentro, hospital ou serviço de saúde oficial.<br /><br />
+            O MOVEACRE atua exclusivamente como canal de comunicação e organização, <strong>sem qualquer vínculo institucional com o sistema público ou privado de saúde</strong>. Não garantimos a efetivação de doações — a decisão de doar é sempre voluntária e exclusiva do doador. Por ser um projeto social sem fins lucrativos, não há garantia de nível de serviço (SLA) ou suporte técnico contínuo.<br /><br />
+            O projeto pode ser descontinuado a qualquer momento. Em caso de encerramento definitivo, os usuários serão notificados com antecedência mínima de 30 dias e todos os dados pessoais serão eliminados conforme nossa Política de Privacidade.
           </p>
           <div className="tc-alert">
-            <strong>⚠ AVISO IMPORTANTE:</strong> O MOVEACRE não é um dispositivo médico, serviço de emergência ou substituto para o atendimento hospitalar. Em situações de emergência médica, ligue imediatamente para o <strong>SAMU (192)</strong> ou dirija-se ao pronto-socorro mais próximo. Nunca tome decisões médicas baseadas exclusivamente nas informações desta plataforma.
+            <strong>AVISO IMPORTANTE:</strong> O MOVEACRE não é um dispositivo médico, serviço de emergência ou substituto para o atendimento hospitalar. Em situações de emergência médica, ligue imediatamente para o <strong>SAMU (192)</strong> ou dirija-se ao pronto-socorro mais próximo. Nunca tome decisões médicas baseadas exclusivamente nas informações desta plataforma.
           </div>
         </div>
 
@@ -75,8 +76,9 @@ export default function Termos() {
         <div className="tc-section">
           <div className="tc-section-title">4. Dados de Saúde e LGPD</div>
           <p className="tc-text">
-            O MOVEACRE trata dados sensíveis de saúde (tipo sanguíneo, histórico de doações, laudos médicos) com base no <strong>consentimento específico e destacado</strong> do usuário, coletado por checkbox separado no momento do cadastro, em conformidade com o Art. 11 da <strong>Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018)</strong>.<br /><br />
-            O tratamento desses dados é realizado exclusivamente para as finalidades descritas na nossa <Link to="/privacidade" style={{ color: '#C8F500' }}>Política de Privacidade</Link>. O usuário pode consultar, corrigir ou solicitar a exclusão dos seus dados a qualquer momento pelo e-mail <strong>moveacre@gmail.com</strong>.
+            O MOVEACRE trata dados sensíveis de saúde (tipo sanguíneo, histórico de doações, laudos médicos) com base no <strong>consentimento específico, livre, informado e destacado</strong> do usuário, coletado por checkbox separado da aceitação geral destes Termos, em conformidade com o Art. 11 da <strong>Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018)</strong>.<br /><br />
+            O tratamento desses dados é realizado exclusivamente para as finalidades descritas na nossa <Link to="/privacidade" style={{ color: '#C8F500' }}>Política de Privacidade</Link>. O usuário pode consultar, corrigir ou solicitar a exclusão dos seus dados a qualquer momento pelo e-mail <strong>moveacre@gmail.com</strong>.<br /><br />
+            <strong>Medidas de segurança técnica implementadas:</strong> autenticação via JWT com verificação de assinatura criptográfica (RS256), criptografia em trânsito (TLS/HTTPS) e em repouso (AES-256), controle de acesso por objeto (cada usuário acessa apenas seus próprios dados) e validação de entrada em todas as rotas da API. Em caso de incidente de segurança com risco relevante aos titulares, comunicaremos a ocorrência à ANPD e aos usuários afetados em até 72 horas.
           </p>
         </div>
 
