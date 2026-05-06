@@ -47,7 +47,7 @@ export default function ListarUrgencias() {
               }}>
                 {u.tipo_necessario}
               </span>
-              <p className="label-tecnica" style={{ color: "var(--acao-principal)" }}>PACIENTE: {u.paciente_nome}</p>
+              <p className="label-tecnica" style={{ color: "var(--acao-principal)" }}>PACIENTE: {u.paciente_iniciais}</p>
               <p style={{ margin: "8px 0" }}>NIVEL: {u.nivel_urgencia_sugerido}</p>
               <p className="label-tecnica">CONTATO: {u.contato_solicitante}</p>
             </div>
