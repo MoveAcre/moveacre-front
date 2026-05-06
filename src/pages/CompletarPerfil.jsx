@@ -341,6 +341,7 @@ export default function CompletarPerfil() {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [serverError, setServerError] = useState("");
+  const [showAviso, setShowAviso] = useState(true);
 
   const email = user?.primaryEmailAddress?.emailAddress || "";
 
@@ -376,7 +377,6 @@ export default function CompletarPerfil() {
     const errs = {};
     if (!form.nome_completo || form.nome_completo.trim().length < 3)
       errs.nome_completo = "Informe seu nome completo.";
-    if (!form.tipo_sangue) errs.tipo_sangue = "Selecione seu tipo sanguíneo.";
     if (!form.genero) errs.genero = "Selecione seu gênero.";
     if (!form.telefone || !validateTelefone(form.telefone))
       errs.telefone = "Informe um telefone válido com DDD (ex: 68 99999-0000).";
@@ -448,6 +448,38 @@ export default function CompletarPerfil() {
     <div className="cp-root">
       <style>{styles}</style>
 
+      {/* Modal de aviso inicial */}
+      {showAviso && (
+        <div style={{ position:'fixed', inset:0, background:'rgba(0,0,0,0.95)', display:'flex', alignItems:'center', justifyContent:'center', zIndex:1000, padding:'20px' }}>
+          <div style={{ background:'#0D0D0D', border:'1px solid #222', borderLeft:'4px solid #C8F500', padding:'40px', maxWidth:'480px', width:'100%' }}>
+            <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:'10px', color:'#C8F500', letterSpacing:'0.1em', marginBottom:'16px' }}>// AVISO IMPORTANTE</div>
+            <h2 style={{ fontFamily:"'Barlow Condensed',sans-serif", fontWeight:900, fontSize:'28px', textTransform:'uppercase', color:'#F5F5F0', marginBottom:'20px', lineHeight:1 }}>
+              Antes de continuar
+            </h2>
+            <div style={{ display:'flex', flexDirection:'column', gap:'12px', marginBottom:'28px' }}>
+              <p style={{ fontSize:'13px', color:'#888', lineHeight:1.7, borderLeft:'2px solid #333', paddingLeft:'12px' }}>
+                O MOVEACRE é uma plataforma de <strong style={{color:'#F5F5F0'}}>gestão e envio de notificações</strong>. Não somos um serviço de saúde e não temos vínculo direto com o Hemoacre ou qualquer hemocentro.
+              </p>
+              <p style={{ fontSize:'13px', color:'#888', lineHeight:1.7, borderLeft:'2px solid #333', paddingLeft:'12px' }}>
+                <strong style={{color:'#F5F5F0'}}>Não garantimos a efetivação de doações.</strong> Ao receber uma notificação, o doador decide livremente se vai ou não ao Hemoacre. A doação ocorre exclusivamente nas dependências do hemocentro.
+              </p>
+              <p style={{ fontSize:'13px', color:'#888', lineHeight:1.7, borderLeft:'2px solid #333', paddingLeft:'12px' }}>
+                Ao continuar, você confirma que leu e aceita nossos{' '}
+                <a href="/termos" target="_blank" style={{color:'#C8F500'}}>Termos de Uso</a>
+                {' '}e nossa{' '}
+                <a href="/privacidade" target="_blank" style={{color:'#C8F500'}}>Política de Privacidade</a>.
+              </p>
+            </div>
+            <button
+              onClick={() => setShowAviso(false)}
+              style={{ width:'100%', background:'#C8F500', color:'#0A0A0A', border:'none', padding:'16px', fontFamily:"'Barlow Condensed',sans-serif", fontWeight:900, fontSize:'18px', textTransform:'uppercase', cursor:'pointer' }}
+            >
+              ENTENDI, CONTINUAR
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="cp-logo">MOVEACRE</div>
 
       {/* Banner de alerta obrigatório */}
@@ -500,10 +532,10 @@ export default function CompletarPerfil() {
         </div>
 
         {/* Tipo sanguíneo */}
-        <div className="cp-section-label">Informações médicas <span className="cp-required">*</span></div>
+        <div className="cp-section-label">Informações médicas</div>
 
         <div className="cp-field">
-          <label className="cp-label">Tipo Sanguíneo <span className="cp-required">*</span></label>
+          <label className="cp-label">Tipo Sanguíneo <span style={{color:'#555', fontSize:'9px'}}>(opcional — pode preencher depois)</span></label>
           <div className="cp-type-grid">
             {TIPOS_SANGUE.map(t => (
               <button

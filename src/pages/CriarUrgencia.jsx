@@ -227,6 +227,7 @@ export default function CriarUrgencia() {
   const [loading, setLoading] = useState(false);
   const [fileName, setFileName] = useState(null);
   const [showDoacaoModal, setShowDoacaoModal] = useState(false);
+  const [showAvisoModal, setShowAvisoModal] = useState(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -263,6 +264,37 @@ export default function CriarUrgencia() {
     <>
       <style>{styles}</style>
       <div className="cu-root">
+
+        {/* MODAL: Aviso sobre o serviço */}
+        {showAvisoModal && (
+          <div style={{ position:'fixed', inset:0, background:'rgba(0,0,0,0.95)', display:'flex', alignItems:'center', justifyContent:'center', zIndex:1000, padding:'20px' }}>
+            <div style={{ background:'#0D0D0D', border:'1px solid #222', borderLeft:'4px solid #C8F500', padding:'40px', maxWidth:'480px', width:'100%' }}>
+              <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:'10px', color:'#C8F500', letterSpacing:'0.1em', marginBottom:'16px' }}>// AVISO IMPORTANTE</div>
+              <h2 style={{ fontFamily:"'Barlow Condensed',sans-serif", fontWeight:900, fontSize:'26px', textTransform:'uppercase', color:'#F5F5F0', marginBottom:'20px', lineHeight:1 }}>
+                Sobre os pedidos de doação
+              </h2>
+              <div style={{ display:'flex', flexDirection:'column', gap:'12px', marginBottom:'28px' }}>
+                <p style={{ fontSize:'13px', color:'#888', lineHeight:1.7, borderLeft:'2px solid #333', paddingLeft:'12px' }}>
+                  O MOVEACRE <strong style={{color:'#F5F5F0'}}>não garante a efetivação de doações</strong>. Somos uma plataforma de notificação — conectamos seu pedido a doadores compatíveis, mas a decisão de doar é sempre do doador.
+                </p>
+                <p style={{ fontSize:'13px', color:'#888', lineHeight:1.7, borderLeft:'2px solid #333', paddingLeft:'12px' }}>
+                  <strong style={{color:'#F5F5F0'}}>Não temos vínculo com o Hemoacre</strong> ou qualquer serviço de saúde. Em emergências médicas, ligue para o <strong style={{color:'#F5F5F0'}}>SAMU (192)</strong> ou vá ao pronto-socorro.
+                </p>
+                <p style={{ fontSize:'13px', color:'#888', lineHeight:1.7, borderLeft:'2px solid #333', paddingLeft:'12px' }}>
+                  Pedidos falsos ou com informações incorretas violam nossos{' '}
+                  <a href="/termos" target="_blank" style={{color:'#C8F500'}}>Termos de Uso</a>
+                  {' '}e podem ser removidos.
+                </p>
+              </div>
+              <button
+                onClick={() => setShowAvisoModal(false)}
+                style={{ width:'100%', background:'#C8F500', color:'#0A0A0A', border:'none', padding:'16px', fontFamily:"'Barlow Condensed',sans-serif", fontWeight:900, fontSize:'18px', textTransform:'uppercase', cursor:'pointer' }}
+              >
+                ENTENDI, CONTINUAR
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* MODAL: Você já doou sangue? */}
         {showDoacaoModal && (
