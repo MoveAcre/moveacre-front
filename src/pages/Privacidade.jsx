@@ -63,22 +63,24 @@ export default function Privacidade() {
         </div>
 
         <div className="pv-section">
-          <div className="pv-section-title">3. Finalidade do Tratamento</div>
+          <div className="pv-section-title">3. Finalidade do Tratamento e Base Legal</div>
           <p className="pv-text">
-            Os dados são utilizados exclusivamente para:<br /><br />
-            — Gerenciar o cadastro e perfil do usuário na plataforma;<br />
-            — Enviar notificações de urgência compatíveis com o tipo sanguíneo;<br />
-            — Verificar a elegibilidade para doação de sangue;<br />
-            — Manter o histórico de doações do usuário;<br />
-            — Garantir a segurança e integridade da plataforma.
+            Os dados são utilizados exclusivamente para as finalidades abaixo, com as respectivas bases legais do Art. 7 da LGPD:<br /><br />
+            — <strong>Gerenciar cadastro e perfil</strong> — base legal: execução de contrato (Art. 7, V);<br />
+            — <strong>Enviar notificações de urgência compatíveis com o tipo sanguíneo</strong> — base legal: consentimento (Art. 7, I) e legítimo interesse (Art. 7, IX);<br />
+            — <strong>Verificar elegibilidade para doação</strong> — base legal: consentimento para dados sensíveis (Art. 11, I);<br />
+            — <strong>Manter histórico de doações</strong> — base legal: execução de contrato (Art. 7, V);<br />
+            — <strong>Logs de acesso e segurança</strong> — base legal: cumprimento de obrigação legal (Art. 7, II — Marco Civil da Internet, Art. 15);<br />
+            — <strong>Dados técnicos</strong> (IP, dispositivo) — base legal: legítimo interesse para segurança da plataforma (Art. 7, IX).
           </p>
         </div>
 
         <div className="pv-section">
-          <div className="pv-section-title">4. Dados de Saúde e Consentimento</div>
+          <div className="pv-section-title">4. Dados de Saúde, Consentimento e Menores de Idade</div>
           <p className="pv-text">
             Os dados de saúde (tipo sanguíneo, histórico de doações, atestados e laudos médicos) são considerados <strong>dados sensíveis</strong> nos termos do Art. 11 da LGPD. O seu tratamento é realizado com base no <strong>consentimento específico, livre, informado e inequívoco</strong> do titular, coletado por meio de checkbox destacado no momento do cadastro, separado da aceitação geral dos Termos de Uso.<br /><br />
             O consentimento é solicitado nos seguintes termos: <em>"Dou meu consentimento livre e esclarecido para o tratamento dos meus dados de saúde (tipo sanguíneo, histórico de doações e laudos médicos) pelo MOVEACRE, exclusivamente para fins de gestão de doação de sangue, conforme descrito na Política de Privacidade."</em><br /><br />
+            <strong>Menores de idade:</strong> A plataforma permite o cadastro de doadores a partir de 16 anos, conforme critérios do Ministério da Saúde. Para usuários entre 16 e 17 anos, o consentimento para tratamento de dados deve ser fornecido pelos pais ou responsáveis legais, nos termos do Art. 14 da LGPD. O MOVEACRE não coleta dados de crianças menores de 16 anos. Caso identifiquemos cadastro de menor sem autorização, os dados serão excluídos imediatamente.<br /><br />
             Esses dados nunca são compartilhados com terceiros para fins comerciais.
           </p>
         </div>
@@ -93,7 +95,7 @@ export default function Privacidade() {
             &nbsp;&nbsp;• <strong>Clerk</strong> (autenticação de usuários) — servidores nos EUA;<br />
             &nbsp;&nbsp;• <strong>Resend</strong> (envio de e-mails transacionais) — servidores nos EUA.<br /><br />
             — <strong>Autoridades competentes</strong> quando exigido por lei ou ordem judicial.<br /><br />
-            <strong>Transferência Internacional:</strong> Em razão dos sub-processadores listados acima, os seus dados podem ser transferidos e processados em servidores localizados fora do Brasil, especialmente nos Estados Unidos. Essa transferência ocorre com base em garantias contratuais adequadas e em conformidade com o Art. 33 da LGPD, assegurando nível de proteção equivalente ao exigido pela legislação brasileira.
+            <strong>Transferência Internacional:</strong> Em razão dos sub-processadores listados acima, os seus dados podem ser transferidos e processados em servidores localizados fora do Brasil, especialmente nos Estados Unidos. Os EUA não possuem legislação federal equivalente à LGPD. A transferência ocorre com base no <strong>Art. 33, II da LGPD</strong> (garantias contratuais adequadas), por meio das <strong>cláusulas contratuais padrão</strong> (Standard Contractual Clauses — SCCs) adotadas por cada sub-processador em seus Termos de Serviço e Acordos de Processamento de Dados (DPA). O titular pode solicitar cópia dos mecanismos de garantia aplicáveis pelo e-mail <strong>moveacre@gmail.com</strong>.
           </p>
         </div>
 
@@ -101,8 +103,8 @@ export default function Privacidade() {
           <div className="pv-section-title">6. Armazenamento e Segurança</div>
           <p className="pv-text">
             Os dados são armazenados em servidores seguros com <strong>criptografia em trânsito (TLS/HTTPS)</strong> e <strong>criptografia em repouso (AES-256)</strong>, conforme implementado pelo Supabase. Os arquivos enviados (atestados e laudos) são armazenados no Supabase Storage com controle de acesso restrito.<br /><br />
-            Implementamos medidas técnicas e organizacionais para proteger os dados contra acesso não autorizado, perda ou destruição. Dado o caráter sensível dos dados de saúde tratados, mantemos internamente um <strong>Relatório de Impacto à Proteção de Dados Pessoais (RIPD)</strong>, conforme recomendado pelo Art. 38 da LGPD.<br /><br />
-            Em caso de incidente de segurança que possa acarretar risco ou dano relevante aos titulares, comunicaremos a ocorrência à ANPD e aos usuários afetados dentro do prazo legal.
+            Implementamos medidas técnicas e organizacionais para proteger os dados contra acesso não autorizado, perda ou destruição. Dado o caráter sensível dos dados de saúde tratados, mantemos internamente um <strong>Relatório de Impacto à Proteção de Dados Pessoais (RIPD)</strong>, conforme recomendado pelo Art. 38 da LGPD. O RIPD pode ser solicitado pelo titular ou pela ANPD — encaminhe a solicitação para <strong>moveacre@gmail.com</strong> com o assunto "RIPD — Solicitação".<br /><br />
+            Em caso de incidente de segurança que possa acarretar risco ou dano relevante aos titulares, comunicaremos a ocorrência à ANPD e aos usuários afetados em até <strong>72 horas</strong> após a ciência do incidente.
           </p>
         </div>
 
@@ -116,7 +118,7 @@ export default function Privacidade() {
             — <strong>Portabilidade:</strong> receber os seus dados em formato estruturado;<br />
             — <strong>Informação:</strong> ser informado sobre com quem seus dados são compartilhados;<br />
             — <strong>Oposição:</strong> opor-se ao tratamento realizado em desconformidade com a LGPD.<br /><br />
-            Para exercer esses direitos, entre em contato com nosso Encarregado de Dados (DPO) pelo e-mail <strong>moveacre@gmail.com</strong>, com o assunto "LGPD — [Direito Solicitado]". Responderemos em até 15 dias úteis.
+            Para exercer esses direitos, entre em contato com nosso Encarregado de Dados (DPO) pelo e-mail <strong>moveacre@gmail.com</strong>, com o assunto "LGPD — [Direito Solicitado]". Responderemos em até <strong>15 dias corridos</strong>.
           </p>
         </div>
 
