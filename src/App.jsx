@@ -122,25 +122,27 @@ const styles = `
     border-left: 2px solid #1e1e1e; padding-left: 20px;
   }
   .ma-manifesto em { color: #C8F500; font-style: normal; font-weight: 500; }
-  .ma-cta-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 56px; }
+  .ma-cta-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: stretch; margin-bottom: 56px; }
   .ma-btn-primary {
     background: #C8F500; color: #0A0A0A; border: none;
     padding: 18px 44px;
     font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900; font-size: 20px;
+    font-weight: 900; font-size: 18px;
     text-transform: uppercase; cursor: pointer;
     letter-spacing: 0.05em; transition: 0.15s;
+    flex: 1; min-width: 200px;
   }
   .ma-btn-primary:hover { background: #d4ff00; transform: translateY(-1px); }
   .ma-btn-secondary {
     background: transparent; color: #777;
     border: 1px solid #252525;
-    padding: 18px 32px;
+    padding: 18px 44px;
     font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700; font-size: 16px;
+    font-weight: 700; font-size: 18px;
     text-transform: uppercase; cursor: pointer;
     letter-spacing: 0.05em; transition: 0.15s;
-    text-decoration: none; display: inline-flex; align-items: center;
+    text-decoration: none; display: inline-flex; align-items: center; justify-content: center;
+    flex: 1; min-width: 200px;
   }
   .ma-btn-secondary:hover { border-color: #C8F500; color: #C8F500; }
 

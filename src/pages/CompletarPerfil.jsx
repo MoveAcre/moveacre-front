@@ -672,7 +672,7 @@ export default function CompletarPerfil() {
             <a href="/termos" target="_blank" style={{ color:"#C8F500", textDecoration:"none" }}>Termos e Condições</a>
             {" "}e a{" "}
             <a href="/privacidade" target="_blank" style={{ color:"#C8F500", textDecoration:"none" }}>Política de Privacidade</a>
-            {" "}do MOVEACRE.
+            {" "}do MOVEACRE, e <strong style={{color:"#888"}}>consinto com o tratamento dos meus dados de saúde</strong> para fins de notificação de doação de sangue.
           </label>
         </div>
         {errors.termos && <span style={{ fontFamily:"JetBrains Mono,monospace", fontSize:10, color:"#FF4444", letterSpacing:"0.05em" }}>{errors.termos}</span>}
