@@ -10,6 +10,7 @@ import DoadorDashboard from "./pages/DoadorDashboard";
 import Perfil from "./pages/Perfil";
 import HistoricoDoador from "./pages/HistoricoDoador";
 import EditarPedido from "./pages/EditarPedido";
+import EditarConta from "./pages/EditarConta";
 import Beneficios from "./pages/Beneficios";
 import Criterios from "./pages/Criterios";
 import Sobre from "./pages/Sobre";
@@ -18,7 +19,9 @@ import Privacidade from "./pages/Privacidade";
 import Logo from "./components/Logo";
 import { useIsAdmin } from "./hooks/useIsAdmin";
 
-const ADMIN_EMAILS = (import.meta.env.VITE_ADMIN_EMAILS || "").split(",").map(e => e.trim()).filter(Boolean);
+// FIX ALTO: removida VITE_ADMIN_EMAILS — variáveis VITE_* são incluídas no
+// bundle JS público e expõem o email do admin para qualquer visitante.
+// A verificação de admin deve ser exclusivamente no backend via /auth/is-admin.
 
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap');
@@ -299,6 +302,9 @@ const styles = `
   }
 `;
 
+// FIX ALTO: AdminRoute usa verificação backend (useIsAdmin → /auth/is-admin)
+// e protege com <SignedIn> do Clerk para garantir que apenas usuários
+// autenticados E admins acessem o painel.
 const AdminRoute = () => {
   const { isLoaded, isSignedIn } = useUser();
   const { isAdmin, loading } = useIsAdmin();
@@ -308,8 +314,17 @@ const AdminRoute = () => {
   return <AdminDashboard />;
 };
 
+// FIX ALTO: ProtectedRoute garante que rotas privadas redirecionam para /
+// em vez de renderizar e falhar silenciosamente para usuários não logados.
+const ProtectedRoute = ({ children }) => {
+  const { isLoaded, isSignedIn } = useUser();
+  if (!isLoaded) return null;
+  if (!isSignedIn) return <Navigate to="/" replace />;
+  return children;
+};
+
 const Index = () => {
-  const { isLoaded, isSignedIn, user } = useUser();
+  const { isLoaded, isSignedIn } = useUser();
   const [menuAberto, setMenuAberto] = useState(false);
 
   if (!isLoaded) return null;
@@ -333,7 +348,6 @@ const Index = () => {
             </button>
           </SignInButton>
         </div>
-        {/* Hamburguer mobile */}
         <button className="ma-hamburger" onClick={() => setMenuAberto(m => !m)}>
           <span /><span /><span />
         </button>
@@ -422,13 +436,32 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/admin" element={<AdminRoute />} />
-        <Route path="/minhas-urgencias" element={<MinhasUrgencias />} />
-        <Route path="/criar-urgencia" element={<SyncWrapper><CriarUrgencia /></SyncWrapper>} />
+
+        {/* FIX ALTO: rotas privadas protegidas com ProtectedRoute */}
+        <Route path="/minhas-urgencias" element={
+          <ProtectedRoute><MinhasUrgencias /></ProtectedRoute>
+        } />
+        <Route path="/criar-urgencia" element={
+          <ProtectedRoute><SyncWrapper><CriarUrgencia /></SyncWrapper></ProtectedRoute>
+        } />
         <Route path="/completar-perfil" element={<CompletarPerfil />} />
-        <Route path="/perfil" element={<Perfil />} />
-        <Route path="/historico-doador" element={<HistoricoDoador />} />
-        <Route path="/editar-pedido/:id" element={<EditarPedido />} />
-        <Route path="/listar-urgencias" element={<MinhasUrgencias />} />
+        <Route path="/perfil" element={
+          <ProtectedRoute><Perfil /></ProtectedRoute>
+        } />
+        <Route path="/historico-doador" element={
+          <ProtectedRoute><HistoricoDoador /></ProtectedRoute>
+        } />
+        <Route path="/editar-conta" element={
+          <ProtectedRoute><EditarConta /></ProtectedRoute>
+        } />
+        <Route path="/editar-pedido/:id" element={
+          <ProtectedRoute><EditarPedido /></ProtectedRoute>
+        } />
+        <Route path="/listar-urgencias" element={
+          <ProtectedRoute><MinhasUrgencias /></ProtectedRoute>
+        } />
+
+        {/* Rotas públicas */}
         <Route path="/beneficios" element={<Beneficios />} />
         <Route path="/criterios" element={<Criterios />} />
         <Route path="/sobre" element={<Sobre />} />
