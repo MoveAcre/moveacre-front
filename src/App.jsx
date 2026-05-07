@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, Link } from "react-router-dom";
-import { SignInButton, SignedIn, SignedOut, UserButton, useUser } from "@clerk/clerk-react";
+import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton, useUser } from "@clerk/clerk-react";
 import { useState } from "react";
 import AdminDashboard from "./pages/AdminDashboard";
 import MinhasUrgencias from "./pages/MinhasUrgencias";
@@ -439,9 +439,9 @@ const Index = () => {
           <SignInButton mode="modal">
             <button className="ma-btn-nav-ghost">Entrar</button>
           </SignInButton>
-          <SignInButton mode="modal">
+          <SignUpButton mode="modal">
             <button className="ma-btn-nav-cta">Criar Conta</button>
-          </SignInButton>
+          </SignUpButton>
         </div>
         <button className="ma-hamburger" onClick={() => setMenuAberto(m => !m)} aria-label="Menu">
           <span /><span /><span />
@@ -452,9 +452,9 @@ const Index = () => {
         <div className="ma-mobile-menu">
           <Link to="/criterios" className="ma-mobile-link" onClick={() => setMenuAberto(false)}>Quem pode doar</Link>
           <a href="#sobre" className="ma-mobile-link" onClick={e => { e.preventDefault(); setMenuAberto(false); setTimeout(() => document.getElementById('sobre')?.scrollIntoView({ behavior: 'smooth' }), 100); }}>Sobre nós</a>
-          <SignInButton mode="modal">
+          <SignUpButton mode="modal">
             <button className="ma-mobile-cta" onClick={() => setMenuAberto(false)}>Criar Conta</button>
-          </SignInButton>
+          </SignUpButton>
         </div>
       )}
 
@@ -474,12 +474,12 @@ const Index = () => {
             e faça parte de uma rede que realmente salva vidas no Acre.
           </p>
           <div className="ma-cta-row">
-            <SignInButton mode="modal">
+            <SignUpButton mode="modal">
               <button className="ma-btn-primary">Quero ser doador</button>
-            </SignInButton>
-            <SignInButton mode="modal">
+            </SignUpButton>
+            <SignUpButton mode="modal">
               <button className="ma-btn-secondary">Preciso de sangue</button>
-            </SignInButton>
+            </SignUpButton>
           </div>
         </div>
 
@@ -657,9 +657,9 @@ const Index = () => {
           Cada pessoa cadastrada é uma resposta que o Acre não vai precisar implorar.
         </p>
         <div className="ma-cta-row" style={{ justifyContent: 'center', marginBottom: 0 }}>
-          <SignInButton mode="modal">
+          <SignUpButton mode="modal">
             <button className="ma-btn-primary">Quero ser doador</button>
-          </SignInButton>
+          </SignUpButton>
           <Link to="/criterios" className="ma-btn-secondary">Ver critérios</Link>
         </div>
       </div>

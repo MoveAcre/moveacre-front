@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { SignInButton, useUser } from "@clerk/clerk-react";
+import { SignInButton, SignUpButton, useUser } from "@clerk/clerk-react";
 import Logo from "../components/Logo";
 
 const styles = `
@@ -476,9 +476,9 @@ export default function Sobre() {
               <SignInButton mode="modal">
                 <button className="sb-btn-nav-enter">Entrar</button>
               </SignInButton>
-              <SignInButton mode="modal">
+              <SignUpButton mode="modal">
                 <button className="sb-btn-nav-cta">Criar Conta</button>
-              </SignInButton>
+              </SignUpButton>
             </>
           )}
         </div>
@@ -493,9 +493,9 @@ export default function Sobre() {
           <Link to="/criterios" className="sb-mobile-link" onClick={() => setMenuAberto(false)}>Quem pode doar</Link>
           <Link to="/sobre" className="sb-mobile-link" onClick={() => setMenuAberto(false)}>Sobre nós</Link>
           {!isSignedIn && (
-            <SignInButton mode="modal">
+            <SignUpButton mode="modal">
               <button className="sb-mobile-cta" onClick={() => setMenuAberto(false)}>Criar Conta</button>
-            </SignInButton>
+            </SignUpButton>
           )}
         </div>
       )}
@@ -577,9 +577,9 @@ export default function Sobre() {
                 <button className="sb-btn-primary">Ir para meu painel</button>
               </Link>
             ) : (
-              <SignInButton mode="modal">
+              <SignUpButton mode="modal">
                 <button className="sb-btn-primary">Quero ser doador</button>
-              </SignInButton>
+              </SignUpButton>
             )}
           </div>
         </div>

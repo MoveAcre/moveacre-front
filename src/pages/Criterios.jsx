@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { SignInButton, useUser } from "@clerk/clerk-react";
+import { SignInButton, SignUpButton, useUser } from "@clerk/clerk-react";
 import Logo from "../components/Logo";
 
 const styles = `
@@ -519,9 +519,9 @@ export default function Criterios() {
               <SignInButton mode="modal">
                 <button className="cr-btn-nav-enter">Entrar</button>
               </SignInButton>
-              <SignInButton mode="modal">
+              <SignUpButton mode="modal">
                 <button className="cr-btn-nav-cta">Criar Conta</button>
-              </SignInButton>
+              </SignUpButton>
             </>
           )}
         </div>
@@ -536,9 +536,9 @@ export default function Criterios() {
           <Link to="/criterios" className="cr-mobile-link" onClick={() => setMenuAberto(false)}>Quem pode doar</Link>
           <Link to="/#sobre" className="cr-mobile-link" onClick={() => { setMenuAberto(false); setTimeout(() => document.getElementById('sobre')?.scrollIntoView({ behavior: 'smooth' }), 200); }}>Sobre nós</Link>
           {!isSignedIn && (
-            <SignInButton mode="modal">
+            <SignUpButton mode="modal">
               <button className="cr-mobile-cta" onClick={() => setMenuAberto(false)}>Criar Conta</button>
-            </SignInButton>
+            </SignUpButton>
           )}
         </div>
       )}
