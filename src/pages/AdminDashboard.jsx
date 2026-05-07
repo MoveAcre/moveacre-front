@@ -503,7 +503,11 @@ export default function AdminDashboard() {
                       </td>
                       <td style={s.td}>
                         {d.atestado_url
-                          ? <Btn bg={t.surface2} c="#888" label="VER" onClick={() => window.open(d.atestado_url.startsWith("http") ? d.atestado_url : `${API}/uploads/${d.atestado_url}`, "_blank")} />
+                          ? <Btn bg={t.surface2} c="#888" label="VER" onClick={async () => {
+                              const j = await api(`/doadores/atestado/${d.id}`);
+                              if (j.success && j.url) window.open(j.url, "_blank");
+                              else alert("Atestado não disponível.");
+                            }} />
                           : <span style={{ color: t.border2, fontSize:11 }}>—</span>}
                       </td>
                       <td style={s.td}>
