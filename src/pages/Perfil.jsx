@@ -1,4 +1,3 @@
-﻿import { useState, useEffect } from "react";
 import { useAuth, useUser, useClerk } from "@clerk/clerk-react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import Logo from "../components/Logo";
@@ -308,7 +307,7 @@ export default function Perfil() {
                 <h2 className="pf-subtitle">DADOS DA CONTA</h2>
                 <div className="pf-row">
                     <span className="pf-label">NOME</span>
-                    <span className="pf-value">{user?.fullName}</span>
+                    <span className="pf-value">{perfil?.nome_completo || user?.fullName}</span>
                 </div>
                 <div className="pf-row">
                     <span className="pf-label">EMAIL</span>
