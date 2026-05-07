@@ -557,7 +557,7 @@ export default function Sobre() {
             <p className="sb-quote-text">
               Ninguém deveria implorar por um direito que já é seu.
             </p>
-            <span className="sb-quote-author">— MOVEACRE</span>
+            <span className="sb-quote-author">— Manifesto MOVEACRE</span>
           </div>
         </div>
 
@@ -591,28 +591,6 @@ export default function Sobre() {
                 <span className="sb-manifesto-num">{item.num}</span>
                 <span className="sb-manifesto-label">{item.label}</span>
                 <p className="sb-manifesto-desc">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* EQUIPE */}
-        <div className="sb-block">
-          <div className="sb-block-label">// A equipe</div>
-          <div className="sb-team">
-            {equipa.map((m, i) => (
-              <div className="sb-member" key={i}>
-                <span className="sb-member-role">{m.role}</span>
-                <span className="sb-member-name">{m.name}</span>
-                <a
-                  href={`https://instagram.com/${m.ig.replace("@", "")}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="sb-member-ig"
-                >
-                  <IgIcon />
-                  {m.ig}
-                </a>
               </div>
             ))}
           </div>

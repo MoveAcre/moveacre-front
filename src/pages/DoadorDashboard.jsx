@@ -151,29 +151,10 @@ const styles = `
 
   .dd-card-full { grid-column: 1 / -1; }
 
-  .dd-card-num {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    color: #282828;
-    letter-spacing: 0.1em;
-    margin-bottom: 18px;
-  }
-
-  .dd-card-icon {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 32px;
-    font-weight: 900;
-    color: #222;
-    margin-bottom: 14px;
-    line-height: 1;
-  }
-
-  .dd-card-accent .dd-card-icon { color: rgba(200,245,0,0.12); }
-
   .dd-card-title {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 700;
-    font-size: 17px;
+    font-size: 22px;
     text-transform: uppercase;
     color: #C8C8C0;
     margin-bottom: 8px;
@@ -344,30 +325,22 @@ export default function DoadorDashboard() {
 
           <div className="dd-grid">
             <button onClick={() => navigate('/criar-urgencia')} className="dd-card dd-card-accent dd-card-full">
-              <div className="dd-card-num">01 / AÇÃO_PRINCIPAL</div>
-              <div className="dd-card-icon">!</div>
               <h2 className="dd-card-title primary">ABRIR PEDIDO DE SANGUE</h2>
               <p className="dd-card-desc">Criar um novo pedido de transfusão de sangue urgente.</p>
             </button>
 
             <button onClick={() => navigate('/minhas-urgencias')} className="dd-card">
-              <div className="dd-card-num">02</div>
-              <div className="dd-card-icon">–</div>
               <h2 className="dd-card-title">MEUS PEDIDOS</h2>
               <p className="dd-card-desc">Ver status dos pedidos feitos.</p>
             </button>
 
             <button onClick={() => navigate('/perfil')} className="dd-card">
-              <div className="dd-card-num">03</div>
-              <div className="dd-card-icon">*</div>
               <h2 className="dd-card-title">MINHA CONTA</h2>
               <p className="dd-card-desc">Histórico, dados e declarar doação.</p>
             </button>
 
             {user?.publicMetadata?.role === "admin" && (
               <button onClick={() => navigate('/admin')} className="dd-card dd-card-full">
-                <div className="dd-card-num">04 / ADMIN</div>
-                <div className="dd-card-icon">#</div>
                 <h2 className="dd-card-title primary">PAINEL ADMINISTRATIVO</h2>
                 <p className="dd-card-desc">Gestão de usuários, doadores e pedidos.</p>
               </button>
