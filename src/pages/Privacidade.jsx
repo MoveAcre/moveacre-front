@@ -95,7 +95,7 @@ export default function Privacidade() {
             &nbsp;&nbsp;• <strong>Clerk</strong> (autenticação de usuários) — servidores nos EUA;<br />
             &nbsp;&nbsp;• <strong>Resend</strong> (envio de e-mails transacionais) — servidores nos EUA.<br /><br />
             — <strong>Autoridades competentes</strong> quando exigido por lei ou ordem judicial.<br /><br />
-            <strong>Transferência Internacional:</strong> Em razão dos sub-processadores listados acima, os seus dados podem ser transferidos e processados em servidores localizados fora do Brasil, especialmente nos Estados Unidos. Os EUA não possuem legislação federal equivalente à LGPD. A transferência ocorre com base no <strong>Art. 33, II da LGPD</strong> (garantias contratuais adequadas), por meio das <strong>cláusulas contratuais padrão</strong> (Standard Contractual Clauses — SCCs) adotadas por cada sub-processador em seus Termos de Serviço e Acordos de Processamento de Dados (DPA). O titular pode solicitar cópia dos mecanismos de garantia aplicáveis pelo e-mail <strong>moveacre@gmail.com</strong>.
+            <strong>Transferência Internacional:</strong> Em razão dos sub-processadores listados acima, os seus dados podem ser transferidos e processados em servidores localizados fora do Brasil, especialmente nos Estados Unidos. Os EUA não possuem legislação federal equivalente à LGPD. A transferência ocorre com base no <strong>Art. 33, II da LGPD</strong> (garantias contratuais adequadas), por meio das <strong>cláusulas contratuais padrão</strong> (Standard Contractual Clauses — SCCs) adotadas por cada sub-processador em seus Termos de Serviço e Acordos de Processamento de Dados (DPA). O titular pode solicitar cópia dos mecanismos de garantia aplicáveis pelo e-mail <strong>moveacre.suporte@gmail.com</strong>.
           </p>
         </div>
 
@@ -103,7 +103,7 @@ export default function Privacidade() {
           <div className="pv-section-title">6. Armazenamento e Segurança</div>
           <p className="pv-text">
             Os dados são armazenados em servidores seguros com <strong>criptografia em trânsito (TLS/HTTPS)</strong> e <strong>criptografia em repouso (AES-256)</strong>, conforme implementado pelo Supabase. Os arquivos enviados (atestados e laudos) são armazenados no Supabase Storage com controle de acesso restrito.<br /><br />
-            Implementamos medidas técnicas e organizacionais para proteger os dados contra acesso não autorizado, perda ou destruição. Dado o caráter sensível dos dados de saúde tratados, mantemos internamente um <strong>Relatório de Impacto à Proteção de Dados Pessoais (RIPD)</strong>, conforme recomendado pelo Art. 38 da LGPD. O RIPD pode ser solicitado pelo titular ou pela ANPD — encaminhe a solicitação para <strong>moveacre@gmail.com</strong> com o assunto "RIPD — Solicitação".<br /><br />
+            Implementamos medidas técnicas e organizacionais para proteger os dados contra acesso não autorizado, perda ou destruição. Dado o caráter sensível dos dados de saúde tratados, mantemos internamente um <strong>Relatório de Impacto à Proteção de Dados Pessoais (RIPD)</strong>, conforme recomendado pelo Art. 38 da LGPD. O RIPD pode ser solicitado pelo titular ou pela ANPD — encaminhe a solicitação para <strong>moveacre.suporte@gmail.com</strong> com o assunto "RIPD — Solicitação".<br /><br />
             Em caso de incidente de segurança que possa acarretar risco ou dano relevante aos titulares, comunicaremos a ocorrência à ANPD e aos usuários afetados em até <strong>72 horas</strong> após a ciência do incidente.
           </p>
         </div>
@@ -118,7 +118,7 @@ export default function Privacidade() {
             — <strong>Portabilidade:</strong> receber os seus dados em formato estruturado;<br />
             — <strong>Informação:</strong> ser informado sobre com quem seus dados são compartilhados;<br />
             — <strong>Oposição:</strong> opor-se ao tratamento realizado em desconformidade com a LGPD.<br /><br />
-            Para exercer esses direitos, entre em contato com nosso Encarregado de Dados (DPO) pelo e-mail <strong>moveacre@gmail.com</strong>, com o assunto "LGPD — [Direito Solicitado]". Responderemos em até <strong>15 dias corridos</strong>.
+            Para exercer esses direitos, entre em contato com nosso Encarregado de Dados (DPO) pelo e-mail <strong>moveacre.suporte@gmail.com</strong>, com o assunto "LGPD — [Direito Solicitado]". Responderemos em até <strong>15 dias corridos</strong>.
           </p>
         </div>
 
@@ -127,7 +127,7 @@ export default function Privacidade() {
           <p className="pv-text">
             Nos termos do Art. 41 da LGPD e da Resolução CD/ANPD nº 2/2022, o MOVEACRE designa como canal oficial de comunicação para assuntos relacionados à proteção de dados:<br /><br />
             <strong>Encarregado de Dados (DPO) — MOVEACRE</strong><br />
-            E-mail: <strong>moveacre@gmail.com</strong><br />
+            E-mail: <strong>moveacre.suporte@gmail.com</strong><br />
             Assunto: "DPO — MOVEACRE"<br />
             Rio Branco, Acre, Brasil
           </p>
@@ -158,7 +158,7 @@ export default function Privacidade() {
             Para questões relacionadas à privacidade e proteção de dados:<br /><br />
             <strong>MOVEACRE</strong><br />
             Rio Branco, Acre, Brasil<br />
-            E-mail: <strong>moveacre@gmail.com</strong>
+            E-mail: <strong>moveacre.suporte@gmail.com</strong>
           </p>
         </div>
 

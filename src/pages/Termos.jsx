@@ -82,7 +82,7 @@ export default function Termos() {
           <div className="tc-section-title">4. Dados de Saúde e LGPD</div>
           <p className="tc-text">
             O MOVEACRE trata dados sensíveis de saúde (tipo sanguíneo, histórico de doações, laudos médicos) com base no <strong>consentimento específico, livre, informado e destacado</strong> do usuário, coletado por checkbox separado da aceitação geral destes Termos, em conformidade com o Art. 11 da <strong>Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018)</strong>.<br /><br />
-            O tratamento desses dados é realizado exclusivamente para as finalidades descritas na nossa <Link to="/privacidade" style={{ color: '#C8F500' }}>Política de Privacidade</Link>. O usuário pode consultar, corrigir ou solicitar a exclusão dos seus dados a qualquer momento pelo e-mail <strong>moveacre@gmail.com</strong> — canal monitorado exclusivamente para assuntos de privacidade e proteção de dados, com resposta em até 15 dias corridos.<br /><br />
+            O tratamento desses dados é realizado exclusivamente para as finalidades descritas na nossa <Link to="/privacidade" style={{ color: '#C8F500' }}>Política de Privacidade</Link>. O usuário pode consultar, corrigir ou solicitar a exclusão dos seus dados a qualquer momento pelo e-mail <strong>moveacre.suporte@gmail.com</strong> — canal monitorado exclusivamente para assuntos de privacidade e proteção de dados, com resposta em até 15 dias corridos.<br /><br />
             <strong>Medidas de segurança técnica implementadas:</strong> autenticação via JWT com verificação de assinatura criptográfica (RS256), criptografia em trânsito (TLS/HTTPS) e em repouso (AES-256), controle de acesso por objeto (cada usuário acessa apenas seus próprios dados) e validação de entrada em todas as rotas da API. Em caso de incidente de segurança com risco relevante aos titulares, comunicaremos a ocorrência à ANPD e aos usuários afetados em até 72 horas.
           </p>
         </div>
@@ -107,7 +107,7 @@ export default function Termos() {
             — Contenha informações falsas ou enganosas;<br />
             — Viole estes Termos ou a legislação brasileira;<br />
             — Represente risco à segurança de outros usuários.<br /><br />
-            Para denunciar conteúdo suspeito ou abusivo, entre em contato pelo e-mail <strong>moveacre@gmail.com</strong> com o assunto "Denúncia — [descrição breve]". Analisaremos o relato em até 72 horas.<br /><br />
+            Para denunciar conteúdo suspeito ou abusivo, entre em contato pelo e-mail <strong>moveacre.suporte@gmail.com</strong> com o assunto "Denúncia — [descrição breve]". Analisaremos o relato em até 72 horas.<br /><br />
             Nos termos do Art. 15 do <strong>Marco Civil da Internet (Lei nº 12.965/2014)</strong>, o MOVEACRE mantém registros de acesso à aplicação pelo prazo de <strong>6 meses</strong>, podendo fornecê-los mediante ordem judicial.
           </p>
         </div>
@@ -151,7 +151,7 @@ export default function Termos() {
         <hr className="tc-divider" />
 
         <p className="tc-text" style={{ fontSize: 12 }}>
-          Dúvidas? Entre em contato: <strong>moveacre@gmail.com</strong>
+          Dúvidas? Entre em contato: <strong>moveacre.suporte@gmail.com</strong>
         </p>
       </div>
 
