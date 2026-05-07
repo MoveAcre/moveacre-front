@@ -543,40 +543,6 @@ export default function Sobre() {
           </div>
         </div>
 
-        {/* COMO FUNCIONA */}
-        <div className="sb-block">
-          <div className="sb-block-label">// Como funciona</div>
-          <div className="sb-manifesto-grid">
-            {[
-              {
-                num: "01",
-                label: "Você se cadastra",
-                desc: "Informa seu tipo sanguíneo, localização e histórico de doações. Leva menos de 3 minutos.",
-              },
-              {
-                num: "02",
-                label: "O sistema te rastreia",
-                desc: "Calculamos automaticamente quando você estará apto para doar de novo.",
-              },
-              {
-                num: "03",
-                label: "O Acre te chama",
-                desc: "Quando há urgência compatível com seu tipo e proximidade, você recebe o alerta diretamente.",
-              },
-              {
-                num: "04",
-                label: "Você age",
-                desc: "Sem grupo de WhatsApp. Sem viralização. Só você, no momento certo, no lugar certo.",
-              },
-            ].map((item, i) => (
-              <div className="sb-manifesto-item" key={i}>
-                <span className="sb-manifesto-num">{item.num}</span>
-                <span className="sb-manifesto-label">{item.label}</span>
-                <p className="sb-manifesto-desc">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
 
         {/* EQUIPE */}
         <div className="sb-block">
