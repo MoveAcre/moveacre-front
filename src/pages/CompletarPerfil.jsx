@@ -354,7 +354,7 @@ export default function CompletarPerfil() {
 
   const validateIdade = (val) => {
     const n = Number(val);
-    return Number.isInteger(n) && n >= 16 && n <= 100;
+    return Number.isInteger(n) && n >= 16 && n <= 69;
   };
 
   const handleTelefone = (e) => {
@@ -381,9 +381,11 @@ export default function CompletarPerfil() {
     if (!form.telefone || !validateTelefone(form.telefone))
       errs.telefone = "Informe um telefone válido com DDD (ex: 68 99999-0000).";
     if (!form.cidade) errs.cidade = "Selecione sua cidade.";
-    if (form.idade && !validateIdade(form.idade))
-      errs.idade = "Informe uma idade entre 16 e 100 anos.";
-    if (form.idade && parseInt(form.idade) < 16)
+    if (!form.idade)
+      errs.idade = "Informe sua idade.";
+    else if (!validateIdade(form.idade))
+      errs.idade = "A idade deve estar entre 16 e 69 anos.";
+    else if (parseInt(form.idade) < 16)
       errs.idade = "É necessário ter pelo menos 16 anos para se cadastrar.";
 
     // Doação anterior: a pergunta é obrigatória
@@ -418,7 +420,7 @@ export default function CompletarPerfil() {
           body: JSON.stringify({
             email,
             nome_completo: form.nome_completo.trim(),
-            tipo_sangue: form.tipo_sangue,
+            tipo_sangue: form.tipo_sangue || null,
             genero: form.genero,
             telefone: form.telefone.replace(/\D/g, ""),
             cidade: form.cidade,
@@ -643,7 +645,7 @@ export default function CompletarPerfil() {
         </div>
 
         <div className="cp-field">
-          <label className="cp-label">Idade</label>
+          <label className="cp-label">Idade <span className="cp-required">*</span> <span style={{color:'#555', fontSize:'9px'}}>(entre 16 e 69 anos)</span></label>
           <input
             type="text"
             inputMode="numeric"

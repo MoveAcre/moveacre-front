@@ -48,7 +48,6 @@ export default function SyncWrapper({ children }) {
 
         const perfilCompleto =
           data &&
-          data.tipo_sangue && data.tipo_sangue.trim() !== "" &&
           data.genero && data.genero.trim() !== "" &&
           data.telefone && data.telefone.trim() !== "";
 
