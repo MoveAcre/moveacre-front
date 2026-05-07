@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { SignInButton, useUser } from "@clerk/clerk-react";
+import Logo from "../components/Logo";
 
 const styles = `
-  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap');
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   .cr-root {
@@ -14,65 +16,110 @@ const styles = `
     flex-direction: column;
   }
 
+  /* NAVBAR */
   .cr-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 40px;
-    border-bottom: 1px solid #111;
+    padding: 0 40px;
+    height: 64px;
+    background: rgba(10,10,10,0.94);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid #1a1a1a;
   }
 
-  .cr-logo {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 24px;
-    letter-spacing: 0.1em;
-    color: #C8F500;
-    text-decoration: none;
-  }
-
-  .cr-nav-links {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-  }
+  .cr-nav-left { display: flex; align-items: center; gap: 40px; }
+  .cr-nav-links { display: flex; align-items: center; gap: 4px; }
 
   .cr-nav-link {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: #555;
+    font-family: 'Barlow', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #666;
     text-decoration: none;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    transition: color 0.2s;
+    padding: 6px 12px;
+    letter-spacing: 0.02em;
+    transition: color 0.15s;
   }
-  .cr-nav-link:hover { color: #C8F500; }
 
-  .cr-content {
-    flex: 1;
-    max-width: 860px;
+  .cr-nav-link:hover { color: #F5F5F0; }
+  .cr-nav-link-active { color: #C8F500 !important; }
+
+  .cr-nav-right { display: flex; align-items: center; gap: 10px; }
+
+  .cr-btn-nav-enter {
+    background: transparent;
+    color: #777;
+    border: 1px solid #252525;
+    padding: 8px 18px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition: all 0.15s;
+  }
+
+  .cr-btn-nav-enter:hover { border-color: #444; color: #F5F5F0; opacity: 1; }
+
+  .cr-btn-nav-cta {
+    background: #C8F500;
+    color: #0A0A0A;
+    border: none;
+    padding: 9px 20px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .cr-btn-nav-cta:hover { background: #d4ff00; opacity: 1; transform: none; }
+
+  /* PAGE HEADER */
+  .cr-header {
+    border-bottom: 1px solid #111;
+    padding: 64px 40px 56px;
+    max-width: 920px;
     width: 100%;
     margin: 0 auto;
-    padding: 64px 40px;
   }
 
   .cr-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
     color: #C8F500;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    margin-bottom: 20px;
+    margin-bottom: 28px;
+  }
+
+  .cr-eyebrow::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: #C8F500;
   }
 
   .cr-title {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 900;
-    font-size: clamp(40px, 7vw, 72px);
-    line-height: 0.95;
+    font-size: clamp(44px, 7vw, 80px);
+    line-height: 0.92;
     text-transform: uppercase;
     color: #F5F5F0;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
+    letter-spacing: -0.01em;
   }
 
   .cr-title span { color: #C8F500; }
@@ -80,143 +127,119 @@ const styles = `
   .cr-subtitle {
     font-size: 16px;
     color: #666;
-    line-height: 1.6;
+    line-height: 1.7;
     max-width: 520px;
-    margin-bottom: 56px;
-    border-left: 2px solid #C8F500;
-    padding-left: 20px;
+    font-weight: 400;
   }
 
-  .cr-section {
-    margin-bottom: 48px;
+  /* CONTENT */
+  .cr-content {
+    flex: 1;
+    width: 100%;
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 40px 80px;
   }
 
-  .cr-section-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 24px;
-    padding-bottom: 16px;
+  /* SECTION BLOCKS */
+  .cr-block {
+    padding: 56px 0;
     border-bottom: 1px solid #111;
   }
 
-  .cr-section-icon {
-    width: 36px;
-    height: 36px;
-    background: rgba(200,245,0,0.1);
-    border-radius: 2px;
+  .cr-block:last-child { border-bottom: none; }
+
+  .cr-block-header {
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    flex-shrink: 0;
+    gap: 16px;
+    margin-bottom: 32px;
   }
 
-  .cr-section-title {
+  .cr-block-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #333;
+    letter-spacing: 0.1em;
+    min-width: 28px;
+  }
+
+  .cr-block-title {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 700;
-    font-size: 22px;
+    font-size: 24px;
     text-transform: uppercase;
     color: #F5F5F0;
     letter-spacing: 0.03em;
+    flex: 1;
   }
 
-  .cr-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  .cr-block-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid;
   }
 
-  .cr-item {
+  .cr-badge-ok { color: #C8F500; border-color: rgba(200,245,0,0.3); background: rgba(200,245,0,0.05); }
+  .cr-badge-warn { color: #F5A623; border-color: rgba(245,166,35,0.3); background: rgba(245,166,35,0.05); }
+  .cr-badge-no { color: #FF4444; border-color: rgba(255,68,68,0.3); background: rgba(255,68,68,0.05); }
+
+  /* ITEM CARDS */
+  .cr-cards { display: flex; flex-direction: column; gap: 2px; }
+
+  .cr-card {
     display: flex;
     align-items: flex-start;
     gap: 16px;
-    padding: 16px 20px;
+    padding: 18px 20px;
     background: #0D0D0D;
-    border: 1px solid #111;
+    border-left: 3px solid transparent;
+    transition: background 0.15s;
   }
 
-  .cr-item-ok { border-left: 3px solid #C8F500; }
-  .cr-item-no { border-left: 3px solid #FF4444; }
-  .cr-item-info { border-left: 3px solid #888; }
+  .cr-card:hover { background: #0f0f0f; }
+  .cr-card-ok { border-left-color: #C8F500; }
+  .cr-card-warn { border-left-color: #F5A623; }
+  .cr-card-no { border-left-color: #FF4444; }
 
-  .cr-item-dot-ok { color: #C8F500; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
-  .cr-item-dot-no { color: #FF4444; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
-  .cr-item-dot-info { color: #888; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
-
-  .cr-item-text {
-    font-size: 14px;
-    color: #888;
-    line-height: 1.6;
+  .cr-card-icon {
+    font-size: 13px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    width: 16px;
+    text-align: center;
   }
 
-  .cr-item-text strong {
-    color: #F5F5F0;
-    font-weight: 500;
-  }
+  .cr-card-icon-ok { color: #C8F500; }
+  .cr-card-icon-warn { color: #F5A623; }
+  .cr-card-icon-no { color: #FF4444; }
 
-  .cr-alert {
-    background: rgba(255,68,68,0.05);
-    border: 1px solid rgba(255,68,68,0.2);
-    border-left: 4px solid #FF4444;
-    padding: 24px;
-    margin-bottom: 48px;
-  }
-
-  .cr-alert-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 18px;
-    text-transform: uppercase;
-    color: #FF4444;
-    margin-bottom: 10px;
-  }
-
-  .cr-alert-text {
+  .cr-card-text {
+    font-family: 'Barlow', sans-serif;
     font-size: 14px;
     color: #888;
     line-height: 1.65;
   }
 
-  .cr-highlight {
-    background: #111;
-    border-left: 4px solid #C8F500;
-    padding: 28px;
-    margin-bottom: 48px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
+  .cr-card-text strong { color: #D0D0C8; font-weight: 600; }
 
-  .cr-highlight-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: #C8F500;
-  }
-
-  .cr-highlight-text {
-    font-size: 14px;
-    color: #777;
-    line-height: 1.65;
-  }
-
+  /* INTERVALS */
   .cr-intervals {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    background: #111;
-    border: 1px solid #111;
-    margin-bottom: 48px;
+    gap: 2px;
   }
 
   .cr-interval-card {
-    background: #0A0A0A;
-    padding: 28px;
+    background: #0D0D0D;
+    padding: 32px 28px;
     display: flex;
     flex-direction: column;
     gap: 8px;
+    border-left: 3px solid #C8F500;
   }
 
   .cr-interval-label {
@@ -224,266 +247,476 @@ const styles = `
     font-size: 9px;
     color: #444;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
   }
 
   .cr-interval-value {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 36px;
+    font-size: 48px;
     font-weight: 900;
     color: #C8F500;
+    line-height: 1;
   }
 
-  .cr-interval-sub {
+  .cr-interval-desc {
+    font-family: 'Barlow', sans-serif;
     font-size: 13px;
     color: #555;
+    line-height: 1.5;
   }
 
+  /* NOTE */
+  .cr-note {
+    margin-top: 12px;
+    padding: 14px 18px;
+    background: #0D0D0D;
+    border-left: 2px solid #222;
+  }
+
+  .cr-note-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #555;
+    line-height: 1.7;
+    letter-spacing: 0.02em;
+  }
+
+  .cr-note-text strong { color: #666; }
+
+  /* ALERT */
+  .cr-alert {
+    background: rgba(255,68,68,0.04);
+    border: 1px solid rgba(255,68,68,0.15);
+    border-left: 4px solid #FF4444;
+    padding: 24px 28px;
+  }
+
+  .cr-alert-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: #FF4444;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+  }
+
+  .cr-alert-text {
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    color: #777;
+    line-height: 1.7;
+  }
+
+  .cr-alert-text strong { color: #D0D0C8; font-weight: 600; }
+
+  /* INFOBOX */
+  .cr-infobox {
+    background: #0D0D0D;
+    border-left: 4px solid #C8F500;
+    padding: 24px 28px;
+  }
+
+  .cr-infobox-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: #C8F500;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+  }
+
+  .cr-infobox-text {
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.7;
+  }
+
+  .cr-infobox-text strong { color: #D0D0C8; font-weight: 600; }
+
+  /* CTA */
   .cr-cta {
     text-align: center;
-    padding: 48px 0 0;
-    border-top: 1px solid #111;
+    padding: 64px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .cr-cta-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #444;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
   }
 
   .cr-cta-title {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 900;
-    font-size: 36px;
+    font-size: clamp(32px, 5vw, 52px);
     text-transform: uppercase;
     color: #F5F5F0;
-    margin-bottom: 12px;
+    line-height: 0.95;
   }
 
-  .cr-cta-text {
-    font-size: 14px;
+  .cr-cta-sub {
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px;
     color: #555;
-    margin-bottom: 32px;
+    margin-bottom: 8px;
   }
 
   .cr-btn-primary {
     background: #C8F500;
     color: #0A0A0A;
     border: none;
-    padding: 18px 40px;
+    padding: 18px 48px;
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 900;
-    font-size: 20px;
+    font-size: 18px;
     text-transform: uppercase;
     cursor: pointer;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
     transition: 0.15s;
   }
-  .cr-btn-primary:hover { background: #d4ff00; transform: translateY(-1px); }
 
+  .cr-btn-primary:hover { background: #d4ff00; transform: translateY(-1px); opacity: 1; }
+
+  /* FOOTER */
   .cr-footer {
-    padding: 20px 40px;
+    padding: 24px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-top: 1px solid #111;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 12px;
   }
+
   .cr-footer-copy {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
-    color: #333;
+    color: #2e2e2e;
     letter-spacing: 0.05em;
   }
-  .cr-footer-links {
-    display: flex;
-    gap: 16px;
-  }
+
+  .cr-footer-links { display: flex; gap: 20px; }
+
   .cr-footer-link {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
-    color: #444;
+    color: #3a3a3a;
     text-decoration: none;
     letter-spacing: 0.05em;
+    transition: color 0.2s;
   }
+
   .cr-footer-link:hover { color: #C8F500; }
 
-  @media (max-width: 600px) {
-    .cr-nav { padding: 16px 20px; }
-    .cr-content { padding: 40px 20px; }
+  /* HAMBURGER */
+  .cr-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  .cr-hamburger span { display: block; width: 22px; height: 2px; background: #F5F5F0; }
+
+  .cr-mobile-menu {
+    background: #0D0D0D;
+    border-bottom: 1px solid #1a1a1a;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cr-mobile-link {
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #777;
+    text-decoration: none;
+    padding: 16px 24px;
+    border-bottom: 1px solid #111;
+    background: none;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    display: block;
+  }
+
+  .cr-mobile-cta {
+    margin: 16px 24px;
+    background: #C8F500;
+    color: #0A0A0A;
+    border: none;
+    padding: 14px 20px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    width: calc(100% - 48px);
+    text-align: center;
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    .cr-nav { padding: 0 20px; }
+    .cr-nav-links { display: none; }
+    .cr-nav-right { display: none; }
+    .cr-hamburger { display: flex; }
+    .cr-header { padding: 48px 24px 40px; }
+    .cr-content { padding: 0 24px 60px; }
     .cr-intervals { grid-template-columns: 1fr; }
-    .cr-footer { padding: 16px 20px; }
+    .cr-footer { padding: 20px 24px; flex-direction: column; align-items: flex-start; }
+    .cr-block { padding: 40px 0; }
+    .cr-block-header { flex-wrap: wrap; gap: 10px; }
+  }
+
+  @media (min-width: 769px) {
+    .cr-hamburger { display: none !important; }
+    .cr-mobile-menu { display: none !important; }
   }
 `;
 
-import Logo from "../components/Logo";
-
 export default function Criterios() {
   const { isSignedIn } = useUser();
+  const [menuAberto, setMenuAberto] = useState(false);
 
   return (
     <div className="cr-root">
       <style>{styles}</style>
 
+      {/* NAVBAR */}
       <nav className="cr-nav">
-        <Logo />
-        <div className="cr-nav-links">
-          <Link to="/beneficios" className="cr-nav-link">Benefícios</Link>
+        <div className="cr-nav-left">
+          <Logo />
+          <div className="cr-nav-links">
+            <Link to="/criterios" className="cr-nav-link cr-nav-link-active">Quem pode doar</Link>
+            <Link to="/sobre" className="cr-nav-link">Sobre nós</Link>
+          </div>
+        </div>
+
+        <div className="cr-nav-right">
           {isSignedIn ? (
-            <Link to="/" className="cr-nav-link" style={{ color: "#C8F500" }}>Meu painel</Link>
+            <Link to="/" style={{ fontFamily: "'Barlow', sans-serif", fontSize: 13, color: '#C8F500', textDecoration: 'none', fontWeight: 500 }}>
+              Meu painel →
+            </Link>
           ) : (
+            <>
+              <SignInButton mode="modal">
+                <button className="cr-btn-nav-enter">Entrar</button>
+              </SignInButton>
+              <SignInButton mode="modal">
+                <button className="cr-btn-nav-cta">Criar Conta</button>
+              </SignInButton>
+            </>
+          )}
+        </div>
+
+        <button className="cr-hamburger" onClick={() => setMenuAberto(m => !m)} aria-label="Menu">
+          <span /><span /><span />
+        </button>
+      </nav>
+
+      {menuAberto && (
+        <div className="cr-mobile-menu">
+          <Link to="/criterios" className="cr-mobile-link" onClick={() => setMenuAberto(false)}>Quem pode doar</Link>
+          <Link to="/sobre" className="cr-mobile-link" onClick={() => setMenuAberto(false)}>Sobre nós</Link>
+          {!isSignedIn && (
             <SignInButton mode="modal">
-              <button style={{ background:"none", border:"1px solid #333", color:"#888", padding:"8px 20px", fontFamily:"JetBrains Mono,monospace", fontSize:11, cursor:"pointer", letterSpacing:"0.05em", textTransform:"uppercase" }}>
-                ENTRAR
-              </button>
+              <button className="cr-mobile-cta" onClick={() => setMenuAberto(false)}>Criar Conta</button>
             </SignInButton>
           )}
         </div>
-      </nav>
+      )}
 
-      <div className="cr-content">
-        <div className="cr-eyebrow">// Quem pode ser doador?</div>
+      {/* PAGE HEADER */}
+      <div className="cr-header">
+        <div className="cr-eyebrow">Critérios de Doação</div>
         <h1 className="cr-title">
-          Critérios de<br />
-          <span>doação.</span>
+          Quem pode<br />
+          <span>ser doador?</span>
         </h1>
         <p className="cr-subtitle">
-          A doação de sangue é simples, mas existem alguns critérios de saúde
-          que garantem a segurança do doador e do receptor. Veja abaixo.
+          A doação é simples, mas existem critérios que protegem você e quem vai receber.
+          Verifique abaixo — leva menos de 2 minutos.
         </p>
+      </div>
 
-        {/* Requisitos básicos */}
-        <div className="cr-section">
-          <div className="cr-section-header">
-            <div className="cr-section-icon">+</div>
-            <span className="cr-section-title">1. Requisitos</span>
+      {/* CONTENT */}
+      <div className="cr-content">
+
+        {/* 01 REQUISITOS BÁSICOS */}
+        <div className="cr-block">
+          <div className="cr-block-header">
+            <span className="cr-block-num">01</span>
+            <span className="cr-block-title">Requisitos básicos</span>
+            <span className="cr-block-badge cr-badge-ok">Necessários</span>
           </div>
-          <div className="cr-list">
+          <div className="cr-cards">
             {[
-              { text: <><strong>Idade:</strong> entre 16 e 69 anos. Menores de 18 anos devem estar acompanhados do responsável legal. A partir dos 60 anos, desde que a primeira doação tenha sido feita antes dos 60.</> },
-              { text: <><strong>Peso mínimo:</strong> mais de 50 kg.</> },
-              { text: <><strong>Saúde:</strong> estar em boas condições de saúde.</> },
-              { text: <><strong>Alimentação:</strong> estar alimentado — evitar alimentos gordurosos nas 3 horas que antecedem a doação.</> },
-              { text: <><strong>Sono:</strong> ter dormido pelo menos 6 horas nas últimas 24 horas.</> },
-              { text: <><strong>Documentação:</strong> apresentar documento de identificação com foto emitido por órgão oficial (carteira de identidade, carteira de motorista, carteira de trabalho, CNH digital ou e-título com foto).</> },
+              { label: "Idade", text: "Entre 16 e 69 anos. Menores de 18 precisam do responsável. A partir dos 60, só se a primeira doação foi antes dessa idade." },
+              { label: "Peso", text: "Acima de 50 kg." },
+              { label: "Saúde geral", text: "Estar se sentindo bem no dia da doação." },
+              { label: "Alimentação", text: "Ter se alimentado — evitar gordurosos nas 3 horas antes da doação." },
+              { label: "Sono", text: "Ter dormido pelo menos 6 horas nas últimas 24 horas." },
+              { label: "Documento", text: "RG, CNH, Carteira de Trabalho ou e-Título com foto — emitido por órgão oficial." },
             ].map((item, i) => (
-              <div className="cr-item cr-item-ok" key={i}>
-                <span className="cr-item-dot-ok">▸</span>
-                <p className="cr-item-text">{item.text}</p>
+              <div className="cr-card cr-card-ok" key={i}>
+                <span className="cr-card-icon cr-card-icon-ok">▸</span>
+                <p className="cr-card-text"><strong>{item.label}:</strong> {item.text}</p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Intervalos entre doações */}
-        <div className="cr-section">
-          <div className="cr-section-header">
-            <div className="cr-section-icon">~</div>
-            <span className="cr-section-title">Intervalo entre doações</span>
+        {/* 02 INTERVALOS */}
+        <div className="cr-block">
+          <div className="cr-block-header">
+            <span className="cr-block-num">02</span>
+            <span className="cr-block-title">Intervalo entre doações</span>
+            <span className="cr-block-badge cr-badge-ok">Recorrência</span>
           </div>
           <div className="cr-intervals">
             <div className="cr-interval-card">
               <span className="cr-interval-label">Homens</span>
               <span className="cr-interval-value">2 meses</span>
-              <span className="cr-interval-sub">Máximo de 4 doações em 12 meses</span>
+              <span className="cr-interval-desc">Máximo de 4 doações por ano</span>
             </div>
             <div className="cr-interval-card">
               <span className="cr-interval-label">Mulheres</span>
               <span className="cr-interval-value">3 meses</span>
-              <span className="cr-interval-sub">Máximo de 3 doações em 12 meses</span>
+              <span className="cr-interval-desc">Máximo de 3 doações por ano</span>
             </div>
           </div>
-        </div>
-
-        {/* Impedimentos temporários */}
-        <div className="cr-section">
-          <div className="cr-section-header">
-            <div className="cr-section-icon">!</div>
-            <span className="cr-section-title">3. Impedimentos temporários</span>
-          </div>
-          <div className="cr-list">
-            {[
-              <><strong>Gripe, coriza, resfriado:</strong> aguardar 14 dias após o desaparecimento dos sintomas.</>,
-              <><strong>Febre:</strong> aguardar 30 dias.</>,
-              <><strong>Gravidez ou suspeita:</strong> aguardar.</>,
-              <><strong>Parto:</strong> aguardar 90 dias após parto normal e 180 dias após cesariana.</>,
-              <><strong>Amamentação:</strong> aguardar até a criança completar 12 meses.</>,
-              <><strong>Tatuagem e/ou piercing:</strong> aguardar 6 meses (piercing na cavidade oral ou região genital impedem a doação e, após sua retirada, é necessário aguardar 12 meses).</>,
-              <><strong>Ingestão de bebida alcoólica:</strong> aguardar 12 horas.</>,
-              <><strong>Extração dentária:</strong> aguardar 72 horas.</>,
-              <><strong>Cirurgia de apendicite, hérnia, retirada das amígdalas, varizes:</strong> aguardar 3 meses.</>,
-              <><strong>Cirurgias — retirada de vesícula, útero, rins, tireoide, cólon e redução de fraturas, politraumatismos sem sequelas graves:</strong> aguardar 6 meses.</>,
-              <><strong>Transfusão de sangue:</strong> aguardar 12 meses.</>,
-              <><strong>Vacinação:</strong> o tempo de impedimento varia de acordo com o tipo de vacina.</>,
-              <><strong>Exames/procedimentos com utilização de endoscópio:</strong> aguardar 6 meses.</>,
-              <><strong>Exposição a situações de risco acrescido para infecções sexualmente transmissíveis:</strong> 12 meses após a exposição.</>,
-            ].map((text, i) => (
-              <div className="cr-item cr-item-info" key={i}>
-                <span className="cr-item-dot-info">◦</span>
-                <p className="cr-item-text">{text}</p>
-              </div>
-            ))}
-          </div>
-          <div style={{marginTop:16, background:'#111', borderLeft:'3px solid #555', padding:'12px 16px'}}>
-            <p style={{fontFamily:"'JetBrains Mono',monospace", fontSize:11, color:'#666', lineHeight:1.6}}>
-              Tempo de espera para quem tomou vacina contra COVID-19: Coronavac 48h · AstraZeneca 7 dias · Pfizer 7 dias · Janssen-Cilang 7 dias
+          <div className="cr-note">
+            <p className="cr-note-text">
+              O MOVEACRE rastreia seu histórico e avisa automaticamente quando você estiver apto para doar de novo.
             </p>
           </div>
         </div>
 
-        {/* Impedimentos permanentes */}
-        <div className="cr-section">
-          <div className="cr-section-header">
-            <div className="cr-section-icon">x</div>
-            <span className="cr-section-title">2. Impedimentos definitivos</span>
+        {/* 03 IMPEDIMENTOS TEMPORÁRIOS */}
+        <div className="cr-block">
+          <div className="cr-block-header">
+            <span className="cr-block-num">03</span>
+            <span className="cr-block-title">Impedimentos temporários</span>
+            <span className="cr-block-badge cr-badge-warn">Aguardar período</span>
           </div>
-          <div className="cr-list">
+          <div className="cr-cards">
             {[
-              <><strong>Ter passado por um quadro de hepatite após os 11 anos de idade.</strong></>,
-              <><strong>Evidência clínica ou laboratorial das seguintes doenças transmissíveis pelo sangue:</strong> Hepatites B e C, AIDS (vírus do HIV), doenças associadas ao vírus HTLV I e II e Doença de Chagas.</>,
+              <><strong>Gripe, resfriado ou coriza:</strong> aguardar 14 dias após o fim dos sintomas.</>,
+              <><strong>Febre:</strong> aguardar 30 dias após normalizar.</>,
+              <><strong>Gravidez ou suspeita:</strong> aguardar — e até 12 meses após o fim da amamentação.</>,
+              <><strong>Parto:</strong> 90 dias após parto normal · 180 dias após cesariana.</>,
+              <><strong>Tatuagem ou piercing:</strong> 6 meses. Piercing na boca ou região genital: 12 meses após retirada.</>,
+              <><strong>Bebida alcoólica:</strong> aguardar 12 horas.</>,
+              <><strong>Extração dentária:</strong> aguardar 72 horas.</>,
+              <><strong>Cirurgias simples</strong> (apêndice, hérnia, amígdalas, varizes): aguardar 3 meses.</>,
+              <><strong>Cirurgias maiores</strong> (vesícula, útero, rins, tireoide): aguardar 6 meses.</>,
+              <><strong>Transfusão de sangue:</strong> aguardar 12 meses.</>,
+              <><strong>Vacinação:</strong> o prazo varia conforme o tipo — consulte o Hemoacre.</>,
+              <><strong>Endoscopia:</strong> aguardar 6 meses.</>,
+              <><strong>Risco para ISTs:</strong> aguardar 12 meses após a exposição.</>,
+            ].map((text, i) => (
+              <div className="cr-card cr-card-warn" key={i}>
+                <span className="cr-card-icon cr-card-icon-warn">◦</span>
+                <p className="cr-card-text">{text}</p>
+              </div>
+            ))}
+          </div>
+          <div className="cr-note">
+            <p className="cr-note-text">
+              <strong>Vacinas COVID-19:</strong>{" "}
+              Coronavac: 48h · AstraZeneca: 7 dias · Pfizer: 7 dias · Janssen: 7 dias
+            </p>
+          </div>
+        </div>
+
+        {/* 04 IMPEDIMENTOS DEFINITIVOS */}
+        <div className="cr-block">
+          <div className="cr-block-header">
+            <span className="cr-block-num">04</span>
+            <span className="cr-block-title">Impedimentos definitivos</span>
+            <span className="cr-block-badge cr-badge-no">Permanentes</span>
+          </div>
+          <div className="cr-cards">
+            {[
+              <><strong>Hepatite</strong> após os 11 anos de idade.</>,
+              <><strong>Hepatite B ou C, HIV/AIDS, HTLV I/II, Doença de Chagas</strong> — evidência clínica ou laboratorial.</>,
               <><strong>Uso de drogas ilícitas injetáveis.</strong></>,
             ].map((text, i) => (
-              <div className="cr-item cr-item-no" key={i}>
-                <span className="cr-item-dot-no">✕</span>
-                <p className="cr-item-text">{text}</p>
+              <div className="cr-card cr-card-no" key={i}>
+                <span className="cr-card-icon cr-card-icon-no">✕</span>
+                <p className="cr-card-text">{text}</p>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="cr-alert">
-          <div className="cr-alert-title">SEMPRE CONSULTE O HEMOACRE</div>
-          <p className="cr-alert-text">
-            Esta página apresenta os critérios gerais baseados nas normas do Ministério da Saúde.
-            Situações específicas de saúde são avaliadas individualmente na triagem presencial.
-            Em caso de dúvida, ligue para o Hemoacre: <strong style={{ color: "#F5F5F0" }}>(68) 3248-1380</strong>.
-          </p>
+        {/* 05 INFOS COMPLEMENTARES */}
+        <div className="cr-block" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div className="cr-block-header" style={{ marginBottom: 20 }}>
+            <span className="cr-block-num">05</span>
+            <span className="cr-block-title">Informações importantes</span>
+          </div>
+          <div className="cr-alert">
+            <div className="cr-alert-title">Sempre consulte o Hemoacre</div>
+            <p className="cr-alert-text">
+              Esta página lista os critérios gerais do Ministério da Saúde.
+              Situações específicas são avaliadas individualmente na triagem presencial.
+              Dúvidas? Ligue: <strong>(68) 3248-1380</strong>.
+            </p>
+          </div>
+          <div className="cr-infobox">
+            <div className="cr-infobox-title">Onde doar em Rio Branco</div>
+            <p className="cr-infobox-text">
+              <strong>Hemoacre — Hemocentro do Acre</strong><br />
+              Av. Getúlio Vargas, 2787 — Bosque, Rio Branco, AC — CEP 69900-607<br />
+              (68) 3248-1380 · Segunda a sábado, das 7h às 17h.
+            </p>
+          </div>
         </div>
 
-        <div className="cr-highlight">
-          <div className="cr-highlight-title">ONDE DOAR EM RIO BRANCO</div>
-          <p className="cr-highlight-text">
-            <strong style={{ color: "#F5F5F0" }}>Hemoacre — Hemocentro do Acre</strong><br />
-            Av. Getúlio Vargas, 2787 - Bosque, Rio Branco, AC — CEP 69900-607<br />
-            📞 (68) 3248-1380 · Funciona de segunda a sábado, das 7h às 17h.
-          </p>
-        </div>
-
+        {/* CTA */}
         <div className="cr-cta">
-          <div className="cr-cta-title">Você se encaixa nos critérios?</div>
-          <p className="cr-cta-text">Cadastre-se no MOVEACRE e comece a fazer diferença.</p>
+          <p className="cr-cta-eyebrow">Pronto para começar?</p>
+          <h2 className="cr-cta-title">Você se encaixa.<br />Sai da plateia.</h2>
+          <p className="cr-cta-sub">Cadastre-se no MOVEACRE e comece a fazer diferença.</p>
           {isSignedIn ? (
             <Link to="/" style={{ display: "inline-block" }}>
-              <button className="cr-btn-primary">IR PARA MEU PAINEL</button>
+              <button className="cr-btn-primary">Ir para meu painel</button>
             </Link>
           ) : (
             <SignInButton mode="modal">
-              <button className="cr-btn-primary">QUERO SER DOADOR</button>
+              <button className="cr-btn-primary">Quero ser doador</button>
             </SignInButton>
           )}
         </div>
+
       </div>
 
+      {/* FOOTER */}
       <footer className="cr-footer">
         <span className="cr-footer-copy">© 2026 MOVEACRE — Rio Branco, Acre, Brasil</span>
         <div className="cr-footer-links">
-          <Link to="/criterios" className="cr-footer-link">Critérios de doação</Link>
-          <Link to="/beneficios" className="cr-footer-link">Benefícios</Link>
+          <Link to="/criterios" className="cr-footer-link">Critérios</Link>
+          <Link to="/sobre" className="cr-footer-link">Sobre nós</Link>
+          <Link to="/termos" className="cr-footer-link">Termos</Link>
+          <Link to="/privacidade" className="cr-footer-link">Privacidade</Link>
         </div>
       </footer>
     </div>
