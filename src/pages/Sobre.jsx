@@ -455,9 +455,9 @@ const styles = `
 `;
 
 const equipa = [
+  { role: "Desenvolvimento", name: "Kelvin Lieberman", ig: "@lieberman07" },
+  { role: "Desenvolvimento", name: "Julio Souza", ig: "@julio.szax" },
   { role: "Desenvolvimento", name: "Tomas Souza", ig: "@tomnuvk" },
-  { role: "Desenvolvimento", name: "Julio Cesar", ig: "@julio.szax" },
-  { role: "Gestão de Produto", name: "Kelvin Lieberman", ig: "@lieberman07" },
 ];
 
 const IgIcon = () => (
@@ -591,6 +591,35 @@ export default function Sobre() {
                 <span className="sb-manifesto-num">{item.num}</span>
                 <span className="sb-manifesto-label">{item.label}</span>
                 <p className="sb-manifesto-desc">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* EQUIPE */}
+        <div className="sb-block">
+          <div className="sb-block-label">// Quem fez</div>
+          <div style={{ marginBottom: 24 }}>
+            <p style={{ fontFamily: "'Barlow', sans-serif", fontSize: 14, color: '#555', lineHeight: 1.7, maxWidth: 560 }}>
+              O MOVEACRE é um projeto de extensão universitária desenvolvido por alunos da{' '}
+              <strong style={{ color: '#D0D0C8' }}>Uninorte — Centro Universitário do Norte</strong>,
+              em Rio Branco, Acre. Nasceu da indignação com a falta de um sistema eficiente de
+              mobilização de doadores de sangue no estado.
+            </p>
+          </div>
+          <div className="sb-team">
+            {equipa.map((m, i) => (
+              <div className="sb-member" key={i}>
+                <span className="sb-member-role">{m.role}</span>
+                <span className="sb-member-name">{m.name}</span>
+                <a
+                  href={`https://instagram.com/${m.ig.replace('@', '')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="sb-member-ig"
+                >
+                  <IgIcon /> {m.ig}
+                </a>
               </div>
             ))}
           </div>

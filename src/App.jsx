@@ -396,6 +396,27 @@ const Index = () => {
         </div>
       </div>
 
+      {/* COMO FUNCIONA */}
+      <div style={{ borderTop: '1px solid #111', borderBottom: '1px solid #111', padding: '64px 40px' }}>
+        <div style={{ maxWidth: 860, margin: '0 auto' }}>
+          <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: '#C8F500', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 40 }}>// Como funciona</div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 2 }}>
+            {[
+              { num: '01', label: 'Você se cadastra', desc: 'Informa seu tipo sanguíneo, localização e histórico de doações. Leva menos de 3 minutos.' },
+              { num: '02', label: 'O sistema te rastreia', desc: 'Calculamos automaticamente quando você estará apto para doar de novo.' },
+              { num: '03', label: 'O Acre te chama', desc: 'Quando há urgência compatível com seu tipo e proximidade, você recebe o alerta diretamente.' },
+              { num: '04', label: 'Você age', desc: 'Sem grupo de WhatsApp. Sem viralização. Só você, no momento certo, no lugar certo.' },
+            ].map((item, i) => (
+              <div key={i} style={{ background: '#0D0D0D', padding: '28px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+                <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 9, color: '#333', letterSpacing: '0.1em' }}>{item.num}</span>
+                <span style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700, fontSize: 18, textTransform: 'uppercase', color: '#C8F500', letterSpacing: '0.03em' }}>{item.label}</span>
+                <p style={{ fontFamily: "'Barlow', sans-serif", fontSize: 13, color: '#666', lineHeight: 1.65 }}>{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       <footer className="ma-footer">
         <div className="ma-footer-left">
           <span className="ma-footer-copy">© 2026 MOVEACRE — Rio Branco, Acre, Brasil</span>
