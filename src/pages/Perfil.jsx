@@ -345,7 +345,7 @@ export default function Perfil() {
               </div>
 
               <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                <button className="pf-btn" onClick={() => navigate('/completar-perfil')}>EDITAR CONTA</button>
+                <button className="pf-btn" onClick={() => navigate('/editar-conta')}>EDITAR CONTA</button>
                 <button className="pf-btn" onClick={() => navigate('/historico-doador')}>HISTÓRICO DE DOAÇÕES</button>
                 <button className="pf-btn" onClick={() => setShowModal(true)}>DECLARAR DOAÇÃO</button>
                 <button className="pf-btn pf-btn-danger" onClick={handleDelete}>DESATIVAR CONTA</button>
