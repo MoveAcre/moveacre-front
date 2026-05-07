@@ -433,7 +433,7 @@ const Index = () => {
         <Logo />
         <div className="ma-nav-links">
           <Link to="/criterios" className="ma-nav-link">Quem pode doar</Link>
-          <Link to="/sobre" className="ma-nav-link">Sobre nós</Link>
+          <a href="#sobre" className="ma-nav-link" onClick={e => { e.preventDefault(); document.getElementById('sobre')?.scrollIntoView({ behavior: 'smooth' }); setMenuAberto(false); }}>Sobre nós</a>
         </div>
         <div className="ma-nav-right">
           <SignInButton mode="modal">
@@ -451,7 +451,7 @@ const Index = () => {
       {menuAberto && (
         <div className="ma-mobile-menu">
           <Link to="/criterios" className="ma-mobile-link" onClick={() => setMenuAberto(false)}>Quem pode doar</Link>
-          <Link to="/sobre" className="ma-mobile-link" onClick={() => setMenuAberto(false)}>Sobre nós</Link>
+          <a href="#sobre" className="ma-mobile-link" onClick={e => { e.preventDefault(); setMenuAberto(false); setTimeout(() => document.getElementById('sobre')?.scrollIntoView({ behavior: 'smooth' }), 100); }}>Sobre nós</a>
           <SignInButton mode="modal">
             <button className="ma-mobile-cta" onClick={() => setMenuAberto(false)}>Criar Conta</button>
           </SignInButton>
@@ -549,7 +549,7 @@ const Index = () => {
       </div>
 
       {/* SPLIT — PROPÓSITO */}
-      <div className="ma-section">
+      <div className="ma-section" id="sobre">
         <div className="ma-section-inner">
           <div className="ma-split">
             <div className="ma-split-quote">
@@ -603,6 +603,28 @@ const Index = () => {
         </div>
       </div>
 
+      {/* MANIFESTO */}
+      <div className="ma-section">
+        <div className="ma-section-inner">
+          <div className="ma-section-label">// Como operamos</div>
+          <h2 className="ma-section-title" style={{ marginBottom: 32 }}>Nossos<br /><span>princípios.</span></h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 2 }}>
+            {[
+              { num: "01", label: "Sem viralização", desc: "Não dependemos de posts virais. O sistema notifica diretamente quem pode ajudar, na hora certa." },
+              { num: "02", label: "Transparência total", desc: "Somos um projeto universitário sem fins lucrativos. Não vendemos dados, não cobramos nada." },
+              { num: "03", label: "Tecnologia a serviço", desc: "Compatibilidade sanguínea, intervalo entre doações, localização — tudo calculado automaticamente." },
+              { num: "04", label: "Feito no Acre", desc: "Construído por quem vive aqui, para resolver um problema real que afeta famílias acreanas todo dia." },
+            ].map((item, i) => (
+              <div key={i} style={{ background: '#0D0D0D', padding: '28px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+                <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 9, color: '#333', letterSpacing: '0.1em' }}>{item.num}</span>
+                <span style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700, fontSize: 18, textTransform: 'uppercase', color: '#C8F500', letterSpacing: '0.03em' }}>{item.label}</span>
+                <p style={{ fontFamily: "'Barlow', sans-serif", fontSize: 13, color: '#666', lineHeight: 1.65 }}>{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* EQUIPE */}
       <div className="ma-section">
         <div className="ma-section-inner">
@@ -648,7 +670,7 @@ const Index = () => {
           <span className="ma-footer-copy">© 2026 MOVEACRE — Rio Branco, Acre, Brasil</span>
           <div className="ma-footer-links">
             <Link to="/criterios" className="ma-footer-link">Critérios de doação</Link>
-            <Link to="/sobre" className="ma-footer-link">Sobre nós</Link>
+            <a href="#sobre" className="ma-footer-link" onClick={e => { e.preventDefault(); document.getElementById('sobre')?.scrollIntoView({ behavior: 'smooth' }); }}>Sobre nós</a>
             <Link to="/termos" className="ma-footer-link">Termos</Link>
             <Link to="/privacidade" className="ma-footer-link">Privacidade</Link>
           </div>
