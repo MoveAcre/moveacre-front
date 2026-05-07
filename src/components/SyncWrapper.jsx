@@ -45,7 +45,6 @@ export default function SyncWrapper({ children }) {
 
         const json = await res.json();
         const data = json.data ?? json;
-        console.log("[MOVEACRE] SyncWrapper data:", JSON.stringify(data));
 
         const perfilCompleto =
           data &&
@@ -60,8 +59,6 @@ export default function SyncWrapper({ children }) {
           window.location.href = "/";
           return;
         }
-
-        console.log("[MOVEACRE] perfilCompleto:", perfilCompleto);
 
         const rotaAtual = window.location.pathname;
         const rotaLivre = ROTAS_LIVRES.includes(rotaAtual);
