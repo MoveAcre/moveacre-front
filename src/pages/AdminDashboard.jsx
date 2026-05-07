@@ -200,10 +200,11 @@ export default function AdminDashboard() {
 
   const verLaudo = async (id) => {
     const j = await api(`/urgencias/${id}/laudo`);
-    const url = j.success && j.url
-      ? j.url.replace("http://localhost:5000", API)
-      : "https://www.w3.org/WAI/WCAG21/Techniques/pdf/sample.pdf";
-    window.open(url, "_blank");
+    if (j.success && j.url) {
+      window.open(j.url.replace("http://localhost:5000", API), "_blank");
+    } else {
+      alert("Laudo não encontrado ou não disponível para este pedido.");
+    }
   };
 
   const deletarUsuario = async (id) => {
