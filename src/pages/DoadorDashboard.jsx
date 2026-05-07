@@ -7,7 +7,7 @@ import { useIsAdmin } from "../hooks/useIsAdmin";
 const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const styles = `
-  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap');
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -24,130 +24,194 @@ const styles = `
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 32px;
-    border-bottom: 1px solid #1a1a1a;
+    padding: 0 32px;
+    height: 56px;
+    border-bottom: 1px solid #1E1E1E;
+    background: #0D0D0D;
+    position: sticky;
+    top: 0;
+    z-index: 50;
   }
 
-  .dd-logo {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 22px;
-    letter-spacing: 0.05em;
+  .dd-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .dd-admin-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
     color: #C8F500;
-    text-transform: uppercase;
     text-decoration: none;
+    border: 1px solid rgba(200,245,0,0.3);
+    padding: 5px 12px;
+    letter-spacing: 0.08em;
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .dd-admin-link:hover {
+    background: rgba(200,245,0,0.08);
+    border-color: #C8F500;
   }
 
   .dd-body {
     flex: 1;
-    padding: 48px 32px;
-    max-width: 680px;
+    padding: 52px 32px 64px;
+    max-width: 720px;
     width: 100%;
     margin: 0 auto;
   }
 
-  .dd-tag {
+  .dd-eyebrow {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
     color: #C8F500;
-    letter-spacing: 0.05em;
-    margin-bottom: 12px;
+    letter-spacing: 0.12em;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .dd-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 1px;
+    background: #C8F500;
   }
 
   .dd-title {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 900;
-    font-size: 40px;
-    line-height: 0.95;
+    font-size: 54px;
+    line-height: 0.92;
     text-transform: uppercase;
     color: #F5F5F0;
-    margin-bottom: 8px;
+    margin-bottom: 32px;
+    letter-spacing: -0.01em;
   }
 
   .dd-title span { color: #C8F500; }
 
-  .dd-divider {
-    width: 40px;
-    height: 2px;
-    background: #C8F500;
-    margin-bottom: 32px;
+  .dd-separator {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 40px;
   }
 
-  .dd-alert {
-    background: #C8F500;
-    color: #000;
-    padding: 15px;
-    margin-bottom: 24px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    font-weight: bold;
-    cursor: pointer;
-    text-align: center;
+  .dd-separator-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, #1E1E1E, transparent);
   }
+
+  .dd-separator-dot { width: 4px; height: 4px; background: #C8F500; }
 
   .dd-grid {
     display: grid;
-    gap: 16px;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
   }
 
-  .dd-btn {
-    background: #1A1A1A;
-    border: 1px solid #333;
+  .dd-card {
+    background: #111;
+    border: 1px solid #1E1E1E;
     padding: 24px;
-    text-align: left;
     cursor: pointer;
+    text-align: left;
     width: 100%;
     text-decoration: none;
     display: block;
-    transition: all 0.2s;
+    transition: border-color 0.18s, background 0.18s;
+    position: relative;
+    overflow: hidden;
   }
 
-  .dd-btn:hover {
-    border-color: #C8F500;
+  .dd-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: transparent;
+    transition: background 0.18s;
   }
 
-  .dd-btn-primary {
-    border-color: #C8F500;
+  .dd-card:hover { border-color: #2A2A2A; background: #131313; }
+  .dd-card:hover::before { background: #444; }
+
+  .dd-card-accent { border-color: rgba(200,245,0,0.12); }
+  .dd-card-accent::before { background: #C8F500 !important; }
+  .dd-card-accent:hover {
+    border-color: rgba(200,245,0,0.28);
+    background: rgba(200,245,0,0.025);
   }
 
-  .dd-btn-icon {
+  .dd-card-full { grid-column: 1 / -1; }
+
+  .dd-card-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: #282828;
+    letter-spacing: 0.1em;
+    margin-bottom: 18px;
+  }
+
+  .dd-card-icon {
+    font-family: 'Barlow Condensed', sans-serif;
     font-size: 32px;
-    margin-bottom: 12px;
-    display: block;
+    font-weight: 900;
+    color: #222;
+    margin-bottom: 14px;
+    line-height: 1;
   }
 
-  .dd-btn-title {
+  .dd-card-accent .dd-card-icon { color: rgba(200,245,0,0.12); }
+
+  .dd-card-title {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 700;
-    font-size: 20px;
+    font-size: 17px;
     text-transform: uppercase;
-    color: #F5F5F0;
-    margin-bottom: 4px;
+    color: #C8C8C0;
+    margin-bottom: 8px;
+    letter-spacing: 0.03em;
+    line-height: 1.15;
   }
 
-  .dd-btn-title.primary {
-    color: #C8F500;
-  }
+  .dd-card-title.primary { color: #C8F500; }
 
-  .dd-btn-desc {
+  .dd-card-desc {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
-    color: #666;
+    color: #3A3A3A;
+    line-height: 1.6;
+    letter-spacing: 0.02em;
   }
 
   .dd-footer {
-    padding: 16px 32px;
-    border-top: 1px solid #1a1a1a;
+    padding: 14px 32px;
+    border-top: 1px solid #141414;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: #0D0D0D;
   }
 
   .dd-footer-copy {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: #333;
-    letter-spacing: 0.05em;
+    font-size: 9px;
+    color: #242424;
+    letter-spacing: 0.08em;
+  }
+
+  .dd-footer-slogan {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: #303030;
+    letter-spacing: 0.12em;
   }
 `;
 
@@ -157,9 +221,8 @@ export default function DoadorDashboard() {
   const { signOut } = useClerk();
   const { isAdmin } = useIsAdmin();
   const navigate = useNavigate();
-  const [perfilIncompleto, setPerfilIncompleto] = useState(false);
   const [nomeDoador, setNomeDoador] = useState("");
-  const [contaDesativada, setContaDesativada] = useState(null); // null | 'usuario' | 'admin'
+  const [contaDesativada, setContaDesativada] = useState(null);
   const [emailDoador, setEmailDoador] = useState("");
 
   useEffect(() => {
@@ -168,7 +231,6 @@ export default function DoadorDashboard() {
         try {
           const token = await getToken();
 
-          // Verifica se é admin
           const isAdminRes = await fetch(`${API}/auth/is-admin`, { headers: { Authorization: `Bearer ${token}` } });
           const isAdminJson = await isAdminRes.json();
           if (isAdminJson.is_admin) return;
@@ -183,7 +245,6 @@ export default function DoadorDashboard() {
           }
           if (data && data.email) setEmailDoador(data.email);
 
-          // Conta desativada
           if (data && data.online === 0) {
             setContaDesativada(data.desativado_por || 'admin');
             return;
@@ -222,26 +283,30 @@ export default function DoadorDashboard() {
     };
     return (
       <div style={{ background:"#0A0A0A", color:"#F5F5F0", minHeight:"100vh", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", fontFamily:"Barlow,sans-serif", padding:32 }}>
-        <div style={{ maxWidth:400, textAlign:"center" }}>
-          <div style={{ fontFamily:"JetBrains Mono,monospace", fontSize:10, color:"#FF3333", letterSpacing:"0.1em", marginBottom:16 }}>// CONTA_DESATIVADA</div>
-          <h2 style={{ fontFamily:"Barlow Condensed,sans-serif", fontWeight:900, fontSize:32, textTransform:"uppercase", marginBottom:16 }}>
+        <style>{`@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&family=JetBrains+Mono:wght@400&display=swap');`}</style>
+        <div style={{ maxWidth:400, width:"100%" }}>
+          <div style={{ fontFamily:"JetBrains Mono,monospace", fontSize:10, color:"#FF3333", letterSpacing:"0.12em", marginBottom:20, display:"flex", alignItems:"center", gap:8 }}>
+            <span style={{ display:"inline-block", width:16, height:1, background:"#FF3333" }} />
+            CONTA_DESATIVADA
+          </div>
+          <h2 style={{ fontFamily:"Barlow Condensed,sans-serif", fontWeight:900, fontSize:36, textTransform:"uppercase", marginBottom:20, lineHeight:1 }}>
             Sua conta está <span style={{ color:"#FF3333" }}>desativada</span>
           </h2>
           {foiAdmin ? (
-            <p style={{ color:"#555", fontSize:14, lineHeight:1.6, marginBottom:32 }}>
-              Esta conta foi desativada pelo administrador. Para mais informações, entra em contacto com o suporte.
+            <p style={{ color:"#555", fontSize:14, lineHeight:1.7, marginBottom:32 }}>
+              Esta conta foi desativada pelo administrador. Para mais informações, entre em contato com o suporte.
             </p>
           ) : (
             <>
-              <p style={{ color:"#555", fontSize:14, lineHeight:1.6, marginBottom:32 }}>
-                Desativaste a tua conta. Queres reativá-la?
+              <p style={{ color:"#555", fontSize:14, lineHeight:1.7, marginBottom:32 }}>
+                Você desativou sua conta. Deseja reativá-la?
               </p>
-              <button onClick={reativar} style={{ background:"#C8F500", color:"#000", border:"none", padding:"14px 32px", fontFamily:"Barlow Condensed,sans-serif", fontWeight:900, fontSize:18, textTransform:"uppercase", cursor:"pointer", marginBottom:12, width:"100%" }}>
+              <button onClick={reativar} style={{ background:"#C8F500", color:"#000", border:"none", padding:"14px 32px", fontFamily:"Barlow Condensed,sans-serif", fontWeight:900, fontSize:16, textTransform:"uppercase", cursor:"pointer", marginBottom:12, width:"100%", letterSpacing:"0.05em" }}>
                 REATIVAR CONTA
               </button>
             </>
           )}
-          <button onClick={() => signOut()} style={{ background:"transparent", color:"#555", border:"1px solid #333", padding:"10px 24px", fontFamily:"JetBrains Mono,monospace", fontSize:11, cursor:"pointer", width:"100%" }}>
+          <button onClick={() => signOut()} style={{ background:"transparent", color:"#444", border:"1px solid #222", padding:"10px 24px", fontFamily:"JetBrains Mono,monospace", fontSize:11, cursor:"pointer", width:"100%", letterSpacing:"0.05em" }}>
             SAIR
           </button>
         </div>
@@ -249,68 +314,70 @@ export default function DoadorDashboard() {
     );
   }
 
+  const firstName = nomeDoador || user.firstName || "doador";
+
   return (
     <>
       <style>{styles}</style>
       <div className="dd-root">
         <nav className="dd-nav">
           <Logo />
-          <div style={{ display:"flex", alignItems:"center", gap:12 }}>
+          <div className="dd-nav-right">
             {isAdmin && (
-              <Link to="/admin" style={{ fontFamily:"JetBrains Mono,monospace", fontSize:11, color:"#C8F500", textDecoration:"none", border:"1px solid #C8F500", padding:"5px 14px" }}>
-                PAINEL ADMIN
-              </Link>
+              <Link to="/admin" className="dd-admin-link">ADMIN</Link>
             )}
             <UserButton afterSignOutUrl="/" />
           </div>
         </nav>
 
         <div className="dd-body">
-          <div className="dd-tag">// BEM_VINDO</div>
+          <div className="dd-eyebrow">BEM_VINDO</div>
           <h1 className="dd-title">
-            OLA, <br />
-            <span>{nomeDoador || user.firstName || "doador"}</span>
+            OLÁ,<br />
+            <span>{firstName}</span>
           </h1>
-          <div className="dd-divider" />
 
-
+          <div className="dd-separator">
+            <div className="dd-separator-dot" />
+            <div className="dd-separator-line" />
+          </div>
 
           <div className="dd-grid">
-            <button onClick={() => navigate('/criar-urgencia')} className="dd-btn">
-              <span className="dd-btn-icon">!</span>
-              <h2 className="dd-btn-title">ABRIR PEDIDO DE SANGUE</h2>
-              <p className="dd-btn-desc">Criar um novo pedido de transfusão de sangue.</p>
+            <button onClick={() => navigate('/criar-urgencia')} className="dd-card dd-card-accent dd-card-full">
+              <div className="dd-card-num">01 / AÇÃO_PRINCIPAL</div>
+              <div className="dd-card-icon">!</div>
+              <h2 className="dd-card-title primary">ABRIR PEDIDO DE SANGUE</h2>
+              <p className="dd-card-desc">Criar um novo pedido de transfusão de sangue urgente.</p>
             </button>
 
-            <button onClick={() => navigate('/minhas-urgencias')} className="dd-btn">
-              <span className="dd-btn-icon">-</span>
-              <h2 className="dd-btn-title">MEUS PEDIDOS</h2>
-              <p className="dd-btn-desc">Ver status dos meus pedidos feitos.</p>
+            <button onClick={() => navigate('/minhas-urgencias')} className="dd-card">
+              <div className="dd-card-num">02</div>
+              <div className="dd-card-icon">–</div>
+              <h2 className="dd-card-title">MEUS PEDIDOS</h2>
+              <p className="dd-card-desc">Ver status dos pedidos feitos.</p>
             </button>
-            
-            <button onClick={() => navigate('/perfil')} className="dd-btn">
-              <span className="dd-btn-icon">*</span>
-              <h2 className="dd-btn-title">MINHA CONTA / DOADOR</h2>
-              <p className="dd-btn-desc">Historico, CRUD da Conta, e Declarar Doacao.</p>
+
+            <button onClick={() => navigate('/perfil')} className="dd-card">
+              <div className="dd-card-num">03</div>
+              <div className="dd-card-icon">*</div>
+              <h2 className="dd-card-title">MINHA CONTA</h2>
+              <p className="dd-card-desc">Histórico, dados e declarar doação.</p>
             </button>
 
             {user?.publicMetadata?.role === "admin" && (
-              <button onClick={() => navigate('/admin')} className="dd-btn">
-                <span className="dd-btn-icon">#</span>
-                <h2 className="dd-btn-title primary">PAINEL ADMINISTRATIVO</h2>
-                <p className="dd-btn-desc">Gestao de usuarios, doadores e pedidos.</p>
+              <button onClick={() => navigate('/admin')} className="dd-card dd-card-full">
+                <div className="dd-card-num">04 / ADMIN</div>
+                <div className="dd-card-icon">#</div>
+                <h2 className="dd-card-title primary">PAINEL ADMINISTRATIVO</h2>
+                <p className="dd-card-desc">Gestão de usuários, doadores e pedidos.</p>
               </button>
             )}
           </div>
         </div>
 
         <footer className="dd-footer">
-          <span className="dd-footer-copy">
-            © 2026 MOVEACRE — Rio Branco, Acre, Brasil
-          </span>
-          <span className="dd-footer-copy" style={{ color: "#C8F500" }}>
-            VAMOS MOVER O ACRE.
-          </span>
+          <span className="dd-footer-copy">© 2026 MOVEACRE — RIO BRANCO, ACRE</span>
+          <span className="dd-footer-slogan">VAMOS MOVER O ACRE.</span>
         </footer>
       </div>
     </>

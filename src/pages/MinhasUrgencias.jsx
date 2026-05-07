@@ -6,13 +6,13 @@ import Logo from "../components/Logo";
 const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const styles = `
-  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap');
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   .mu-root {
     background: #0A0A0A;
-    color: #F5F5F0;
+    color: #D8D8D0;
     font-family: 'Barlow', sans-serif;
     min-height: 100vh;
     display: flex;
@@ -23,99 +23,110 @@ const styles = `
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 32px;
-    border-bottom: 1px solid #1a1a1a;
-  }
-
-  .mu-logo {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 22px;
-    letter-spacing: 0.05em;
-    color: #C8F500;
-    text-transform: uppercase;
-    text-decoration: none;
+    padding: 0 32px;
+    height: 56px;
+    border-bottom: 1px solid #1A1A1A;
+    background: #0D0D0D;
+    position: sticky;
+    top: 0;
+    z-index: 50;
   }
 
   .mu-back {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: #555;
-    letter-spacing: 0.05em;
+    font-size: 10px;
+    color: #333;
+    letter-spacing: 0.08em;
     text-decoration: none;
+    transition: color 0.15s;
   }
-
-  .mu-back:hover { color: #F5F5F0; }
+  .mu-back:hover { color: #666; }
 
   .mu-body {
     flex: 1;
-    padding: 48px 32px;
+    padding: 52px 32px 64px;
     max-width: 680px;
     width: 100%;
     margin: 0 auto;
   }
 
-  .mu-tag {
+  .mu-eyebrow {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
     color: #C8F500;
-    letter-spacing: 0.05em;
-    margin-bottom: 12px;
+    letter-spacing: 0.12em;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .mu-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 1px;
+    background: #C8F500;
   }
 
   .mu-title {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 900;
-    font-size: 40px;
-    line-height: 0.95;
+    font-size: 52px;
+    line-height: 0.92;
     text-transform: uppercase;
-    color: #F5F5F0;
-    margin-bottom: 8px;
+    color: #F0F0E8;
+    margin-bottom: 32px;
+    letter-spacing: -0.01em;
   }
-
   .mu-title span { color: #C8F500; }
 
-  .mu-divider {
-    width: 40px;
-    height: 2px;
-    background: #C8F500;
-    margin-bottom: 32px;
+  .mu-separator {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+  .mu-separator-dot { width: 4px; height: 4px; background: #C8F500; }
+  .mu-separator-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, #1E1E1E, transparent);
   }
 
   .mu-empty {
+    background: #0F0F0F;
+    border: 1px solid #141414;
+    padding: 32px 24px;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    color: #333;
-    letter-spacing: 0.05em;
-    padding: 32px 0;
-    border-top: 1px solid #1a1a1a;
+    font-size: 11px;
+    color: #2A2A2A;
+    letter-spacing: 0.1em;
   }
 
   .mu-loading {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
-    color: #555;
-    letter-spacing: 0.05em;
-    padding: 32px 0;
+    color: #333;
+    letter-spacing: 0.1em;
   }
 
   .mu-list {
-    display: flex;
-    flex-direction: column;
+    background: #0F0F0F;
+    border: 1px solid #1A1A1A;
+    overflow: hidden;
   }
 
   .mu-card {
-    border-top: 1px solid #1a1a1a;
-    padding: 20px 0;
+    padding: 20px 24px;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     gap: 16px;
+    border-bottom: 1px solid #141414;
+    transition: background 0.1s;
   }
-
-  .mu-card:last-child {
-    border-bottom: 1px solid #1a1a1a;
-  }
+  .mu-card:last-child { border-bottom: none; }
+  .mu-card:hover { background: #111; }
 
   .mu-card-left {
     display: flex;
@@ -127,39 +138,37 @@ const styles = `
   .mu-paciente {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 700;
-    font-size: 20px;
+    font-size: 18px;
     text-transform: uppercase;
-    color: #F5F5F0;
+    color: #C8C8C0;
     letter-spacing: 0.02em;
   }
 
   .mu-meta {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: #555;
-    letter-spacing: 0.05em;
+    font-size: 9px;
+    color: #333;
+    letter-spacing: 0.06em;
     display: flex;
-    gap: 16px;
+    gap: 14px;
     flex-wrap: wrap;
   }
-
-  .mu-meta span { color: #888; }
+  .mu-meta-val { color: #555; }
 
   .mu-badge {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.05em;
+    font-size: 9px;
+    letter-spacing: 0.08em;
     padding: 4px 10px;
     text-transform: uppercase;
     white-space: nowrap;
-    align-self: flex-start;
-    flex-shrink: 0;
+    font-weight: 600;
   }
 
   .mu-badge-pendente {
     background: transparent;
     color: #C8F500;
-    border: 1px solid #C8F500;
+    border: 1px solid rgba(200,245,0,0.3);
   }
 
   .mu-badge-aprovado {
@@ -169,48 +178,71 @@ const styles = `
 
   .mu-badge-recusado {
     background: transparent;
-    color: #ff3333;
-    border: 1px solid #ff3333;
+    color: #FF3333;
+    border: 1px solid rgba(255,51,51,0.3);
   }
 
   .mu-badge-default {
     background: transparent;
-    color: #555;
-    border: 1px solid #2a2a2a;
+    color: #333;
+    border: 1px solid #1E1E1E;
   }
+
+  .mu-recusa-box {
+    margin-top: 8px;
+    background: rgba(255,51,51,0.04);
+    border: 1px solid rgba(255,51,51,0.15);
+    padding: 8px 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #FF3333;
+    line-height: 1.6;
+    letter-spacing: 0.04em;
+  }
+
+  .mu-edit-btn {
+    background: transparent;
+    color: #C8F500;
+    border: 1px solid rgba(200,245,0,0.2);
+    padding: 4px 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    transition: border-color 0.15s;
+    margin-top: 6px;
+  }
+  .mu-edit-btn:hover { border-color: #C8F500; }
 
   .mu-new-btn {
     background: #C8F500;
     color: #0A0A0A;
     border: none;
-    padding: 14px 32px;
+    padding: 13px 28px;
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 900;
-    font-size: 16px;
+    font-size: 15px;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     cursor: pointer;
-    border-radius: 0;
     text-decoration: none;
     display: inline-block;
-    margin-top: 32px;
+    margin-top: 20px;
+    transition: opacity 0.15s;
   }
-
-  .mu-new-btn:hover { background: #d4ff00; }
+  .mu-new-btn:hover { opacity: 0.85; }
 
   .mu-footer {
-    padding: 16px 32px;
-    border-top: 1px solid #1a1a1a;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    padding: 14px 32px;
+    border-top: 1px solid #141414;
+    background: #0D0D0D;
   }
-
   .mu-footer-copy {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: #333;
-    letter-spacing: 0.05em;
+    font-size: 9px;
+    color: #222;
+    letter-spacing: 0.08em;
   }
 `;
 
@@ -237,11 +269,8 @@ export default function MinhasUrgencias() {
         });
         const data = await res.json();
         if (data.success) setUrgencias(data.data);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
+      } catch (err) { console.error(err); }
+      finally { setLoading(false); }
     };
     carregar();
   }, [getToken]);
@@ -256,12 +285,13 @@ export default function MinhasUrgencias() {
         </nav>
 
         <div className="mu-body">
-          <div className="mu-tag">// HISTÓRICO_DE_PEDIDOS</div>
-          <h1 className="mu-title">
-            MEUS<br />
-            <span>PEDIDOS</span>
-          </h1>
-          <div className="mu-divider" />
+          <div className="mu-eyebrow">HISTÓRICO_DE_PEDIDOS</div>
+          <h1 className="mu-title">MEUS <span>PEDIDOS</span></h1>
+
+          <div className="mu-separator">
+            <div className="mu-separator-dot" />
+            <div className="mu-separator-line" />
+          </div>
 
           {loading ? (
             <div className="mu-loading">CARREGANDO...</div>
@@ -276,30 +306,26 @@ export default function MinhasUrgencias() {
                     <div className="mu-card-left">
                       <div className="mu-paciente">{u.paciente_nome}</div>
                       <div className="mu-meta">
-                        {u.tipo_necessario && <span>TIPO: <span>{u.tipo_necessario}</span></span>}
-                        {u.contato_solicitante && <span>CONTATO: <span>{u.contato_solicitante}</span></span>}
-                        {u.criado_em && (
-                          <span>
-                            DATA: <span>{new Date(u.criado_em).toLocaleDateString("pt-BR")}</span>
-                          </span>
-                        )}
+                        {u.tipo_necessario && <span>TIPO: <span className="mu-meta-val">{u.tipo_necessario}</span></span>}
+                        {u.contato_solicitante && <span>CONTATO: <span className="mu-meta-val">{u.contato_solicitante}</span></span>}
+                        {u.criado_em && <span>DATA: <span className="mu-meta-val">{new Date(u.criado_em).toLocaleDateString("pt-BR")}</span></span>}
                       </div>
                       {(u.status === "Recusada" || u.status === "Recusado") && u.motivo_recusa && (
-                        <div style={{ marginTop:8, background:"#1a0000", border:"1px solid #FF3333", padding:"8px 12px", fontFamily:"JetBrains Mono,monospace", fontSize:10, color:"#FF3333", lineHeight:1.5 }}>
-                          MOTIVO DA RECUSA: {u.motivo_recusa}
+                        <div className="mu-recusa-box">
+                          MOTIVO: {u.motivo_recusa}
                         </div>
                       )}
                     </div>
-                    <div style={{ display:"flex", flexDirection:"column", alignItems:"flex-end", gap:8 }}>
+                    <div style={{ display:"flex", flexDirection:"column", alignItems:"flex-end", gap:6 }}>
                       <span className={`mu-badge ${cls}`}>{label}</span>
                       {u.status === "Pendente" && (
-                        <button onClick={() => navigate(`/editar-pedido/${u.id}`)}
-                          style={{ background:"transparent", color:"#C8F500", border:"1px solid #C8F500", padding:"4px 10px", fontFamily:"JetBrains Mono,monospace", fontSize:10, cursor:"pointer", textTransform:"uppercase" }}>
+                        <button onClick={() => navigate(`/editar-pedido/${u.id}`)} className="mu-edit-btn">
                           EDITAR
                         </button>
                       )}
                     </div>
-                  </div>                );
+                  </div>
+                );
               })}
             </div>
           )}
@@ -310,12 +336,7 @@ export default function MinhasUrgencias() {
         </div>
 
         <footer className="mu-footer">
-          <span className="mu-footer-copy">
-            © 2024 MOVEACRE_ANALYTICS // SEGURANÇA_DE_DADOS_SEC_01
-          </span>
-          <span className="mu-footer-copy" style={{ color: "#C8F500" }}>
-            V.1.0.0-CINÉTICO
-          </span>
+          <span className="mu-footer-copy">© 2026 MOVEACRE — RIO BRANCO, ACRE</span>
         </footer>
       </div>
     </>

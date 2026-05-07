@@ -6,13 +6,13 @@ import Logo from "../components/Logo";
 const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const styles = `
-  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap');
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   .pf-root {
     background: #0A0A0A;
-    color: #F5F5F0;
+    color: #D8D8D0;
     font-family: 'Barlow', sans-serif;
     min-height: 100vh;
     display: flex;
@@ -23,140 +23,181 @@ const styles = `
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 32px;
-    border-bottom: 1px solid #1a1a1a;
-  }
-
-  .pf-logo {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 22px;
-    letter-spacing: 0.05em;
-    color: #C8F500;
-    text-transform: uppercase;
-    text-decoration: none;
+    padding: 0 32px;
+    height: 56px;
+    border-bottom: 1px solid #1A1A1A;
+    background: #0D0D0D;
+    position: sticky;
+    top: 0;
+    z-index: 50;
   }
 
   .pf-back {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: #555;
-    letter-spacing: 0.05em;
+    font-size: 10px;
+    color: #333;
+    letter-spacing: 0.08em;
     text-decoration: none;
+    transition: color 0.15s;
   }
-
-  .pf-back:hover { color: #F5F5F0; }
+  .pf-back:hover { color: #666; }
 
   .pf-body {
     flex: 1;
-    padding: 48px 32px;
+    padding: 52px 32px 64px;
     max-width: 680px;
     width: 100%;
     margin: 0 auto;
   }
 
-  .pf-tag {
+  .pf-eyebrow {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
     color: #C8F500;
-    letter-spacing: 0.05em;
-    margin-bottom: 12px;
+    letter-spacing: 0.12em;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .pf-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 1px;
+    background: #C8F500;
   }
 
   .pf-title {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 900;
-    font-size: 40px;
-    line-height: 0.95;
+    font-size: 52px;
+    line-height: 0.92;
     text-transform: uppercase;
-    color: #F5F5F0;
-    margin-bottom: 8px;
+    color: #F0F0E8;
+    margin-bottom: 32px;
+    letter-spacing: -0.01em;
   }
-
   .pf-title span { color: #C8F500; }
 
-  .pf-divider {
-    width: 40px;
-    height: 2px;
-    background: #C8F500;
-    margin-bottom: 32px;
+  .pf-separator {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 36px;
   }
+  .pf-separator-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, #1E1E1E, transparent);
+  }
+  .pf-separator-dot { width: 4px; height: 4px; background: #C8F500; }
 
   .pf-section {
+    background: #0F0F0F;
+    border: 1px solid #1A1A1A;
+    padding: 0;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+
+  .pf-section-header {
+    padding: 14px 20px;
+    border-bottom: 1px solid #1A1A1A;
+    display: flex;
+    align-items: center;
+    gap: 10px;
     background: #111;
-    border: 1px solid #222;
-    padding: 24px;
-    margin-bottom: 24px;
   }
 
   .pf-subtitle {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 20px;
-    color: #C8F500;
-    margin-bottom: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: #444;
     text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 600;
   }
 
   .pf-row {
     display: flex;
     justify-content: space-between;
-    padding: 12px 0;
-    border-bottom: 1px solid #1a1a1a;
+    align-items: center;
+    padding: 14px 20px;
+    border-bottom: 1px solid #141414;
+    transition: background 0.1s;
   }
-  
   .pf-row:last-child { border-bottom: none; }
+  .pf-row:hover { background: #111; }
 
   .pf-label {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: #555;
+    font-size: 10px;
+    color: #3A3A3A;
+    letter-spacing: 0.06em;
   }
 
   .pf-value {
-    font-weight: bold;
-    color: #F5F5F0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #C8C8C0;
+    text-align: right;
+  }
+
+  .pf-value.accent { color: #C8F500; font-weight: 700; }
+
+  .pf-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 24px;
   }
 
   .pf-btn {
-    background: transparent;
-    color: #F5F5F0;
-    border: 1px solid #333;
-    padding: 12px 24px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    cursor: pointer;
-    text-transform: uppercase;
-    margin-right: 12px;
-    margin-top: 16px;
-  }
-  
-  .pf-btn:hover { border-color: #C8F500; color: #C8F500; }
-
-  .pf-btn-danger {
-    border-color: #ff3333;
-    color: #ff3333;
-  }
-  .pf-btn-danger:hover { background: #ff3333; color: #0A0A0A; }
-
-  .pf-footer {
-    padding: 16px 32px;
-    border-top: 1px solid #1a1a1a;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .pf-footer-copy {
+    background: #0F0F0F;
+    color: #888;
+    border: 1px solid #1E1E1E;
+    padding: 12px 16px;
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
-    color: #333;
-    letter-spacing: 0.05em;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+    text-align: center;
+  }
+  .pf-btn:hover { border-color: #2E2E2E; color: #C8C8C0; background: #131313; }
+
+  .pf-btn-primary {
+    background: #C8F500;
+    color: #000;
+    border-color: #C8F500;
+    font-weight: 700;
+  }
+  .pf-btn-primary:hover { background: #D4FF00; color: #000; border-color: #D4FF00; }
+
+  .pf-btn-danger { border-color: #1E1E1E; color: #444; }
+  .pf-btn-danger:hover { border-color: #FF3333; color: #FF3333; background: rgba(255,51,51,0.04); }
+
+  .pf-btn-full { grid-column: 1 / -1; }
+
+  .pf-footer {
+    padding: 14px 32px;
+    border-top: 1px solid #141414;
+    background: #0D0D0D;
+  }
+  .pf-footer-copy {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: #222;
+    letter-spacing: 0.08em;
   }
 
+  /* MODAL */
   .pf-modal {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.9);
+    background: rgba(0,0,0,0.94);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -165,21 +206,44 @@ const styles = `
 
   .pf-modal-content {
     background: #111;
-    border: 1px solid #333;
+    border: 1px solid #222;
     padding: 32px;
     width: 100%;
-    max-width: 400px;
+    max-width: 420px;
+  }
+
+  .pf-modal-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 22px;
+    text-transform: uppercase;
+    color: #C8F500;
+    margin-bottom: 24px;
+    letter-spacing: 0.03em;
+  }
+
+  .pf-modal-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: #444;
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+    display: block;
   }
 
   .pf-modal-input {
     width: 100%;
-    padding: 10px;
-    background: transparent;
-    border: 1px solid #333;
-    color: white;
-    margin-bottom: 20px;
-    margin-top: 10px;
+    padding: 10px 12px;
+    background: #0A0A0A;
+    border: 1px solid #1E1E1E;
+    color: #C8C8C0;
+    margin-bottom: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    outline: none;
+    transition: border-color 0.15s;
   }
+  .pf-modal-input:focus { border-color: #2A2A2A; }
 `;
 
 export default function Perfil() {
@@ -196,11 +260,8 @@ export default function Perfil() {
   const [dataDoacao, setDataDoacao] = useState("");
   const [enviando, setEnviando] = useState(false);
 
-  // Abre modal automaticamente se vier de CriarUrgencia
   useEffect(() => {
-    if (location.state?.abrirDeclarar) {
-      setShowModal(true);
-    }
+    if (location.state?.abrirDeclarar) setShowModal(true);
   }, [location.state]);
 
   useEffect(() => {
@@ -209,32 +270,19 @@ export default function Perfil() {
         const token = await getToken();
         const email = user?.primaryEmailAddress?.emailAddress;
         if (!email) return;
-
         const res = await fetch(`${API}/doadores/me?email=${email}`, {
-            headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` }
         });
         const json = await res.json();
-        
         if (json.success && json.data && Object.keys(json.data).length > 0) {
-            setPerfil(json.data);
+          setPerfil(json.data);
         } else {
-            setPerfil({
-                tipo_sangue: 'Nao cadastrado',
-                genero: 'Nao cadastrado',
-                telefone: 'Nao cadastrado',
-                idade: 'Nao cadastrado',
-                cidade: 'Nao cadastrado',
-                ultima_doacao: 'Nao cadastrado',
-                tipo: 'Nao cadastrado',
-                nivel: 'Nao cadastrado'
-            });
+          setPerfil({ tipo_sangue:'Não cadastrado', genero:'Não cadastrado', telefone:'Não cadastrado', idade:'Não cadastrado', cidade:'Não cadastrado', ultima_doacao:'Não cadastrado', tipo:'Não cadastrado', nivel:'Não cadastrado' });
         }
         setLoading(false);
       } catch (err) { console.error(err); setLoading(false); }
     };
-    if (user) {
-        fetchPerfil();
-    }
+    if (user) fetchPerfil();
   }, [getToken, user]);
 
   const handleDelete = async () => {
@@ -256,17 +304,14 @@ export default function Perfil() {
     e.preventDefault();
     if (!arquivo) { alert("Selecione o atestado."); return; }
     if (!dataDoacao) { alert("Informe a data da doação."); return; }
-
     setEnviando(true);
     try {
       const token = await getToken();
       const email = user?.primaryEmailAddress?.emailAddress;
-
       const formData = new FormData();
       formData.append("email", email);
       formData.append("data_doacao", dataDoacao);
       formData.append("atestado", arquivo);
-
       const res = await fetch(`${API}/doadores/declarar-doacao`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
@@ -274,18 +319,13 @@ export default function Perfil() {
       });
       const json = await res.json();
       if (json.success) {
-        alert("Atestado enviado! Aguardando aprovação do administrador. Seu nível será atualizado após a aprovação.");
-        setShowModal(false);
-        setArquivo(null);
-        setDataDoacao("");
+        alert("Atestado enviado! Aguardando aprovação do administrador.");
+        setShowModal(false); setArquivo(null); setDataDoacao("");
       } else {
         alert("Erro: " + (json.message || "Tente novamente."));
       }
-    } catch (err) {
-      alert("Erro ao enviar: " + err.message);
-    } finally {
-      setEnviando(false);
-    }
+    } catch (err) { alert("Erro ao enviar: " + err.message); }
+    finally { setEnviando(false); }
   };
 
   return (
@@ -294,77 +334,86 @@ export default function Perfil() {
       <div className="pf-root">
         <nav className="pf-nav">
           <Logo />
-          <Link to="/" className="pf-back">VOLTAR</Link>
+          <Link to="/" className="pf-back">← VOLTAR</Link>
         </nav>
 
         <div className="pf-body">
-          <div className="pf-tag">// MINHA_CONTA</div>
+          <div className="pf-eyebrow">MINHA_CONTA</div>
           <h1 className="pf-title">MEU <span>PERFIL</span></h1>
-          <div className="pf-divider" />
 
-          {loading ? <p>Carregando...</p> : (
+          <div className="pf-separator">
+            <div className="pf-separator-dot" />
+            <div className="pf-separator-line" />
+          </div>
+
+          {loading ? (
+            <div style={{ fontFamily:"JetBrains Mono,monospace", fontSize:11, color:"#333", letterSpacing:"0.1em" }}>CARREGANDO...</div>
+          ) : (
             <>
               <div className="pf-section">
-                <h2 className="pf-subtitle">DADOS DA CONTA</h2>
-                <div className="pf-row">
-                    <span className="pf-label">NOME</span>
-                    {/* CORREÇÃO: usa nome_completo do banco, com fallback para o Clerk */}
-                    <span className="pf-value">{perfil?.nome_completo || user?.fullName}</span>
+                <div className="pf-section-header">
+                  <div className="pf-subtitle">DADOS DA CONTA</div>
                 </div>
                 <div className="pf-row">
-                    <span className="pf-label">EMAIL</span>
-                    <span className="pf-value">{user?.primaryEmailAddress?.emailAddress}</span>
+                  <span className="pf-label">NOME</span>
+                  <span className="pf-value">{perfil?.nome_completo || user?.fullName}</span>
                 </div>
                 <div className="pf-row">
-                    <span className="pf-label">TIPO</span>
-                    <span className="pf-value" style={{ color: '#C8F500' }}>{perfil?.tipo}</span>
+                  <span className="pf-label">EMAIL</span>
+                  <span className="pf-value">{user?.primaryEmailAddress?.emailAddress}</span>
                 </div>
                 <div className="pf-row">
-                    <span className="pf-label">NIVEL DOADOR</span>
-                    <span className="pf-value" style={{ color: '#C8F500' }}>{perfil?.nivel || 'BRONZE'}</span>
+                  <span className="pf-label">TIPO</span>
+                  <span className="pf-value accent">{perfil?.tipo}</span>
+                </div>
+                <div className="pf-row">
+                  <span className="pf-label">NÍVEL DOADOR</span>
+                  <span className="pf-value accent">{perfil?.nivel || "BRONZE"}</span>
                 </div>
               </div>
 
               <div className="pf-section">
-                <h2 className="pf-subtitle">INFORMACOES MEDICAS E CONTATO</h2>
-                <div className="pf-row">
-                    <span className="pf-label">TIPO SANGUINEO</span>
-                    <span className="pf-value">{perfil?.tipo_sangue}</span>
+                <div className="pf-section-header">
+                  <div className="pf-subtitle">INFORMAÇÕES MÉDICAS E CONTATO</div>
                 </div>
                 <div className="pf-row">
-                    <span className="pf-label">IDADE</span>
-                    <span className="pf-value">{perfil?.idade}</span>
+                  <span className="pf-label">TIPO SANGUÍNEO</span>
+                  <span className="pf-value">{perfil?.tipo_sangue}</span>
                 </div>
                 <div className="pf-row">
-                    <span className="pf-label">CIDADE</span>
-                    <span className="pf-value">{perfil?.cidade}</span>
+                  <span className="pf-label">IDADE</span>
+                  <span className="pf-value">{perfil?.idade}</span>
                 </div>
                 <div className="pf-row">
-                    <span className="pf-label">ULTIMA DOACAO</span>
-                    <span className="pf-value">{perfil?.ultima_doacao}</span>
+                  <span className="pf-label">CIDADE</span>
+                  <span className="pf-value">{perfil?.cidade}</span>
+                </div>
+                <div className="pf-row">
+                  <span className="pf-label">ÚLTIMA DOAÇÃO</span>
+                  <span className="pf-value">{perfil?.ultima_doacao}</span>
                 </div>
               </div>
 
-              <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+              <div className="pf-actions">
                 <button className="pf-btn" onClick={() => navigate('/editar-conta')}>EDITAR CONTA</button>
                 <button className="pf-btn" onClick={() => navigate('/historico-doador')}>HISTÓRICO DE DOAÇÕES</button>
-                <button className="pf-btn" onClick={() => setShowModal(true)}>DECLARAR DOAÇÃO</button>
-                <button className="pf-btn pf-btn-danger" onClick={handleDelete}>DESATIVAR CONTA</button>
+                <button className="pf-btn pf-btn-primary pf-btn-full" onClick={() => setShowModal(true)}>+ DECLARAR DOAÇÃO</button>
+                <button className="pf-btn pf-btn-danger pf-btn-full" onClick={handleDelete}>DESATIVAR CONTA</button>
               </div>
             </>
           )}
         </div>
 
         <footer className="pf-footer">
-          <span className="pf-footer-copy">2024 MOVEACRE_ANALYTICS</span>
+          <span className="pf-footer-copy">© 2026 MOVEACRE — DADOS PROTEGIDOS</span>
         </footer>
 
         {showModal && (
           <div className="pf-modal">
             <div className="pf-modal-content">
-              <h2 className="pf-subtitle">ENVIAR ATESTADO DE DOACAO</h2>
+              <div className="pf-modal-title">DECLARAR DOAÇÃO</div>
               <form onSubmit={handleEnviarDoacao}>
-                <label className="pf-label">Data da doação</label>
+                <label className="pf-modal-label">DATA DA DOAÇÃO</label>
                 <input
                   type="date"
                   className="pf-modal-input"
@@ -372,18 +421,20 @@ export default function Perfil() {
                   value={dataDoacao}
                   onChange={(e) => setDataDoacao(e.target.value)}
                 />
-                <label className="pf-label">Anexe o PDF ou Foto do atestado</label>
-                <input 
-                  type="file" 
-                  className="pf-modal-input" 
-                  required 
+                <label className="pf-modal-label">ATESTADO (PDF, PNG, JPG)</label>
+                <input
+                  type="file"
+                  className="pf-modal-input"
+                  required
                   accept=".pdf,.png,.jpg,.jpeg"
                   onChange={(e) => setArquivo(e.target.files[0])}
                 />
-                <button type="submit" className="pf-btn" style={{ width: '100%' }} disabled={enviando}>
+                <button type="submit" className="pf-btn pf-btn-primary pf-btn-full" style={{ width:"100%", marginBottom:8 }} disabled={enviando}>
                   {enviando ? "ENVIANDO..." : "ENVIAR ATESTADO"}
                 </button>
-                <button type="button" className="pf-btn pf-btn-danger" style={{ width: '100%', marginTop: '10px' }} onClick={() => setShowModal(false)}>CANCELAR</button>
+                <button type="button" className="pf-btn pf-btn-full" style={{ width:"100%" }} onClick={() => setShowModal(false)}>
+                  CANCELAR
+                </button>
               </form>
             </div>
           </div>
