@@ -505,7 +505,7 @@ export default function Criterios() {
           <Logo />
           <div className="cr-nav-links">
             <Link to="/criterios" className="cr-nav-link cr-nav-link-active">Quem pode doar</Link>
-            <Link to="/sobre" className="cr-nav-link">Sobre nós</Link>
+            <Link to="/#sobre" className="cr-nav-link" onClick={() => { setTimeout(() => document.getElementById('sobre')?.scrollIntoView({ behavior: 'smooth' }), 100); }}>Sobre nós</Link>
           </div>
         </div>
 
@@ -534,7 +534,7 @@ export default function Criterios() {
       {menuAberto && (
         <div className="cr-mobile-menu">
           <Link to="/criterios" className="cr-mobile-link" onClick={() => setMenuAberto(false)}>Quem pode doar</Link>
-          <Link to="/sobre" className="cr-mobile-link" onClick={() => setMenuAberto(false)}>Sobre nós</Link>
+          <Link to="/#sobre" className="cr-mobile-link" onClick={() => { setMenuAberto(false); setTimeout(() => document.getElementById('sobre')?.scrollIntoView({ behavior: 'smooth' }), 200); }}>Sobre nós</Link>
           {!isSignedIn && (
             <SignInButton mode="modal">
               <button className="cr-mobile-cta" onClick={() => setMenuAberto(false)}>Criar Conta</button>
@@ -714,7 +714,7 @@ export default function Criterios() {
         <span className="cr-footer-copy">© 2026 MOVEACRE — Rio Branco, Acre, Brasil</span>
         <div className="cr-footer-links">
           <Link to="/criterios" className="cr-footer-link">Critérios</Link>
-          <Link to="/sobre" className="cr-footer-link">Sobre nós</Link>
+          <Link to="/#sobre" className="cr-footer-link">Sobre nós</Link>
           <Link to="/termos" className="cr-footer-link">Termos</Link>
           <Link to="/privacidade" className="cr-footer-link">Privacidade</Link>
         </div>
