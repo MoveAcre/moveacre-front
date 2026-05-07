@@ -557,7 +557,7 @@ export default function Sobre() {
             <p className="sb-quote-text">
               Ninguém deveria implorar por um direito que já é seu.
             </p>
-            <span className="sb-quote-author">— Manifesto MOVEACRE</span>
+            <span className="sb-quote-author">— MOVEACRE</span>
           </div>
         </div>
 
