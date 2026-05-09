@@ -10,6 +10,7 @@ import DoadorDashboard from "./pages/DoadorDashboard";
 import Perfil from "./pages/Perfil";
 import HistoricoDoador from "./pages/HistoricoDoador";
 import EditarPedido from "./pages/EditarPedido";
+import EditarConta from "./pages/EditarConta";
 import Criterios from "./pages/Criterios";
 import Sobre from "./pages/Sobre";
 import Termos from "./pages/Termos";
@@ -693,6 +694,7 @@ export default function App() {
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/historico-doador" element={<HistoricoDoador />} />
         <Route path="/editar-pedido/:id" element={<EditarPedido />} />
+        <Route path="/editar-conta" element={<EditarConta />} />
         <Route path="/listar-urgencias" element={<MinhasUrgencias />} />
         <Route path="/criterios" element={<Criterios />} />
         <Route path="/sobre" element={<Sobre />} />
