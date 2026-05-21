@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback } from "react";
 import { useAuth, useClerk } from "@clerk/clerk-react";
 import { Link } from "react-router-dom";
 import Logo from "../components/Logo";
-import { safeFetch } from "../mock/safeFetch.js";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
 const TIPOS = ["A+","A-","B+","B-","AB+","AB-","O+","O-"];
@@ -156,7 +155,7 @@ export default function AdminDashboard() {
   const api = useCallback(async (path, opts = {}) => {
     const token = await getToken();
     const isForm = opts.body instanceof FormData;
-    const res = await safeFetch(path, {
+    const res = await fetch(`${API}${path}`, {
       ...opts,
       headers: {
         Authorization: `Bearer ${token}`,
